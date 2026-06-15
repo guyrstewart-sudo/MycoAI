@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guy Stewart — Fermentation Science · AI · Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070b14; --bg2:#0b1322; --panel:#0e1828; --panel2:#11203a;
+  --ink:#eaf0fa; --muted:#93a3bd; --faint:#5d6f8c;
+  --amber:#e0a44a; --amber2:#c47d2a; --teal:#37d6b0; --teal-dim:#1d8d77;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+::selection{background:var(--amber);color:#0a0a0a}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.serif{font-family:'Fraunces',serif}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* canvas backdrop */
+#cells{position:fixed;inset:0;z-index:0;opacity:.55}
+.glow{position:fixed;z-index:0;border-radius:50%;filter:blur(90px);pointer-events:none}
+.g1{width:520px;height:520px;background:radial-gradient(circle,rgba(55,214,176,.20),transparent 70%);top:-120px;left:-80px}
+.g2{width:620px;height:620px;background:radial-gradient(circle,rgba(224,164,74,.16),transparent 70%);top:40%;right:-160px}
+
+/* nav */
+header{position:fixed;top:0;left:0;right:0;z-index:50;transition:.4s}
+header.scrolled{background:rgba(7,11,20,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:.02em}
+.mark{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--teal),var(--teal-dim));color:#04130f;font-weight:700;
+  box-shadow:0 0 22px rgba(55,214,176,.4);font-family:'Fraunces',serif}
+.navlinks{display:flex;gap:30px;font-size:14px;color:var(--muted)}
+.navlinks a{transition:.2s;position:relative}
+.navlinks a:hover{color:var(--ink)}
+.navcta{border:1px solid var(--line2);padding:9px 18px;border-radius:999px;font-size:13.5px;color:var(--ink);transition:.25s}
+.navcta:hover{background:var(--amber);color:#0a0a0a;border-color:var(--amber)}
+.menubtn{display:none;background:none;border:0;color:var(--ink);font-size:22px;cursor:pointer}
+
+/* hero */
+.hero{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding-top:90px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--teal);border:1px solid rgba(55,214,176,.3);padding:7px 15px;border-radius:999px;background:rgba(55,214,176,.06)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1.title{font-size:clamp(2.7rem,6.6vw,5.1rem);line-height:1.02;font-weight:600;letter-spacing:-.02em;margin:26px 0 0}
+h1.title .grad{background:linear-gradient(100deg,var(--amber),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.lead{max-width:620px;color:var(--muted);font-size:clamp(1.05rem,1.7vw,1.28rem);margin-top:26px}
+.lead b{color:var(--ink);font-weight:600}
+.herobtns{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}
+.btn{padding:15px 28px;border-radius:12px;font-weight:600;font-size:15px;transition:.25s;cursor:pointer;border:1px solid transparent;display:inline-flex;align-items:center;gap:10px}
+.btn-primary{background:linear-gradient(135deg,var(--amber),var(--amber2));color:#160d02;box-shadow:0 12px 34px -10px rgba(224,164,74,.6)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px -10px rgba(224,164,74,.7)}
+.btn-ghost{border-color:var(--line2);color:var(--ink)}
+.btn-ghost:hover{background:rgba(255,255,255,.05);border-color:var(--ink)}
+.stats{display:flex;gap:42px;margin-top:62px;flex-wrap:wrap}
+.stat .n{font-family:'Fraunces',serif;font-size:2.3rem;font-weight:600;color:var(--ink)}
+.stat .n span{color:var(--teal)}
+.stat .l{font-size:12.5px;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+
+/* sections */
+section{position:relative;z-index:2;padding:100px 0}
+.sec-head{max-width:680px;margin-bottom:54px}
+.kicker{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600;font-family:'JetBrains Mono',monospace}
+h2{font-size:clamp(2rem,3.8vw,2.9rem);font-weight:600;letter-spacing:-.02em;margin-top:14px;line-height:1.08}
+.sec-head p{color:var(--muted);margin-top:18px;font-size:1.07rem}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start}
+.about-grid p{color:var(--muted);margin-bottom:18px;font-size:1.05rem}
+.about-grid p b{color:var(--ink);font-weight:600}
+.idcard{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:32px;position:relative;overflow:hidden}
+.idcard:before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--teal))}
+.idrow{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.idrow:last-child{border:0}
+.idrow .k{color:var(--faint)}
+.idrow .v{color:var(--ink);font-weight:500;text-align:right}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:11.5px;padding:6px 11px;border-radius:7px;background:rgba(55,214,176,.08);border:1px solid rgba(55,214,176,.2);color:var(--teal);font-family:'JetBrains Mono',monospace}
+
+/* services / pillars */
+.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.pillar{background:linear-gradient(160deg,var(--panel),rgba(14,24,40,.4));border:1px solid var(--line);border-radius:18px;padding:30px;transition:.3s;position:relative;overflow:hidden}
+.pillar:hover{border-color:var(--line2);transform:translateY(-5px);box-shadow:0 24px 50px -24px rgba(0,0,0,.7)}
+.pillar .ico{width:50px;height:50px;border-radius:13px;display:grid;place-items:center;font-size:24px;margin-bottom:18px;
+  background:rgba(224,164,74,.12);border:1px solid rgba(224,164,74,.25)}
+.pillar h3{font-size:1.3rem;font-weight:600;margin-bottom:9px}
+.pillar p{color:var(--muted);font-size:14.5px;margin-bottom:16px}
+.pillar ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.pillar li{font-size:13.5px;color:var(--faint);padding-left:18px;position:relative}
+.pillar li:before{content:"▹";position:absolute;left:0;color:var(--teal)}
+
+/* projects */
+.proj-controls{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.filt{font-size:13px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.2s;font-family:inherit}
+.filt:hover{color:var(--ink);border-color:var(--line2)}
+.filt.active{background:var(--amber);color:#160d02;border-color:var(--amber);font-weight:600}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:24px;transition:.3s;display:flex;flex-direction:column}
+.card:hover{border-color:rgba(224,164,74,.4);transform:translateY(-4px)}
+.card .tag{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);font-family:'JetBrains Mono',monospace;margin-bottom:11px}
+.card h4{font-size:1.12rem;font-weight:600;margin-bottom:9px;line-height:1.25}
+.card p{font-size:13.5px;color:var(--muted);flex:1}
+.card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12px}
+.card .client{color:var(--faint)}
+.card .price{color:var(--amber);font-weight:700;font-family:'JetBrains Mono',monospace}
+.morewrap{text-align:center;margin-top:40px}
+.catalog-note{text-align:center;color:var(--faint);font-size:14px;margin-top:18px}
+
+/* timeline */
+.tl{position:relative;max-width:820px;margin:0 auto;padding-left:34px}
+.tl:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--amber),var(--teal),transparent)}
+.tl-item{position:relative;padding-bottom:42px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item:before{content:"";position:absolute;left:-34px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--amber);box-shadow:0 0 0 4px rgba(224,164,74,.12)}
+.tl-yr{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--teal)}
+.tl-role{font-size:1.22rem;font-weight:600;margin-top:5px}
+.tl-org{color:var(--amber);font-size:14.5px;margin-top:2px;font-weight:500}
+.tl-desc{color:var(--muted);font-size:14.5px;margin-top:10px}
+
+/* credentials */
+.cred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cred{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px 20px;display:flex;align-items:center;gap:13px;font-size:14px;color:var(--muted)}
+.cred .ck{color:var(--teal);font-size:18px}
+
+/* contact */
+.contact{text-align:center;background:linear-gradient(160deg,var(--panel2),var(--bg2));border:1px solid var(--line);border-radius:26px;padding:72px 32px;position:relative;overflow:hidden}
+.contact:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(55,214,176,.12),transparent 60%)}
+.contact h2{position:relative}
+.contact p{color:var(--muted);max-width:520px;margin:18px auto 34px;position:relative;font-size:1.08rem}
+.contact .herobtns{justify-content:center;position:relative}
+
+footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px 0;color:var(--faint);font-size:13px}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;gap:36px}
+  .pillars{grid-template-columns:1fr}
+  .proj-grid{grid-template-columns:repeat(2,1fr)}
+  .cred-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .navlinks,.navcta{display:none}
+  .menubtn{display:block}
+  .proj-grid,.cred-grid{grid-template-columns:1fr}
+  .stats{gap:28px}
+  section{padding:72px 0}
+}
+</style>
+</head>
+<body>
+<canvas id="cells"></canvas>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav>
+      <div class="brand"><div class="mark">G</div> Guy&nbsp;Stewart</div>
+      <div class="navlinks">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+      </div>
+      <a href="#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" onclick="document.querySelector('.navlinks').style.display='flex'">☰</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span> Asheville, NC · available for new work</span>
+    <h1 class="title reveal">Scientist who ships.<br>I turn <span class="grad">hard problems</span><br>into working systems.</h1>
+    <p class="lead reveal">Two decades bridging the <b>fermentation lab</b> and the <b>production floor</b> — now paired with <b>agentic AI, software, and web design</b>. From yeast genetics to custom dashboards, I help breweries, makers, labs, and businesses everywhere build things that actually run.</p>
+    <div class="herobtns reveal">
+      <a href="#projects" class="btn btn-primary">See what I can build →</a>
+      <a href="#contact" class="btn btn-ghost">Start a project</a>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="n">7<span>yrs</span></div><div class="l">Yeast Specialist, New Belgium</div></div>
+      <div class="stat"><div class="n">249<span>+</span></div><div class="l">Engagements I can deliver</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">Disciplines, one operator</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="kicker">// 01 — Who I am</div>
+        <h2>A rare blend of bench science and builder instinct.</h2>
+        <p style="margin-top:24px">I'm a <b>microbiologist and fermentation scientist</b> by training — yeast genetics, bioinformatics, and brewing &amp; distilling science. I spent seven years as <b>Yeast Specialist at New Belgium Brewing</b>, co-founded a craft <b>distillery</b> grain-to-glass, chaired the <b>Microbiology committee of the ASBC</b>, and taught for <b>White Labs'</b> professional program.</p>
+        <p>Along the way I became equally fluent in <b>code</b>. Today I design and build <b>agentic AI tools, software, and websites</b> — bringing the same Six Sigma rigor I used to stabilize fermentations to the way I ship products. The result: a single person who can walk a production floor, debug a contamination, and then hand you a dashboard that tracks it.</p>
+        <p>I work with <b>Asheville</b> breweries, makers, restaurants, farms, and nonprofits — and with clients <b>nationally</b> who need science-grade thinking and modern tooling in one place.</p>
+      </div>
+      <div class="idcard reveal">
+        <div class="idrow"><span class="k">Base</span><span class="v">Asheville, North Carolina</span></div>
+        <div class="idrow"><span class="k">Training</span><span class="v">B.S. Microbiology — Yeast Genetics</span></div>
+        <div class="idrow"><span class="k">Industry role</span><span class="v">ASBC Microbiology Chair</span></div>
+        <div class="idrow"><span class="k">Speaking</span><span class="v">White Labs Accelerated Program</span></div>
+        <div class="idrow"><span class="k">Method</span><span class="v">Six Sigma DMAIC</span></div>
+        <div class="idrow"><span class="k">Now building</span><span class="v">Agentic AI · Web · Software</span></div>
+        <div class="chips">
+          <span class="chip">yeast genetics</span><span class="chip">bioinformatics</span>
+          <span class="chip">fermentation QC</span><span class="chip">agentic AI</span>
+          <span class="chip">full-stack web</span><span class="chip">data pipelines</span>
+          <span class="chip">process eng.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">// 02 — What I do</div>
+      <h2>Four disciplines. One operator who connects them.</h2>
+      <p>Most clients hire one of these and discover I can do the next one too — which is exactly where the value compounds.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar reveal">
+        <div class="ico">🧬</div>
+        <h3>Fermentation &amp; Microbiology</h3>
+        <p>Lab-grade science for anyone who makes things with microbes — or worries about them.</p>
+        <ul>
+          <li>Yeast banking, strain selection &amp; propagation</li>
+          <li>Contamination forensics &amp; QC program design</li>
+          <li>Sensory panels, shelf-life &amp; scale-up</li>
+          <li>In-house micro lab buildouts</li>
+        </ul>
+      </div>
+      <div class="pillar reveal">
+        <div class="ico">🤖</div>
+        <h3>Agentic AI &amp; Automation</h3>
+        <p>Practical AI that removes busywork and pays for itself in saved hours.</p>
+        <ul>
+          <li>AI agents: phone, chat, email triage, booking</li>
+          <li>RAG knowledge bases &amp; internal copilots</li>
+          <li>Document pipelines &amp; reporting automation</li>
+          <li>Forecasting &amp; compliance assistants</li>
+        </ul>
+      </div>
+      <div class="pillar reveal">
+        <div class="ico">⌘</div>
+        <h3>Web &amp; Software</h3>
+        <p>Fast, modern sites and custom tools — built and maintained, not just designed.</p>
+        <ul>
+          <li>Websites, e-commerce &amp; booking systems</li>
+          <li>Custom dashboards &amp; internal apps</li>
+          <li>POS / inventory / API integrations</li>
+          <li>Batch-tracking &amp; data-viz tools</li>
+        </ul>
+      </div>
+      <div class="pillar reveal">
+        <div class="ico">📈</div>
+        <h3>Process &amp; Strategy</h3>
+        <p>Six Sigma discipline applied to operations, quality, and product launches.</p>
+        <ul>
+          <li>DMAIC process-improvement projects</li>
+          <li>SOPs, HACCP &amp; regulatory readiness</li>
+          <li>Product launch &amp; scale-up playbooks</li>
+          <li>Fractional quality / ops leadership</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">// 03 — Project menu</div>
+      <h2>A working catalog of what I can deliver.</h2>
+      <p>A curated slice of 249 concrete engagements — generated across ten sectors, spanning Asheville and national clients. Filter by what you need.</p>
+    </div>
+    <div class="proj-controls reveal" id="filters"></div>
+    <div class="proj-grid" id="grid"></div>
+    <div class="morewrap reveal">
+      <button class="btn btn-ghost" id="moreBtn">Show more projects ↓</button>
+      <p class="catalog-note">The full 249-engagement catalog is available as a document — ask and I'll send it over.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">// 04 — Track record</div>
+      <h2>Built in the lab, proven on the floor.</h2>
+    </div>
+    <div class="tl">
+      <div class="tl-item reveal">
+        <div class="tl-yr">2015 — 2022</div>
+        <div class="tl-role">Yeast Specialist</div>
+        <div class="tl-org">New Belgium Brewing Company · Fort Collins, CO</div>
+        <div class="tl-desc">Owned yeast health, propagation, and strain performance across large-scale lager and ale fermentation at a nationally distributed brewery. Drove consistency with viability/vitality monitoring and pitch-rate optimization, supported novel-flavor R&amp;D, and applied Six Sigma to cut batch-to-batch variability.</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-yr">2012 — 2015</div>
+        <div class="tl-role">Head Distiller &amp; Co-Founder</div>
+        <div class="tl-org">Old Town Distilling Co. · Fort Collins, CO</div>
+        <div class="tl-desc">Co-founded a craft distillery and built grain-to-glass operations from the ground up — mash, fermentation, distillation, barrel aging, blending, and QC for whiskey, vodka, and gin. Designed sustainable sourcing including a spent-mash-to-farms program, and built and trained the production team.</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-yr">2012 — 2014</div>
+        <div class="tl-role">iGEM Team Lead &amp; Research Assistant</div>
+        <div class="tl-org">Colorado State University, Dept. of Microbiology</div>
+        <div class="tl-desc">Founded and led CSU's iGEM team through recruitment, sponsorship, and international competition. Directed yeast-based synthetic biology — genetic construct design, bioinformatics, codon optimization — and led a gluten-free beer yeast strain development project.</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-yr">2020 — 2022</div>
+        <div class="tl-role">Microbiology Chair · Featured Speaker</div>
+        <div class="tl-org">ASBC &amp; White Labs Accelerated Brewing Program</div>
+        <div class="tl-desc">Led the ASBC Microbiology subcommittee developing methods and standards adopted across the U.S. brewing industry. Served as a featured speaker across multiple White Labs professional sessions on applied yeast science and QC technique.</div>
+      </div>
+    </div>
+    <div class="cred-grid" style="margin-top:56px">
+      <div class="cred reveal"><span class="ck">✓</span> Six Sigma (Green/Yellow)</div>
+      <div class="cred reveal"><span class="ck">✓</span> HAZWOPER 40-Hour</div>
+      <div class="cred reveal"><span class="ck">✓</span> 100-Hr Emergency Medical Responder</div>
+      <div class="cred reveal"><span class="ck">✓</span> First Responder Certified</div>
+      <div class="cred reveal"><span class="ck">✓</span> CPR / AED Certified</div>
+      <div class="cred reveal"><span class="ck">✓</span> Management &amp; Leadership Training</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <div class="kicker" style="position:relative">// Let's build something</div>
+      <h2>Have a problem worth solving?</h2>
+      <p>Whether it's a stuck fermentation, an AI workflow, a website that should be working harder, or a process that's quietly bleeding money — tell me what's on your plate.</p>
+      <div class="herobtns">
+        <a href="mailto:guyrstewart@gmail.com" class="btn btn-primary">guyrstewart@gmail.com</a>
+        <a href="tel:2174147757" class="btn btn-ghost">217-414-7757</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script>
+/* ---- project data ---- */
+const projects = [
+  {t:"Brewing",n:"Yeast & Strain Bank Buildout",d:"Cryogenic master/working cell bank with documented propagation SOPs so a brewery owns its strains.",c:"Breweries · Distilleries",p:"$$"},
+  {t:"Brewing",n:"Contamination Forensics Sprint",d:"Root-cause a recurring sour or wild-yeast outbreak with plating, PCR, and process-flow mapping.",c:"Producer in crisis",p:"$$"},
+  {t:"Brewing",n:"Fermentation-Monitoring AI Assistant",d:"Tool that ingests gravity, temp & pH logs, flags abnormal ferments live, and recommends fixes in plain language.",c:"Tech-forward producer",p:"$$$"},
+  {t:"Brewing",n:"Fractional Quality Director",d:"Outsourced head of quality for shops too small to hire one — visits, data review, troubleshooting hotline.",c:"Small/mid producer",p:"$$$"},
+  {t:"AI",n:"AI Front-Desk Phone Agent",d:"Voice agent answers every call, books appointments and FAQs 24/7 — recovers 15–30% of missed-call revenue.",c:"Local service businesses",p:"$$"},
+  {t:"AI",n:"RAG Knowledge Base Copilot",d:"Private chatbot trained on your SOPs and manuals so staff get instant, sourced answers.",c:"Multi-location ops",p:"$$$"},
+  {t:"AI",n:"Six Sigma AI Process Audit",d:"Map workflows, quantify waste, and deliver a prioritized automation roadmap with ROI estimates.",c:"Any SMB exploring AI",p:"$$"},
+  {t:"AI",n:"Invoice & Receipt Pipeline",d:"Document-extraction agent reads invoices, validates line items, and pushes clean data into QuickBooks/Xero.",c:"Accounting, restaurants",p:"$$"},
+  {t:"Web",n:"Restaurant Online Ordering System",d:"Direct ordering and curbside flow that bypasses third-party fees, integrated with the kitchen POS.",c:"Restaurants & cafes",p:"$$$"},
+  {t:"Web",n:"Production Batch-Tracking Dashboard",d:"Custom dashboard tracking batches, yields and quality through production — built by someone who's run it.",c:"Breweries · Makers",p:"$$$"},
+  {t:"Web",n:"Bespoke Shopify Build & Launch",d:"Conversion-focused store from scratch — theme, payments, shipping, launch QA and handoff training.",c:"DTC & craft brands",p:"$$$"},
+  {t:"Web",n:"Vacation Rental Direct-Booking Site",d:"Availability calendar, instant quotes and Stripe payments so owners escape platform commissions.",c:"Short-term rentals",p:"$$"},
+  {t:"Hospitality",n:"Wild Ferment Cocktail Program",d:"Rotating seasonal menu built on house-made ferments, with batching specs and bartender training.",c:"Bars · Tasting rooms",p:"$$"},
+  {t:"Hospitality",n:"AI Concierge Chatbot",d:"Web/SMS bot answers guest questions, recommends local food & drink, and upsells tours 24/7.",c:"Hotels · B&Bs",p:"$$$"},
+  {t:"Hospitality",n:"In-House Kombucha & Shrub Build-Out",d:"Compliant small-batch production corner: equipment, cultures, logs and pH/food-safety controls.",c:"Cafes · Restaurants",p:"$$"},
+  {t:"Labs",n:"QC Microbiology Program Buildout",d:"From-scratch microbial QC program — panels, sampling plans, acceptance criteria, and the SOPs to run it.",c:"Contract manufacturers",p:"$$$"},
+  {t:"Labs",n:"NGS / Amplicon Bioinformatics Pipeline",d:"Reproducible, containerized pipeline for 16S, ITS or whole-genome microbial data with reporting.",c:"Mycology · Biotech labs",p:"$$$"},
+  {t:"Labs",n:"Cannabis/Hemp Testing SOP Validation",d:"Validate microbial methods to state rules and produce the audit-ready validation dossier.",c:"Cannabis testing labs",p:"$$$"},
+  {t:"Nonprofit",n:"Grant-Finder Agent",d:"AI agent scans federal, state and foundation databases nightly and emails a ranked, deadline-sorted shortlist.",c:"Nonprofits · Arts orgs",p:"$$"},
+  {t:"Nonprofit",n:"iGEM-Style Youth STEM Program",d:"Turnkey synthetic-biology curriculum and mentorship modeled on real competition experience.",c:"Schools · Museums",p:"$$$"},
+  {t:"Nonprofit",n:"Fermentation Science Workshops",d:"Hands-on classes translating brewing microbiology for adult learners — backed by ASBC/White Labs cred.",c:"Maker spaces · Libraries",p:"$$"},
+  {t:"National",n:"Yeast Management Masterclass",d:"Self-paced online course: pitch rates, propagation, harvesting, viability testing, with certification.",c:"Brewery staff (anywhere)",p:"$$"},
+  {t:"National",n:"FermBot AI Troubleshooter",d:"Chatbot trained on fermentation science that diagnoses stuck ferments and off-flavors. Freemium + white-label.",c:"Brewers · Vendors",p:"$ / $$"},
+  {t:"National",n:"Bioinformatics-as-a-Product",d:"Send-in service: submit sequencing data, receive standardized strain ID and contamination report in 48h.",c:"Labs · Food producers",p:"$$"},
+  {t:"Retail",n:"AI Product Description Engine",d:"Workflow that auto-generates on-brand, SEO-optimized descriptions at scale from a spec sheet.",c:"Large-catalog brands",p:"$$"},
+  {t:"Retail",n:"Demand Forecasting & Inventory Model",d:"Predict SKU-level demand, flag reorder points, and prevent stockouts and overstock.",c:"Product brands",p:"$$$"},
+  {t:"Agriculture",n:"Mushroom Lab Buildout",d:"Turnkey cultivation lab — flow hood, agar workflow, grain spawn SOPs and contamination control.",c:"Mushroom farms",p:"$$$"},
+  {t:"Agriculture",n:"AI Yield & Crop Tracker",d:"Agentic tool that logs plantings, predicts harvest windows, and flags yield anomalies from a farm's own data.",c:"Diversified farms",p:"$$$"},
+  {t:"Agriculture",n:"Spent-Mash & Byproduct Upcycling",d:"Audit a waste stream and design an upcycling route — feed, compost, mushroom substrate or new product.",c:"Distilleries · Dairies",p:"$$"},
+];
+const cats = ["All","Brewing","AI","Web","Hospitality","Labs","Nonprofit","National","Retail","Agriculture"];
+let active="All", shown=9;
+const grid=document.getElementById('grid'), filtersEl=document.getElementById('filters');
+cats.forEach(c=>{const b=document.createElement('button');b.className='filt'+(c==='All'?' active':'');b.textContent=c;b.onclick=()=>{active=c;shown=9;document.querySelectorAll('.filt').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();};filtersEl.appendChild(b);});
+function render(){
+  const list = active==='All'?projects:projects.filter(p=>p.t===active);
+  grid.innerHTML='';
+  list.slice(0,shown).forEach(p=>{
+    const el=document.createElement('div');el.className='card';
+    el.innerHTML=`<div class="tag">${p.t}</div><h4>${p.n}</h4><p>${p.d}</p><div class="meta"><span class="client">${p.c}</span><span class="price">${p.p}</span></div>`;
+    grid.appendChild(el);
+  });
+  document.getElementById('moreBtn').style.display = shown>=list.length?'none':'inline-flex';
+  io.observe&&grid.querySelectorAll('.card').forEach(c=>{c.classList.add('reveal');obs.observe(c);});
+}
+document.getElementById('moreBtn').onclick=()=>{shown+=9;render();};
+
+/* ---- scroll reveal ---- */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}}),{threshold:.12});
+const io={observe:true};
+document.querySelectorAll('.reveal').forEach(e=>obs.observe(e));
+render();
+
+/* ---- header scroll ---- */
+addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('scrolled',scrollY>30));
+
+/* ---- yeast cell canvas ---- */
+const cv=document.getElementById('cells'),cx=cv.getContext('2d');let W,H,cells;
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cells=Array.from({length:Math.min(46,Math.floor(W/34))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*16+5,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,bud:Math.random()>.6,a:Math.random()*.4+.12}));}
+rs();addEventListener('resize',rs);
+function draw(){cx.clearRect(0,0,W,H);
+  // faint links
+  for(let i=0;i<cells.length;i++)for(let j=i+1;j<cells.length;j++){const a=cells[i],b=cells[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);if(d<120){cx.strokeStyle=`rgba(55,214,176,${.04*(1-d/120)})`;cx.lineWidth=1;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();}}
+  cells.forEach(c=>{c.x+=c.vx;c.y+=c.vy;if(c.x<-30)c.x=W+30;if(c.x>W+30)c.x=-30;if(c.y<-30)c.y=H+30;if(c.y>H+30)c.y=-30;
+    cx.beginPath();cx.arc(c.x,c.y,c.r,0,7);cx.fillStyle=`rgba(55,214,176,${c.a*.5})`;cx.fill();
+    cx.lineWidth=1.2;cx.strokeStyle=`rgba(224,164,74,${c.a})`;cx.stroke();
+    if(c.bud){cx.beginPath();cx.arc(c.x+c.r*.85,c.y-c.r*.85,c.r*.42,0,7);cx.fillStyle=`rgba(224,164,74,${c.a*.5})`;cx.fill();cx.stroke();}
+  });
+  requestAnimationFrame(draw);}
+draw();
+</script>
+</body>
+</html>
