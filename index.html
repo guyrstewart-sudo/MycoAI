@@ -52,10 +52,16 @@ nav{display:flex;align-items:center;justify-content:space-between;height:72px}
 /* hero */
 .hero{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding-top:90px}
 .hero>.wrap{width:100%}
-.hero-body{display:grid;grid-template-columns:clamp(250px,29vw,370px) 1fr;align-items:stretch;gap:clamp(18px,2.6vw,46px);margin-top:clamp(18px,2.6vh,28px)}
-.hero-copy{min-width:0}
-.hero-figure{margin:0;min-height:0}
-.hero-figure img{display:block;width:100%;height:100%;object-fit:contain;object-position:top;
+/* desktop (wide): copy sits on the standard content wrap — same left & right edges as the
+   disciplines boxes; the photo breaks out into the left gutter, standing separately further left */
+.hero-body{position:relative;margin-top:clamp(18px,2.6vh,28px)}
+.hero-copy{min-width:0;max-width:100%;text-align:center}
+.hero-copy .lead{margin-left:auto;margin-right:auto}
+.hero-copy .herobtns{justify-content:center}
+.hero-copy .stats{justify-content:center}
+.hero-figure{position:absolute;top:50%;right:calc(100% + clamp(28px,3vw,60px));transform:translateY(-50%);
+  width:clamp(240px,17vw,330px);margin:0}
+.hero-figure img{display:block;width:100%;height:auto;object-fit:contain;object-position:center;
   filter:drop-shadow(0 22px 46px rgba(0,0,0,.55))}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--teal);border:1px solid rgba(55,214,176,.3);padding:7px 15px;border-radius:999px;background:rgba(55,214,176,.06)}
@@ -63,7 +69,7 @@ nav{display:flex;align-items:center;justify-content:space-between;height:72px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 h1.title{font-size:clamp(2.5rem,5vw,4.2rem);line-height:1.04;font-weight:600;letter-spacing:-.02em;margin:0}
 h1.title .grad{background:linear-gradient(100deg,var(--amber),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
-.lead{max-width:620px;color:var(--muted);font-size:clamp(1.05rem,1.7vw,1.28rem);margin-top:26px}
+.lead{max-width:740px;color:var(--muted);font-size:clamp(1.05rem,1.7vw,1.28rem);margin-top:26px}
 .lead b{color:var(--ink);font-weight:600}
 .herobtns{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}
 .btn{padding:15px 28px;border-radius:12px;font-weight:600;font-size:15px;transition:.25s;cursor:pointer;border:1px solid transparent;display:inline-flex;align-items:center;gap:10px}
@@ -161,12 +167,17 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
 .reveal{opacity:0;transform:translateY(28px);transition:.8s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
+/* not enough left gutter for the breakout photo — fall back to centered side-by-side */
+@media(max-width:1900px){
+  .hero-body{display:grid;grid-template-columns:clamp(220px,19vw,340px) minmax(0,1124px);justify-content:center;align-items:center;gap:clamp(24px,3vw,56px)}
+  .hero-figure{position:static;transform:none;width:auto;align-self:center}
+}
 @media(max-width:980px){
   .hero-body{gap:clamp(12px,2vw,28px)}
 }
 @media(max-width:760px){
   .hero-body{grid-template-columns:1fr;gap:22px}
-  .hero-figure{margin:0}
+  .hero-figure{position:static;transform:none;margin:0}
   .hero-figure img{height:auto;width:100%;max-width:240px;object-fit:initial}
 }
 @media(max-width:900px){
@@ -212,13 +223,13 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
 <!-- HERO -->
 <div class="hero">
   <div class="wrap">
-    <span class="eyebrow reveal"><span class="dot"></span> Asheville, NC · available for new work</span>
     <div class="hero-body">
       <figure class="hero-figure hf-left reveal">
         <img src="guy-lab.png" alt="Guy Stewart in a lab coat inspecting a petri dish">
       </figure>
       <div class="hero-copy">
-        <h1 class="title reveal">Scientist who ships.<br>I turn <span class="grad">hard problems</span><br>into working systems.</h1>
+        <span class="eyebrow reveal"><span class="dot"></span> Asheville, NC · available for new work</span>
+        <h1 class="title reveal" style="margin-top:22px">Scientist who ships.<br>I turn <span class="grad">hard problems</span><br>into working systems.</h1>
         <p class="lead reveal">Two decades bridging the <b>fermentation lab</b> and the <b>production floor</b> — now paired with <b>agentic AI, software, and web design</b>. From yeast genetics to custom dashboards, I help breweries, makers, labs, and businesses everywhere build things that actually run.</p>
         <div class="herobtns reveal">
           <a href="#projects" class="btn btn-primary">See what I can build →</a>
