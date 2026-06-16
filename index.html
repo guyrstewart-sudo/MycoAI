@@ -51,17 +51,20 @@ nav{display:flex;align-items:center;justify-content:space-between;height:72px}
 
 /* hero */
 .hero{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding-top:90px}
-.hero>.wrap{width:100%}
-.hero-body{display:grid;grid-template-columns:clamp(250px,29vw,370px) 1fr;align-items:stretch;gap:clamp(18px,2.6vw,46px);margin-top:clamp(18px,2.6vh,28px)}
-.hero-copy{min-width:0}
-.hero-figure{margin:0;min-height:0}
-.hero-figure img{display:block;width:100%;height:100%;object-fit:contain;object-position:top;
+.hero>.wrap{width:100%;text-align:center}
+.hero-body{display:block;margin-top:clamp(18px,2.6vh,28px)}
+.hero-copy{max-width:640px;margin:0 auto;text-align:center}
+.hero-copy .lead{margin-left:auto;margin-right:auto}
+.hero-copy .herobtns{justify-content:center}
+.hero-copy .stats{justify-content:center;gap:clamp(30px,4vw,54px)}
+.hero-figure{position:absolute;left:clamp(20px,4vw,120px);top:50%;transform:translateY(-50%);margin:0;z-index:1}
+.hero-figure img{display:block;height:clamp(300px,46vh,500px);width:auto;
   filter:drop-shadow(0 22px 46px rgba(0,0,0,.55))}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--teal);border:1px solid rgba(55,214,176,.3);padding:7px 15px;border-radius:999px;background:rgba(55,214,176,.06)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-h1.title{font-size:clamp(2.5rem,5vw,4.2rem);line-height:1.04;font-weight:600;letter-spacing:-.02em;margin:0}
+h1.title{font-size:clamp(2.2rem,4.2vw,3.5rem);line-height:1.05;font-weight:600;letter-spacing:-.02em;margin:0}
 h1.title .grad{background:linear-gradient(100deg,var(--amber),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
 .lead{max-width:620px;color:var(--muted);font-size:clamp(1.05rem,1.7vw,1.28rem);margin-top:26px}
 .lead b{color:var(--ink);font-weight:600}
@@ -84,13 +87,12 @@ h2{font-size:clamp(2rem,3.8vw,2.9rem);font-weight:600;letter-spacing:-.02em;marg
 .sec-head p{color:var(--muted);margin-top:18px;font-size:1.07rem}
 
 /* about */
-.about-kicker{margin-bottom:clamp(16px,2vh,22px)}
-.about-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(280px,27%,336px) clamp(208px,18vw,286px);align-items:stretch;gap:clamp(20px,2.3vw,40px)}
+.about-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(440px,44%,580px);align-items:start;gap:clamp(24px,2.6vw,48px)}
 .about-grid>.about-text{min-width:0}
-.about-grid>.about-text h2{margin-top:0}
-.about-grid>.idcard{align-self:start}
-.about-figure{margin:0;min-height:0}
-.about-figure img{display:block;width:100%;height:100%;object-fit:contain;object-position:top;filter:drop-shadow(0 18px 38px rgba(0,0,0,.5))}
+.about-right{display:flex;align-items:stretch;gap:clamp(14px,1.5vw,24px)}
+.about-right>.idcard{flex:1 1 0;min-width:0}
+.about-right>.about-figure{flex:1 1 0;min-width:0;margin:0;overflow:hidden}
+.about-right>.about-figure img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;filter:drop-shadow(0 18px 38px rgba(0,0,0,.5))}
 .about-grid p{color:var(--muted);margin-bottom:18px;font-size:1.05rem}
 .about-grid p b{color:var(--ink);font-weight:600}
 .idcard{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:32px;position:relative;overflow:hidden}
@@ -161,20 +163,16 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
 .reveal{opacity:0;transform:translateY(28px);transition:.8s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
-@media(max-width:980px){
-  .hero-body{gap:clamp(12px,2vw,28px)}
-}
-@media(max-width:760px){
-  .hero-body{grid-template-columns:1fr;gap:22px}
-  .hero-figure{margin:0}
-  .hero-figure img{height:auto;width:100%;max-width:240px;object-fit:initial}
+@media(max-width:1280px){
+  .hero-figure{position:static;transform:none;margin:0 auto}
+  .hero-body{display:flex;flex-direction:column;align-items:center;gap:26px}
+  .hero-figure img{height:auto;width:100%;max-width:250px}
 }
 @media(max-width:900px){
-  .about-grid{grid-template-columns:1fr;gap:30px;grid-template-areas:"photo" "text" "card"}
-  .about-grid>.about-text{grid-area:text}
-  .about-grid>.idcard{grid-area:card}
-  .about-figure{grid-area:photo}
-  .about-figure img{height:auto;width:100%;max-width:260px;object-fit:initial}
+  .about-grid{grid-template-columns:1fr;gap:30px}
+  .about-right{flex-direction:column;gap:24px}
+  .about-right>.idcard,.about-right>.about-figure{flex:1 1 auto;width:100%;max-width:340px;margin:0 auto}
+  .about-right>.about-figure img{height:auto;object-fit:contain}
   .pillars{grid-template-columns:1fr}
   .proj-grid{grid-template-columns:repeat(2,1fr)}
   .cred-grid{grid-template-columns:1fr 1fr}
@@ -237,14 +235,17 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
-    <div class="kicker about-kicker reveal">// 01 — Who I am</div>
+    <div class="sec-head reveal">
+      <div class="kicker">// 01 — Who I am</div>
+      <h2>A rare blend of bench science and builder instinct.</h2>
+    </div>
     <div class="about-grid">
       <div class="about-text reveal">
-        <h2>A rare blend of bench science and builder instinct.</h2>
-        <p style="margin-top:24px">I'm a <b>microbiologist and fermentation scientist</b> by training — yeast genetics, bioinformatics, and brewing &amp; distilling science. I spent seven years as <b>Yeast Specialist at New Belgium Brewing</b>, co-founded a craft <b>distillery</b> grain-to-glass, chaired the <b>Microbiology committee of the ASBC</b>, and taught for <b>White Labs'</b> professional program.</p>
+        <p style="margin-top:0">I'm a <b>microbiologist and fermentation scientist</b> by training — yeast genetics, bioinformatics, and brewing &amp; distilling science. I spent seven years as <b>Yeast Specialist at New Belgium Brewing</b>, co-founded a craft <b>distillery</b> grain-to-glass, chaired the <b>Microbiology committee of the ASBC</b>, and taught for <b>White Labs'</b> professional program.</p>
         <p>Along the way I became equally fluent in <b>code</b>. Today I design and build <b>agentic AI tools, software, and websites</b> — bringing the same Six Sigma rigor I used to stabilize fermentations to the way I ship products. The result: a single person who can walk a production floor, debug a contamination, and then hand you a dashboard that tracks it.</p>
         <p>I work with <b>Asheville</b> breweries, makers, restaurants, farms, and nonprofits — and with clients <b>nationally</b> who need science-grade thinking and modern tooling in one place.</p>
       </div>
+      <div class="about-right">
       <div class="idcard reveal">
         <div class="idrow"><span class="k">Base</span><span class="v">Asheville, North Carolina</span></div>
         <div class="idrow"><span class="k">Training</span><span class="v">B.S. Microbiology — Yeast Genetics</span></div>
@@ -262,6 +263,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
       <figure class="about-figure reveal">
         <img src="guy-barrel.png" alt="Guy Stewart holding a freshly coopered barrel">
       </figure>
+      </div>
     </div>
   </div>
 </section>
