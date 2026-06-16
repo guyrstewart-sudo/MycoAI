@@ -78,7 +78,7 @@ h1.title .grad{background:linear-gradient(100deg,var(--amber),var(--teal));-webk
 
 /* sections */
 section{position:relative;z-index:2;padding:100px 0}
-.sec-head{max-width:680px;margin-bottom:54px}
+.sec-head{max-width:680px;margin:0 auto 54px;text-align:center}
 .kicker{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600;font-family:'JetBrains Mono',monospace}
 h2{font-size:clamp(2rem,3.8vw,2.9rem);font-weight:600;letter-spacing:-.02em;margin-top:14px;line-height:1.08}
 .sec-head p{color:var(--muted);margin-top:18px;font-size:1.07rem}
@@ -115,7 +115,7 @@ h2{font-size:clamp(2rem,3.8vw,2.9rem);font-weight:600;letter-spacing:-.02em;marg
 .pillar li:before{content:"▹";position:absolute;left:0;color:var(--teal)}
 
 /* projects */
-.proj-controls{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.proj-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:34px}
 .filt{font-size:13px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.2s;font-family:inherit}
 .filt:hover{color:var(--ink);border-color:var(--line2)}
 .filt.active{background:var(--amber);color:#160d02;border-color:var(--amber);font-weight:600}
@@ -331,7 +331,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
       <h2>A working catalog of what I can deliver.</h2>
       <p>Here's a curated slice of 249 concrete project and engagement deliverables — What do you need accomplished?</p>
     </div>
-    <p class="proj-hint reveal" style="color:var(--faint);font-size:13.5px;margin-bottom:16px">Click between the categories below — <b style="color:var(--muted)">All</b> through <b style="color:var(--muted)">Agriculture</b> — to filter the menu.</p>
+    <p class="proj-hint reveal" style="color:var(--faint);font-size:13.5px;margin-bottom:16px;text-align:center">Click between the categories below — <b style="color:var(--muted)">All</b> through <b style="color:var(--muted)">Agriculture</b> — to filter the menu.</p>
     <div class="proj-controls reveal" id="filters"></div>
     <div class="proj-grid" id="grid"></div>
     <div class="morewrap reveal">
