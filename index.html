@@ -51,11 +51,16 @@ nav{display:flex;align-items:center;justify-content:space-between;height:72px}
 
 /* hero */
 .hero{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding-top:90px}
+.hero-inner{display:flex;align-items:center;justify-content:center;gap:clamp(10px,2.4vw,40px)}
+.hero-copy{flex:1 1 540px;min-width:300px}
+.hero-figure{flex:0 1 auto;margin:0;align-self:flex-end}
+.hero-figure img{display:block;height:clamp(240px,34vh,390px);width:auto;max-width:100%;
+  filter:drop-shadow(0 22px 46px rgba(0,0,0,.55))}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--teal);border:1px solid rgba(55,214,176,.3);padding:7px 15px;border-radius:999px;background:rgba(55,214,176,.06)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-h1.title{font-size:clamp(2.7rem,6.6vw,5.1rem);line-height:1.02;font-weight:600;letter-spacing:-.02em;margin:26px 0 0}
+h1.title{font-size:clamp(2.5rem,5vw,4.2rem);line-height:1.03;font-weight:600;letter-spacing:-.02em;margin:26px 0 0}
 h1.title .grad{background:linear-gradient(100deg,var(--amber),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
 .lead{max-width:620px;color:var(--muted);font-size:clamp(1.05rem,1.7vw,1.28rem);margin-top:26px}
 .lead b{color:var(--ink);font-weight:600}
@@ -149,6 +154,16 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
 .reveal{opacity:0;transform:translateY(28px);transition:.8s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
+@media(max-width:980px){
+  .hero-figure img{height:clamp(220px,30vh,340px)}
+  .hero-inner{gap:clamp(8px,2vw,24px)}
+}
+@media(max-width:760px){
+  .hero-inner{flex-wrap:wrap}
+  .hero-copy{flex:1 1 100%;order:1}
+  .hero-figure{order:2;flex:1 1 44%;align-self:center;margin-top:34px;text-align:center}
+  .hero-figure img{height:auto;width:100%;max-width:230px;margin:0 auto}
+}
 @media(max-width:900px){
   .about-grid{grid-template-columns:1fr;gap:36px}
   .pillars{grid-template-columns:1fr}
@@ -188,17 +203,27 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
 <!-- HERO -->
 <div class="hero">
   <div class="wrap">
-    <span class="eyebrow reveal"><span class="dot"></span> Asheville, NC · available for new work</span>
-    <h1 class="title reveal">Scientist who ships.<br>I turn <span class="grad">hard problems</span><br>into working systems.</h1>
-    <p class="lead reveal">Two decades bridging the <b>fermentation lab</b> and the <b>production floor</b> — now paired with <b>agentic AI, software, and web design</b>. From yeast genetics to custom dashboards, I help breweries, makers, labs, and businesses everywhere build things that actually run.</p>
-    <div class="herobtns reveal">
-      <a href="#projects" class="btn btn-primary">See what I can build →</a>
-      <a href="#contact" class="btn btn-ghost">Start a project</a>
-    </div>
-    <div class="stats reveal">
-      <div class="stat"><div class="n">7<span>yrs</span></div><div class="l">Yeast Specialist, New Belgium</div></div>
-      <div class="stat"><div class="n">249<span>+</span></div><div class="l">Engagements I can deliver</div></div>
-      <div class="stat"><div class="n">4</div><div class="l">Disciplines, one operator</div></div>
+    <div class="hero-inner">
+      <figure class="hero-figure hf-left reveal">
+        <img src="guy-lab.png" alt="Guy Stewart in a lab coat inspecting a petri dish">
+      </figure>
+      <div class="hero-copy">
+        <span class="eyebrow reveal"><span class="dot"></span> Asheville, NC · available for new work</span>
+        <h1 class="title reveal">Scientist who ships.<br>I turn <span class="grad">hard problems</span><br>into working systems.</h1>
+        <p class="lead reveal">Two decades bridging the <b>fermentation lab</b> and the <b>production floor</b> — now paired with <b>agentic AI, software, and web design</b>. From yeast genetics to custom dashboards, I help breweries, makers, labs, and businesses everywhere build things that actually run.</p>
+        <div class="herobtns reveal">
+          <a href="#projects" class="btn btn-primary">See what I can build →</a>
+          <a href="#contact" class="btn btn-ghost">Start a project</a>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><div class="n">7<span>yrs</span></div><div class="l">Yeast Specialist, New Belgium</div></div>
+          <div class="stat"><div class="n">249<span>+</span></div><div class="l">Engagements I can deliver</div></div>
+          <div class="stat"><div class="n">4</div><div class="l">Disciplines, one operator</div></div>
+        </div>
+      </div>
+      <figure class="hero-figure hf-right reveal">
+        <img src="guy-barrel.png" alt="Guy Stewart holding a freshly coopered barrel">
+      </figure>
     </div>
   </div>
 </div>
