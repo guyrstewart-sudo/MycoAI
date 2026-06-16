@@ -83,7 +83,9 @@ h2{font-size:clamp(2rem,3.8vw,2.9rem);font-weight:600;letter-spacing:-.02em;marg
 .sec-head p{color:var(--muted);margin-top:18px;font-size:1.07rem}
 
 /* about */
-.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start}
+.about-grid{display:grid;grid-template-columns:1.05fr .82fr clamp(168px,16vw,232px);gap:clamp(28px,3vw,48px);align-items:center}
+.about-figure{margin:0;align-self:center}
+.about-figure img{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 38px rgba(0,0,0,.5))}
 .about-grid p{color:var(--muted);margin-bottom:18px;font-size:1.05rem}
 .about-grid p b{color:var(--ink);font-weight:600}
 .idcard{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:32px;position:relative;overflow:hidden}
@@ -166,6 +168,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
 }
 @media(max-width:900px){
   .about-grid{grid-template-columns:1fr;gap:36px}
+  .about-figure img{max-width:300px;margin:0 auto}
   .pillars{grid-template-columns:1fr}
   .proj-grid{grid-template-columns:repeat(2,1fr)}
   .cred-grid{grid-template-columns:1fr 1fr}
@@ -221,9 +224,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
           <div class="stat"><div class="n">4</div><div class="l">Disciplines, one operator</div></div>
         </div>
       </div>
-      <figure class="hero-figure hf-right reveal">
-        <img src="guy-barrel.png" alt="Guy Stewart holding a freshly coopered barrel">
-      </figure>
     </div>
   </div>
 </div>
@@ -253,6 +253,9 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
           <span class="chip">process eng.</span>
         </div>
       </div>
+      <figure class="about-figure reveal">
+        <img src="guy-barrel.png" alt="Guy Stewart holding a freshly coopered barrel">
+      </figure>
     </div>
   </div>
 </section>
