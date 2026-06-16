@@ -170,8 +170,10 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
   .hero-figure img{height:auto;width:100%;max-width:240px;object-fit:initial}
 }
 @media(max-width:900px){
-  .about-grid{grid-template-columns:1fr;gap:30px}
-  .about-figure{order:-1}
+  .about-grid{grid-template-columns:1fr;gap:30px;grid-template-areas:"photo" "text" "card"}
+  .about-grid>.about-text{grid-area:text}
+  .about-grid>.idcard{grid-area:card}
+  .about-figure{grid-area:photo}
   .about-figure img{height:auto;width:100%;max-width:260px;object-fit:initial}
   .pillars{grid-template-columns:1fr}
   .proj-grid{grid-template-columns:repeat(2,1fr)}
