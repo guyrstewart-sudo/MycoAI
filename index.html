@@ -199,6 +199,10 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
   .stats{gap:28px}
   section{padding:72px 0}
 }
+/* generative art embed */
+.art-embed{display:flex;justify-content:center;margin-top:8px}
+.art-embed iframe{width:100%;max-width:760px;aspect-ratio:1/1;border:0;border-radius:20px;background:#070b14;box-shadow:0 30px 70px -28px rgba(0,0,0,.85);display:block}
+@media(max-width:640px){.art-embed iframe{border-radius:14px}}
 </style>
 </head>
 <body>
@@ -275,6 +279,20 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:34px
       <figure class="about-figure reveal">
         <img src="guy-barrel.png" alt="Guy Stewart holding a freshly coopered barrel">
       </figure>
+    </div>
+  </div>
+</section>
+
+<!-- LIVING MAP — generative art interlude -->
+<section id="network">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">// A living map</div>
+      <h2>The wood-wide web, drawn in code.</h2>
+      <p>A generative petri-dish study I built — one mycelial colony fusing across the United States, fruiting at major cities, its front growing out into the agar. Asheville glows foxfire-green.</p>
+    </div>
+    <div class="art-embed reveal">
+      <iframe src="mycelium-usa.html" title="Mycelium · Wood-Wide America — generative study" loading="lazy" scrolling="no"></iframe>
     </div>
   </div>
 </section>

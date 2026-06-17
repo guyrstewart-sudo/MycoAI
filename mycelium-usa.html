@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mycelium · Wood-Wide America — Generative Study</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --clay:#cc785c; --clay-deep:#b6593f; --ink:#3a342c; --muted:#6b6256;
+    --line:#e6ddcb; --card:#fbf7ee; --card-2:#f6f0e2; --cream-1:#f5f0e6; --cream-2:#ece4d4;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{
+    font-family:'Poppins',system-ui,sans-serif; color:var(--ink);
+    background:
+      radial-gradient(1200px 700px at 78% -10%, #fbf6ec 0%, rgba(251,246,236,0) 55%),
+      radial-gradient(1000px 800px at -8% 110%, #f0e7d4 0%, rgba(240,231,212,0) 60%),
+      linear-gradient(160deg, var(--cream-1) 0%, var(--cream-2) 100%);
+    min-height:100vh;
+  }
+  header.app{display:flex;align-items:baseline;gap:16px;padding:20px 30px 18px;border-bottom:1px solid var(--line);}
+  header.app .mark{width:13px;height:13px;border-radius:3px;background:var(--clay);transform:translateY(1px);flex:0 0 auto;box-shadow:0 0 0 4px rgba(204,120,92,0.14);}
+  header.app h1{font-family:'Lora',serif;font-weight:600;font-size:22px;letter-spacing:.2px;margin:0;}
+  header.app .sub{font-size:12.5px;color:var(--muted);font-weight:300;letter-spacing:.3px;}
+  header.app .spacer{flex:1;}
+  header.app .tag{font-size:11px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase;}
+  .layout{display:flex;align-items:stretch;gap:0;min-height:calc(100vh - 60px);}
+  aside.panel{width:330px;flex:0 0 330px;padding:22px 22px 30px;border-right:1px solid var(--line);overflow-y:auto;max-height:calc(100vh - 60px);}
+  aside.panel::-webkit-scrollbar{width:9px;}
+  aside.panel::-webkit-scrollbar-thumb{background:#dfd5c2;border-radius:8px;}
+  .section{margin-bottom:26px;}
+  .section > .s-title{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 13px;display:flex;align-items:center;gap:8px;}
+  .section > .s-title::after{content:"";height:1px;flex:1;background:var(--line);}
+  .seed-display{display:flex;align-items:baseline;gap:8px;margin-bottom:12px;}
+  .seed-display .lab{font-size:12px;color:var(--muted);}
+  .seed-display .val{font-family:'Lora',serif;font-size:30px;font-weight:600;color:var(--ink);line-height:1;}
+  .row{display:flex;gap:8px;}
+  .row + .row{margin-top:8px;}
+  button, .btn{font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 12px;border-radius:9px;cursor:pointer;flex:1;transition:all .15s ease;line-height:1;}
+  button:hover,.btn:hover{border-color:var(--clay);color:var(--clay-deep);background:#fff;}
+  button:active{transform:translateY(1px);}
+  .btn-primary{background:var(--clay);border-color:var(--clay);color:#fff;}
+  .btn-primary:hover{background:var(--clay-deep);border-color:var(--clay-deep);color:#fff;}
+  .jump{display:flex;gap:8px;margin-top:8px;}
+  .jump input{flex:1;min-width:0;font-family:'Poppins';font-size:13px;border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff;color:var(--ink);}
+  .jump input:focus{outline:none;border-color:var(--clay);}
+  .jump button{flex:0 0 auto;width:64px;}
+  .presets{display:flex;flex-wrap:wrap;gap:7px;}
+  .presets button{flex:1 1 calc(33.33% - 5px);font-size:12px;padding:8px 5px;}
+  .control-group{margin-bottom:15px;}
+  .control-group label{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--ink);margin-bottom:7px;font-weight:400;}
+  .control-group .value-display{font-family:'Lora',serif;font-size:12.5px;color:var(--clay-deep);font-weight:500;background:var(--card-2);padding:1px 7px;border-radius:6px;}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:4px;background-color:#e3d6c2;outline:none;margin:0;cursor:pointer;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--clay);cursor:pointer;box-shadow:0 1px 3px rgba(120,80,50,.25);transition:transform .1s;}
+  input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12);}
+  input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:#fff;border:2px solid var(--clay);cursor:pointer;}
+  .swatches{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;}
+  .swatch{display:flex;flex-direction:column;align-items:center;gap:5px;}
+  .swatch span{font-size:10px;color:var(--muted);letter-spacing:.4px;}
+  .swatch input[type=color]{-webkit-appearance:none;appearance:none;width:48px;height:34px;border:1px solid var(--line);border-radius:8px;background:none;cursor:pointer;padding:0;}
+  .swatch input[type=color]::-webkit-color-swatch-wrapper{padding:3px;}
+  .swatch input[type=color]::-webkit-color-swatch{border:none;border-radius:5px;}
+  main.stage{flex:1;display:flex;align-items:center;justify-content:center;padding:30px;min-width:0;}
+  .frame{background:#fff;padding:14px;border-radius:14px;box-shadow:0 18px 50px -18px rgba(90,60,40,.40),0 2px 8px rgba(90,60,40,.10);max-width:100%;}
+  .frame canvas{display:block;width:min(82vh,100%);height:auto;aspect-ratio:1/1;border-radius:5px;}
+  .hint{margin-top:11px;font-size:11px;color:var(--muted);text-align:center;font-weight:300;letter-spacing:.3px;}
+  @media (max-width:880px){.layout{flex-direction:column;}aside.panel{width:100%;flex:none;max-height:none;border-right:none;border-bottom:1px solid var(--line);}}
+</style>
+</head>
+<body>
+<div id="stage"><div id="canvas-container"></div></div>
+<style>
+  html,body{height:100%;margin:0;background:#070b14;overflow:hidden;}
+  #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+  #stage canvas{width:min(100vw,100vh)!important;height:min(100vw,100vh)!important;display:block;}
+</style>
+
+<script>
+/* ============================================================
+   MYCELIUM · WOOD-WIDE AMERICA
+   Space-colonization growth confined to a continental-US
+   silhouette inside a petri dish. Colonies inoculate at major
+   metro coordinates, fuse (anastomosis) into one national web,
+   thicken into rhizomorph cords, glow at cities as fruiting
+   bodies, and translocate nutrient across the loops.
+   ============================================================ */
+
+const PRESETS = {
+  atlas:     { bg:'#0a100c', hypha:'#cfe0d2', tip:'#54e0b0', fruit:'#ffd27a', city:'#ffcf6b' },
+  agar:      { bg:'#0c1410', hypha:'#dfe8d8', tip:'#5cf0c0', fruit:'#e8c06a', city:'#ffd27a' },
+  honey:     { bg:'#0f0a06', hypha:'#d8a45a', tip:'#9be86a', fruit:'#ffd98a', city:'#ffe39a' },
+  cordyceps: { bg:'#0c0a10', hypha:'#d9cfc0', tip:'#ff9a4d', fruit:'#ff5a36', city:'#ff8a4d' },
+  woodwide:  { bg:'#0d0b09', hypha:'#eae5da', tip:'#4fd6c4', fruit:'#cdb88a', city:'#ffcf6b' },
+  spore:     { bg:'#0b0913', hypha:'#cfc6e8', tip:'#b07bff', fruit:'#e0c8ff', city:'#ffd0a0' }
+};
+
+const DEFAULTS = {
+  seed: 7,
+  spores: 4,
+  growthField: 3200,
+  reach: 42,
+  fineness: 1.15,
+  fusion: 18,
+  growthRate: 6,
+  cords: 1.3,
+  fringe: 1.9,
+  fruiting: 12,
+  dish: 1,
+  cityGlow: 1.4,
+  labels: 1,
+  labelScale: 2.0,
+  labelOutline: 3.0,
+  outlineColor: '#0a0f0c',
+  flow: 200,
+  flowSpeed: 1.1,
+  glow: 1.4,
+  bgColor: PRESETS.atlas.bg,
+  hypha: PRESETS.atlas.hypha,
+  tip: PRESETS.atlas.tip,
+  fruit: PRESETS.atlas.fruit,
+  city: PRESETS.atlas.city
+};
+
+let params = JSON.parse(JSON.stringify(DEFAULTS));
+
+const W = 1400, H = 1400, MAX_NODES = 14000, MAX_ITER = 1600;
+const CX = W / 2, CY = H / 2, DISH_R = W * 0.47;
+
+/* ---- Continental US coastline / border polygon (lon, lat) ---- */
+const USA_OUTLINE = [
+  // Pacific coast, north -> south
+  [-124.7,48.4],[-124.1,46.9],[-124.4,43.3],[-124.2,40.4],[-123.0,38.9],
+  [-122.4,37.8],[-121.9,36.6],[-120.6,34.5],[-118.5,34.0],[-117.3,32.6],
+  // Mexican border, west -> east
+  [-115.0,32.6],[-114.7,32.7],[-111.1,31.3],[-108.2,31.3],[-106.5,31.8],
+  [-104.5,29.7],[-103.0,29.0],[-101.5,29.8],[-99.5,27.6],[-97.5,25.9],
+  // Gulf coast, west -> east
+  [-97.2,27.4],[-96.4,28.4],[-95.0,29.1],[-93.8,29.7],[-92.0,29.6],
+  [-90.9,29.2],[-89.4,29.3],[-89.2,30.2],[-88.0,30.4],[-87.5,30.3],
+  [-85.6,29.9],[-84.3,29.9],[-83.3,29.7],[-82.9,28.8],[-82.8,27.8],
+  [-81.8,26.0],[-81.2,25.3],
+  // Florida east coast + Atlantic, south -> north
+  [-80.4,25.2],[-80.1,26.6],[-80.6,28.4],[-81.1,29.8],[-81.4,30.7],
+  [-80.9,32.0],[-79.2,33.2],[-78.0,33.9],[-75.9,35.6],[-76.2,37.0],
+  [-75.3,38.0],[-74.7,38.8],[-74.1,39.7],[-74.0,40.5],[-73.8,40.8],
+  [-72.1,41.0],[-71.2,41.4],[-70.5,41.6],[-70.9,42.6],[-70.6,43.0],
+  [-69.0,44.0],[-67.2,44.5],[-67.0,44.8],
+  // Canadian border, east -> west
+  [-67.8,47.1],[-69.2,47.4],[-70.3,46.0],[-71.5,45.0],[-73.3,45.0],
+  [-74.7,45.0],[-76.0,44.5],[-76.8,43.9],[-79.2,43.3],[-80.5,42.4],
+  [-82.5,41.7],
+  // Michigan lower peninsula (the mitten)
+  [-83.2,42.0],[-82.4,42.9],[-82.5,43.9],[-83.2,44.8],[-83.7,45.0],
+  [-84.7,45.8],[-85.6,45.3],[-86.2,44.3],[-86.5,43.2],[-87.0,42.1],
+  [-87.6,41.8],
+  // Wisconsin east shore up, then Lake Superior + Minnesota
+  [-87.9,43.0],[-87.1,44.5],[-87.6,45.1],[-88.1,45.9],
+  [-90.4,46.7],[-91.6,46.9],[-92.1,46.8],[-94.0,47.9],[-95.2,49.0],
+  // 49th parallel, east -> west
+  [-97.2,49.0],[-104.0,49.0],[-111.0,49.0],[-117.0,49.0],[-122.8,49.0],
+  [-123.1,48.2]
+];
+
+/* ---- Major metros: name, lon, lat, magnitude(1-3), label dir, short label ---- */
+const CITIES = [
+  { n:'Seattle',        lon:-122.33, lat:47.61, mag:2, dir:'w'  },
+  { n:'Portland',       lon:-122.68, lat:45.52, mag:1, dir:'w'  },
+  { n:'San Francisco',  lon:-122.42, lat:37.77, mag:2, dir:'w'  },
+  { n:'Los Angeles',    lon:-118.24, lat:34.05, mag:3, dir:'sw' },
+  { n:'San Diego',      lon:-117.16, lat:32.72, mag:1, dir:'s'  },
+  { n:'Las Vegas',      lon:-115.14, lat:36.17, mag:1, dir:'n'  },
+  { n:'Phoenix',        lon:-112.07, lat:33.45, mag:2, dir:'e'  },
+  { n:'Salt Lake City', lon:-111.89, lat:40.76, mag:1, dir:'n'  },
+  { n:'Denver',         lon:-104.99, lat:39.74, mag:2, dir:'n'  },
+  { n:'San Antonio',    lon:-98.49,  lat:29.42, mag:1, dir:'w'  },
+  { n:'Dallas',         lon:-96.80,  lat:32.78, mag:2, dir:'e'  },
+  { n:'Houston',        lon:-95.37,  lat:29.76, mag:2, dir:'s'  },
+  { n:'Kansas City',    lon:-94.58,  lat:39.10, mag:1, dir:'w'  },
+  { n:'Minneapolis',    lon:-93.27,  lat:44.98, mag:2, dir:'n'  },
+  { n:'New Orleans',    lon:-90.07,  lat:29.95, mag:1, dir:'se' },
+  { n:'Chicago',        lon:-87.63,  lat:41.88, mag:3, dir:'nw' },
+  { n:'Nashville',      lon:-86.78,  lat:36.16, mag:1, dir:'sw' },
+  { n:'Detroit',        lon:-83.05,  lat:42.33, mag:1, dir:'ne' },
+  { n:'Atlanta',        lon:-84.39,  lat:33.75, mag:2, dir:'s'  },
+  { n:'Miami',          lon:-80.19,  lat:25.76, mag:2, dir:'s'  },
+  { n:'Washington, DC', lon:-77.04,  lat:38.91, mag:2, dir:'e'  },
+  { n:'New York',       lon:-74.01,  lat:40.71, mag:3, dir:'e'  },
+  { n:'Boston',         lon:-71.06,  lat:42.36, mag:2, dir:'e'  },
+  { n:'Asheville, NC',  lon:-82.55,  lat:35.60, mag:2, dir:'ne', special:true }
+];
+
+let layer;                       // persistent substrate + grown hyphae
+let dishLayer;                   // static glass-dish overlay (rim, highlights, condensation)
+let bgRGB, hyphaRGB, tipRGB, fruitRGB, cityRGB, asheRGB, outlineRGB;
+
+// projection (fixed; computed once)
+let PROJ = null;          // {lonMin, latMax, k, s, offX, offY}
+let POLY = null;          // projected outline [{x,y}, ...]
+let CITY_SCREEN = null;   // [{x,y,mag,n,dir,special,phase}, ...]
+let STATES_GEO = null;    // raw lon/lat state polygons (loaded once)
+let STATE_LINES = null;   // projected state-border polylines [[{x,y}, ...], ...]
+
+// growth state (persists across frames while colonizing)
+let nodes, attractors, grid, gridCell, segLen, killDist, growIter, growing;
+let frontNodes, fusionEdges;
+// mature network
+let childrenOf, adj, fruitNodes, pulses;
+
+/* ---------- helpers ---------- */
+function hexToRgb(h){
+  h = h.replace('#','');
+  if (h.length === 3) h = h.split('').map(c => c + c).join('');
+  const n = parseInt(h, 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+function mix(a, b, t){ return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t]; }
+function fmt(id, v){
+  v = +v;
+  if (id === 'dish' || id === 'labels') return (+v) ? 'on' : 'off';
+  const ints = ['spores','growthField','reach','fusion','growthRate','fruiting','flow'];
+  if (ints.includes(id)) return String(Math.round(v));
+  return v.toFixed(2);
+}
+function inDish(x, y){
+  const dx = x - CX, dy = y - CY;
+  return dx * dx + dy * dy < (DISH_R * 0.97) * (DISH_R * 0.97);
+}
+
+/* ---------- projection: Albers equal-area conic (standard U.S. map) ---------- */
+// Correctly models meridian convergence so cities land in geographically
+// accurate positions — unlike a flat plate-carrée scaling.
+const ALBERS = (function(){
+  const d2r = Math.PI / 180;
+  const phi1 = 29.5 * d2r, phi2 = 45.5 * d2r;   // standard parallels (lower 48)
+  const phi0 = 37.5 * d2r, lam0 = -96 * d2r;     // origin / central meridian
+  const n = (Math.sin(phi1) + Math.sin(phi2)) / 2;
+  const C = Math.cos(phi1) * Math.cos(phi1) + 2 * n * Math.sin(phi1);
+  const rho0 = Math.sqrt(C - 2 * n * Math.sin(phi0)) / n;
+  return { d2r, lam0, n, C, rho0 };
+})();
+function albers(lon, lat){
+  const { d2r, lam0, n, C, rho0 } = ALBERS;
+  const rho = Math.sqrt(C - 2 * n * Math.sin(lat * d2r)) / n;
+  const theta = n * (lon * d2r - lam0);
+  return { x: rho * Math.sin(theta), y: rho0 - rho * Math.cos(theta) };
+}
+function buildProjection(){
+  let xMin = Infinity, xMax = -Infinity, yMin = Infinity, yMax = -Infinity;
+  for (const [lon, lat] of USA_OUTLINE){
+    const p = albers(lon, lat);
+    if (p.x < xMin) xMin = p.x; if (p.x > xMax) xMax = p.x;
+    if (p.y < yMin) yMin = p.y; if (p.y > yMax) yMax = p.y;
+  }
+  const projW = xMax - xMin, projH = yMax - yMin;
+  const targetW = W * 0.55, targetH = H * 0.56;
+  const s = Math.min(targetW / projW, targetH / projH);
+  const mapW = projW * s, mapH = projH * s;
+  const offX = CX - mapW / 2;
+  const offY = CY - mapH / 2 - H * 0.005;
+  PROJ = { xMin, yMax, s, offX, offY, mapW, mapH };
+
+  POLY = USA_OUTLINE.map(([lon, lat]) => project(lon, lat));
+  CITY_SCREEN = CITIES.map((c, i) => {
+    const p = project(c.lon, c.lat);
+    return { x:p.x, y:p.y, mag:c.mag, n:c.n, dir:c.dir, special:!!c.special, phase:i * 1.3 };
+  });
+}
+function project(lon, lat){
+  const p = albers(lon, lat);
+  return {
+    x: PROJ.offX + (p.x - PROJ.xMin) * PROJ.s,
+    y: PROJ.offY + (PROJ.yMax - p.y) * PROJ.s   // flip y so north is at the top
+  };
+}
+// Project the loaded state boundaries through the same Albers projection as the
+// cities, so internal borders line up exactly with the metro positions.
+function buildStateLines(){
+  STATE_LINES = [];
+  if (!STATES_GEO || !STATES_GEO.features) return;
+  const skip = { 'Alaska':1, 'Hawaii':1, 'Puerto Rico':1 };
+  for (const f of STATES_GEO.features){
+    const props = f.properties || {};
+    const nm = props.name || props.NAME;
+    if (nm && skip[nm]) continue;
+    const geom = f.geometry; if (!geom) continue;
+    const polys = geom.type === 'Polygon'      ? [geom.coordinates]
+                : geom.type === 'MultiPolygon' ?  geom.coordinates
+                : [];
+    for (const poly of polys){
+      for (const ring of poly){
+        const pts = new Array(ring.length);
+        for (let i = 0; i < ring.length; i++) pts[i] = project(ring[i][0], ring[i][1]);
+        STATE_LINES.push(pts);
+      }
+    }
+  }
+}
+function pointInPoly(x, y){
+  let inside = false;
+  for (let i = 0, j = POLY.length - 1; i < POLY.length; j = i++){
+    const xi = POLY[i].x, yi = POLY[i].y, xj = POLY[j].x, yj = POLY[j].y;
+    if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) inside = !inside;
+  }
+  return inside;
+}
+function inUSA(x, y){ return pointInPoly(x, y); }
+function nudgeInside(x, y){
+  if (inUSA(x, y)) return { x, y };
+  for (let t = 0.08; t <= 1.0; t += 0.08){
+    const nx = x + (CX - x) * t, ny = y + (CY - y) * t;
+    if (inUSA(nx, ny)) return { x:nx, y:ny };
+  }
+  return { x:CX, y:CY };
+}
+
+/* ---------- spatial grid over nodes ---------- */
+function gkey(cx, cy){ return cx + ',' + cy; }
+function gInsert(i){
+  const cx = Math.floor(nodes[i].x / gridCell), cy = Math.floor(nodes[i].y / gridCell);
+  const k = gkey(cx, cy);
+  if (!grid.has(k)) grid.set(k, []);
+  grid.get(k).push(i);
+}
+function gNearest(ax, ay, maxd, diffColonyOf){
+  const cx = Math.floor(ax / gridCell), cy = Math.floor(ay / gridCell);
+  let best = -1, bd = maxd * maxd;
+  for (let gx = cx - 1; gx <= cx + 1; gx++)
+    for (let gy = cy - 1; gy <= cy + 1; gy++){
+      const arr = grid.get(gkey(gx, gy));
+      if (!arr) continue;
+      for (let q = 0; q < arr.length; q++){
+        const i = arr[q];
+        if (diffColonyOf !== undefined && nodes[i].colony === diffColonyOf) continue;
+        const dx = nodes[i].x - ax, dy = nodes[i].y - ay;
+        const d = dx * dx + dy * dy;
+        if (d < bd){ bd = d; best = i; }
+      }
+    }
+  return best;
+}
+
+/* ============================================================
+   INIT + SUBSTRATE
+   ============================================================ */
+function paintSubstrate(){
+  const g = layer, ctx = g.drawingContext;
+
+  if (params.dish){
+    // the bench/counter the dish rests on — darker than the gel inside
+    const bench = mix(bgRGB, [0,0,0], 0.45);
+    g.background(bench[0], bench[1], bench[2]);
+
+    // soft contact shadow cast by the dish, offset down-right
+    const ds = ctx.createRadialGradient(CX + 12, CY + 24, DISH_R * 0.72, CX + 12, CY + 28, DISH_R * 1.14);
+    ds.addColorStop(0, 'rgba(0,0,0,0.55)');
+    ds.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = ds; ctx.fillRect(0, 0, W, H);
+
+    // the agar gel disk — a translucent puck of medium, lit from upper-left
+    const agarCtr = mix(bgRGB, [255,255,255], 0.06);
+    const agarEdge = mix(bgRGB, [0,0,0], 0.28);
+    const ag = ctx.createRadialGradient(CX, CY * 0.84, 0, CX, CY, DISH_R);
+    ag.addColorStop(0,    `rgb(${agarCtr[0]|0},${agarCtr[1]|0},${agarCtr[2]|0})`);
+    ag.addColorStop(0.82, `rgb(${bgRGB[0]},${bgRGB[1]},${bgRGB[2]})`);
+    ag.addColorStop(1,    `rgb(${agarEdge[0]|0},${agarEdge[1]|0},${agarEdge[2]|0})`);
+    ctx.fillStyle = ag;
+    ctx.beginPath(); ctx.arc(CX, CY, DISH_R, 0, Math.PI * 2); ctx.fill();
+  } else {
+    g.background(bgRGB[0], bgRGB[1], bgRGB[2]);
+    // gentle agar sheen over the whole field
+    const lg = ctx.createRadialGradient(CX, CY * 0.8, 0, CX, CY, H * 0.7);
+    const hl = mix(bgRGB, [255,255,255], 0.05);
+    lg.addColorStop(0, `rgba(${hl[0]|0},${hl[1]|0},${hl[2]|0},0.5)`);
+    lg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = lg; ctx.fillRect(0, 0, W, H);
+  }
+
+  // faint speckle across the surrounding agar (outside the land)
+  g.noStroke();
+  for (let i = 0; i < 900; i++){
+    const x = random(W), y = random(H);
+    if (!inDish(x, y) || inUSA(x, y)) continue;
+    g.fill(255, 255, 255, random(1.5, 4));
+    g.circle(x, y, random(0.6, 1.4));
+  }
+
+  // the continental landmass — nutrient-rich agar, slightly lighter & warmer
+  const landTint = mix(mix(bgRGB, hyphaRGB, 0.12), [255,255,255], 0.03);
+  g.noStroke();
+  g.fill(landTint[0], landTint[1], landTint[2]);
+  g.beginShape();
+  for (const p of POLY) g.vertex(p.x, p.y);
+  g.endShape(CLOSE);
+
+  // inner texture of the land
+  for (let i = 0; i < 4200; i++){
+    const x = random(W), y = random(H);
+    if (!inUSA(x, y)) continue;
+    const v = random() < 0.5 ? 0 : 255;
+    g.fill(v, v, v, random(2.5, 7));
+    g.circle(x, y, random(0.6, 1.6));
+  }
+
+  // individual state borders — accurate, clipped to the land so nothing
+  // spills onto the bare agar; the mycelium then grows over them.
+  if (STATE_LINES && STATE_LINES.length){
+    ctx.save();
+    const clip = new Path2D();
+    clip.moveTo(POLY[0].x, POLY[0].y);
+    for (let i = 1; i < POLY.length; i++) clip.lineTo(POLY[i].x, POLY[i].y);
+    clip.closePath();
+    ctx.clip(clip);
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = 'rgba(0,0,0,0.62)';
+    ctx.lineWidth = 1.0;
+    for (const pts of STATE_LINES){
+      if (pts.length < 2) continue;
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pts[0].y);
+      for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // coastline — faint inner glow + crisp line
+  const coastGlow = mix(bgRGB, tipRGB, 0.30);
+  g.noFill();
+  g.stroke(coastGlow[0], coastGlow[1], coastGlow[2], 60);
+  g.strokeWeight(6);
+  g.beginShape();
+  for (const p of POLY) g.vertex(p.x, p.y);
+  g.endShape(CLOSE);
+  const coastLine = mix(bgRGB, [255,255,255], 0.22);
+  g.stroke(coastLine[0], coastLine[1], coastLine[2], 150);
+  g.strokeWeight(1.4);
+  g.beginShape();
+  for (const p of POLY) g.vertex(p.x, p.y);
+  g.endShape(CLOSE);
+}
+
+/* ============================================================
+   PETRI DISH — realistic glass-dish overlay (static, drawn on top)
+   Glass wall with bevel + specular highlights, an agar meniscus,
+   a lid lip, condensation beads, and a soft inner-wall shadow.
+   Built into its own buffer so the animation stays cheap.
+   ============================================================ */
+function strokeArc(ctx, r, a0, a1, col, w){
+  ctx.beginPath();
+  ctx.arc(CX, CY, r, a0, a1);
+  ctx.strokeStyle = col;
+  ctx.lineWidth = w;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+}
+
+function drawDroplet(ctx, x, y, r){
+  // soft refraction shadow, offset toward the light's far side
+  ctx.fillStyle = 'rgba(0,0,0,0.16)';
+  ctx.beginPath(); ctx.arc(x + r * 0.14, y + r * 0.18, r * 1.05, 0, Math.PI * 2); ctx.fill();
+  // glassy bead body with a bright refractive rim
+  const bg = ctx.createRadialGradient(x - r * 0.3, y - r * 0.3, 0, x, y, r);
+  bg.addColorStop(0,   'rgba(225,238,238,0.10)');
+  bg.addColorStop(0.7, 'rgba(210,228,228,0.03)');
+  bg.addColorStop(1,   'rgba(255,255,255,0.20)');
+  ctx.fillStyle = bg;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  // specular pin-dot, upper-left
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  ctx.beginPath(); ctx.arc(x - r * 0.32, y - r * 0.32, Math.max(0.5, r * 0.24), 0, Math.PI * 2); ctx.fill();
+}
+
+function buildDish(){
+  if (!dishLayer) dishLayer = createGraphics(W, H);
+  const g = dishLayer, ctx = g.drawingContext;
+  g.clear();
+  if (!params.dish) return;
+
+  // local deterministic PRNG so droplet placement never disturbs the growth seed
+  let s = (0x9e3779b9 ^ 98765) >>> 0;
+  const rnd = () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+
+  const Rout  = DISH_R;          // outer top edge of the glass rim
+  const Rwall = DISH_R * 0.93;   // inner edge of the wall (agar meets glass)
+  const Rmen  = DISH_R * 0.90;   // meniscus inner radius
+  const glass = [206, 222, 224];
+  const TAU = Math.PI * 2;
+
+  // 1) inner-wall shadow — a thin band hugging the glass (kept tight so it
+  //    doesn't darken the gel margin where coastal labels sit)
+  const sg = ctx.createRadialGradient(CX, CY, Rwall * 0.94, CX, CY, Rwall);
+  sg.addColorStop(0, 'rgba(0,0,0,0)');
+  sg.addColorStop(1, 'rgba(0,0,0,0.24)');
+  ctx.fillStyle = sg;
+  ctx.beginPath(); ctx.arc(CX, CY, Rwall, 0, TAU); ctx.fill();
+
+  // 2) meniscus — bright refractive ring where the gel climbs the glass
+  const men = new Path2D();
+  men.arc(CX, CY, Rwall, 0, TAU);
+  men.arc(CX, CY, Rmen, 0, TAU);
+  ctx.save(); ctx.clip(men, 'evenodd');
+  const men2 = mix(tipRGB, [255,255,255], 0.4);
+  const mg = ctx.createRadialGradient(CX, CY, Rmen, CX, CY, Rwall);
+  mg.addColorStop(0,   'rgba(255,255,255,0)');
+  mg.addColorStop(0.6, `rgba(${men2[0]|0},${men2[1]|0},${men2[2]|0},0.10)`);
+  mg.addColorStop(1,   'rgba(255,255,255,0.22)');
+  ctx.fillStyle = mg; ctx.fillRect(0, 0, W, H);
+  ctx.restore();
+
+  // 3) glass wall band — translucent, beveled (bright inner + outer lips)
+  const ring = new Path2D();
+  ring.arc(CX, CY, Rout, 0, TAU);
+  ring.arc(CX, CY, Rwall, 0, TAU);
+  ctx.save(); ctx.clip(ring, 'evenodd');
+  const wg = ctx.createRadialGradient(CX, CY, Rwall, CX, CY, Rout);
+  wg.addColorStop(0.0,  `rgba(${glass[0]},${glass[1]},${glass[2]},0.26)`);
+  wg.addColorStop(0.30, `rgba(${glass[0]},${glass[1]},${glass[2]},0.07)`);
+  wg.addColorStop(0.62, `rgba(${glass[0]},${glass[1]},${glass[2]},0.05)`);
+  wg.addColorStop(0.88, `rgba(${glass[0]},${glass[1]},${glass[2]},0.18)`);
+  wg.addColorStop(1.0,  `rgba(${glass[0]},${glass[1]},${glass[2]},0.40)`);
+  ctx.fillStyle = wg; ctx.fillRect(0, 0, W, H);
+
+  // 3b) specular highlights on the glass — primary upper-left, dim lower-right
+  ctx.globalCompositeOperation = 'lighter';
+  const mid = (Rout + Rwall) / 2;
+  const hx = CX + Math.cos(Math.PI * 1.25) * mid, hy = CY + Math.sin(Math.PI * 1.25) * mid;
+  const hp = ctx.createRadialGradient(hx, hy, 0, hx, hy, DISH_R * 0.62);
+  hp.addColorStop(0,    'rgba(255,255,255,0.6)');
+  hp.addColorStop(0.35, 'rgba(255,255,255,0.16)');
+  hp.addColorStop(1,    'rgba(255,255,255,0)');
+  ctx.fillStyle = hp; ctx.fillRect(0, 0, W, H);
+  const h2x = CX + Math.cos(Math.PI * 0.32) * mid, h2y = CY + Math.sin(Math.PI * 0.32) * mid;
+  const hp2 = ctx.createRadialGradient(h2x, h2y, 0, h2x, h2y, DISH_R * 0.5);
+  hp2.addColorStop(0,   'rgba(255,255,255,0.22)');
+  hp2.addColorStop(0.4, 'rgba(255,255,255,0.06)');
+  hp2.addColorStop(1,   'rgba(255,255,255,0)');
+  ctx.fillStyle = hp2; ctx.fillRect(0, 0, W, H);
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.restore();
+
+  // 4) crisp edge lines + a bright catch along the top, dark shadow at the bottom
+  strokeArc(ctx, Rwall,       0,             TAU,           'rgba(255,255,255,0.10)', 1.3);
+  strokeArc(ctx, Rout - 0.5,  0,             TAU,           'rgba(255,255,255,0.12)', 1.6);
+  strokeArc(ctx, Rout - 0.5,  Math.PI*0.95,  Math.PI*1.6,   'rgba(255,255,255,0.50)', 2.0);
+  strokeArc(ctx, Rwall,       Math.PI*1.02,  Math.PI*1.5,   'rgba(255,255,255,0.32)', 1.4);
+  strokeArc(ctx, Rout + 1.5,  Math.PI*0.05,  Math.PI*0.75,  'rgba(0,0,0,0.35)',       3.0);
+
+  // 5) lid lip — faint concentric rings suggesting the lid resting above
+  strokeArc(ctx, Rout * 0.992, 0, TAU, 'rgba(255,255,255,0.06)', 1.0);
+  strokeArc(ctx, Rout * 1.012, 0, TAU, 'rgba(180,200,205,0.05)', 2.0);
+
+  // 6) condensation beads on the lid — denser toward the rim and the top
+  for (let i = 0; i < 120; i++){
+    const ang = rnd() * TAU;
+    const rr = Rmen * (0.30 + 0.68 * Math.sqrt(rnd()));
+    const x = CX + Math.cos(ang) * rr;
+    const y = CY + Math.sin(ang) * rr;
+    if (y > CY && rnd() < 0.5) continue;     // thin out the lower half
+    const r = 1.6 + rnd() * rnd() * 7.5;
+    drawDroplet(ctx, x, y, r);
+  }
+}
+
+function initSystem(){
+  randomSeed(params.seed);
+  noiseSeed(params.seed);
+  bgRGB = hexToRgb(params.bgColor);
+  hyphaRGB = hexToRgb(params.hypha);
+  tipRGB = hexToRgb(params.tip);
+  fruitRGB = hexToRgb(params.fruit);
+  cityRGB = hexToRgb(params.city);
+  asheRGB = mix(tipRGB, [255,255,255], 0.22).map(Math.round); // foxfire, for Asheville
+  outlineRGB = hexToRgb(params.outlineColor);
+
+  buildDish();
+  paintSubstrate();
+
+  // growth params
+  segLen = Math.max(3.0, params.reach * 0.11);
+  killDist = constrain(segLen * (1.8 / params.fineness), segLen * 0.8, params.reach * 0.9);
+  gridCell = params.reach;
+  grid = new Map();
+
+  // origins: one colony per city, plus a few extra random inoculations
+  nodes = [];
+  CITY_SCREEN.forEach((c, i) => {
+    const p = nudgeInside(c.x, c.y);
+    nodes.push({ x:p.x, y:p.y, parent:-1, colony:i, sub:1 });
+  });
+  let colony = CITY_SCREEN.length;
+  let guard = 0;
+  for (let e = 0; e < params.spores && guard < 400; ){
+    guard++;
+    const x = random(PROJ.offX, PROJ.offX + PROJ.mapW);
+    const y = random(PROJ.offY, PROJ.offY + PROJ.mapH);
+    if (!inUSA(x, y)) continue;
+    nodes.push({ x, y, parent:-1, colony:colony++, sub:1 });
+    e++;
+  }
+  for (let i = 0; i < nodes.length; i++) gInsert(i);
+
+  // nutrient field — only within the landmass
+  attractors = [];
+  guard = 0;
+  const bx0 = PROJ.offX, bx1 = PROJ.offX + PROJ.mapW;
+  const by0 = PROJ.offY, by1 = PROJ.offY + PROJ.mapH;
+  while (attractors.length < params.growthField && guard < params.growthField * 6){
+    guard++;
+    const x = random(bx0, bx1), y = random(by0, by1);
+    if (inUSA(x, y)) attractors.push({ x, y, active: true });
+  }
+
+  fusionEdges = [];
+  frontNodes = [];
+  growIter = 0;
+  growing = true;
+  pulses = [];
+  loop();
+}
+
+/* ============================================================
+   GROWTH STEP — one space-colonization iteration
+   ============================================================ */
+function growStep(){
+  const reach = params.reach;
+  const infl = new Map();
+  let anyActive = false;
+  for (let a = 0; a < attractors.length; a++){
+    const at = attractors[a];
+    if (!at.active) continue;
+    anyActive = true;
+    const ni = gNearest(at.x, at.y, reach);
+    if (ni < 0) continue;
+    let e = infl.get(ni);
+    if (!e){ e = { dx: 0, dy: 0 }; infl.set(ni, e); }
+    let dx = at.x - nodes[ni].x, dy = at.y - nodes[ni].y;
+    const len = Math.hypot(dx, dy) || 1;
+    e.dx += dx / len; e.dy += dy / len;
+  }
+  if (!anyActive || infl.size === 0) return false;
+
+  const startLen = nodes.length;
+  const g = layer;
+  g.strokeCap(ROUND);
+  g.stroke(hyphaRGB[0], hyphaRGB[1], hyphaRGB[2], 60);
+  g.strokeWeight(0.85);
+
+  infl.forEach((e, ni) => {
+    if (nodes.length >= MAX_NODES) return;
+    const len = Math.hypot(e.dx, e.dy) || 1;
+    let ang = Math.atan2(e.dy / len, e.dx / len);
+    ang += (noise(nodes[ni].x * 0.013, nodes[ni].y * 0.013, growIter * 0.06) - 0.5) * 0.85;
+    let nx = nodes[ni].x + Math.cos(ang) * segLen;
+    let ny = nodes[ni].y + Math.sin(ang) * segLen;
+    if (!inUSA(nx, ny)) return;
+    const idx = nodes.length;
+    nodes.push({ x: nx, y: ny, parent: ni, colony: nodes[ni].colony, sub: 1 });
+    gInsert(idx);
+    g.line(nodes[ni].x, nodes[ni].y, nx, ny);
+
+    // anastomosis: fuse with a nearby thread of another colony
+    if (params.fusion > 0){
+      const oj = gNearest(nx, ny, params.fusion, nodes[idx].colony);
+      if (oj >= 0 && oj !== ni && fusionEdges.length < 3000){
+        fusionEdges.push([idx, oj]);
+        g.stroke(hyphaRGB[0], hyphaRGB[1], hyphaRGB[2], 40);
+        g.strokeWeight(0.7);
+        g.line(nx, ny, nodes[oj].x, nodes[oj].y);
+        g.stroke(hyphaRGB[0], hyphaRGB[1], hyphaRGB[2], 60);
+        g.strokeWeight(0.85);
+      }
+    }
+  });
+
+  if (nodes.length === startLen) return false;
+  frontNodes = [];
+  for (let i = startLen; i < nodes.length; i++) frontNodes.push(i);
+
+  // consume nutrients near the new front
+  for (let a = 0; a < attractors.length; a++){
+    const at = attractors[a];
+    if (!at.active) continue;
+    const ni = gNearest(at.x, at.y, reach);
+    if (ni >= 0){
+      const dx = nodes[ni].x - at.x, dy = nodes[ni].y - at.y;
+      if (dx * dx + dy * dy < killDist * killDist) at.active = false;
+    }
+  }
+  growIter++;
+  return growIter < MAX_ITER && nodes.length < MAX_NODES;
+}
+
+/* ============================================================
+   RHIZOMORPHIC EDGE FRINGE
+   Fine hyphae grow OUT past the coastline into the surrounding
+   agar — fanning radially, branching, tapering to wispy tips —
+   the colonizing front of a real plate (ref: agar-plate photo).
+   ============================================================ */
+function growStrand(g, x, y, ang, remain, col, inGel, depth){
+  const stepL = 4.2;
+  const total = remain;
+  let px = x, py = y, a = ang;
+  while (remain > 0){
+    a += (noise(px * 0.02, py * 0.02, depth * 3.1) - 0.5) * 0.5;   // gentle wander → straighter radial fibres
+    const nx = px + Math.cos(a) * stepL;
+    const ny = py + Math.sin(a) * stepL;
+    if (!inGel(nx, ny)) break;
+    const frac = 1 - remain / (total + 0.001);          // 0 at base … 1 at tip
+    const fade = (1 - frac) * (1 - frac);
+    g.stroke(col[0], col[1], col[2], 150 * fade + 12);   // feathery fade
+    g.strokeWeight(1.0 * (1 - frac) + 0.25);
+    g.line(px, py, nx, ny);
+    if (depth < 2 && remain > stepL * 3 && random() < 0.06){
+      growStrand(g, nx, ny, a + (random() < 0.5 ? 1 : -1) * (0.4 + random() * 0.5),
+                 remain * 0.55, col, inGel, depth + 1);
+    }
+    px = nx; py = ny;
+    remain -= stepL;
+  }
+}
+
+function growFringe(){
+  const f = params.fringe;
+  if (f <= 0 || !POLY) return;
+  const g = layer;
+  g.strokeCap(ROUND);
+  const gelR = DISH_R * 0.90;                            // keep fibres in the clear gel
+  const inGel = (x, y) => { const dx = x - CX, dy = y - CY; return dx * dx + dy * dy < gelR * gelR; };
+  const baseCol = mix(hyphaRGB, [255, 255, 255], 0.18);
+
+  // seed points spread along the coastline, each with an outward normal
+  const seeds = [];
+  const step = Math.max(2.4, 4.2 / f);
+  for (let i = 0; i < POLY.length; i++){
+    const a = POLY[i], b = POLY[(i + 1) % POLY.length];
+    const ex = b.x - a.x, ey = b.y - a.y;
+    const L = Math.hypot(ex, ey) || 1;
+    let nx = ey / L, ny = -ex / L;                       // candidate normal
+    const mx = a.x + ex * 0.5, my = a.y + ey * 0.5;
+    if (inUSA(mx + nx * 4, my + ny * 4)) { nx = -nx; ny = -ny; }   // flip to point outward
+    const count = Math.max(1, Math.floor(L / step));
+    for (let s = 0; s < count; s++){
+      const t = (s + 0.5) / count;
+      seeds.push({ x: a.x + ex * t, y: a.y + ey * t, nx, ny });
+    }
+  }
+
+  for (let i = 0; i < seeds.length; i++){
+    const sd = seeds[i];
+    if (!inGel(sd.x, sd.y)) continue;
+    // blend the outward normal toward a pure radial direction → sunburst read
+    const rdx = sd.x - CX, rdy = sd.y - CY, rl = Math.hypot(rdx, rdy) || 1;
+    let dirx = sd.nx * 0.65 + (rdx / rl) * 0.35;
+    let diry = sd.ny * 0.65 + (rdy / rl) * 0.35;
+    const dl = Math.hypot(dirx, diry) || 1;
+    const baseAng = Math.atan2(diry / dl, dirx / dl);
+    const strands = 1 + (random() < 0.7 * f ? 1 : 0) + (random() < 0.4 * f ? 1 : 0) + (random() < 0.18 * f ? 1 : 0);
+    for (let k = 0; k < strands; k++){
+      const ang0 = baseAng + (random() - 0.5) * 0.6;     // fan spread
+      const maxLen = 18 + Math.pow(random(), 1.5) * (85 + 165 * f);
+      growStrand(g, sd.x, sd.y, ang0, maxLen, baseCol, inGel, 0);
+    }
+  }
+}
+
+/* ============================================================
+   FINALIZE — cords, scattered fruiting, graph, pulses
+   ============================================================ */
+function finalizeNetwork(){
+  // subtree weights (rhizomorph conduits)
+  for (let i = nodes.length - 1; i >= 0; i--){
+    if (nodes[i].parent >= 0) nodes[nodes[i].parent].sub += nodes[i].sub;
+  }
+  let maxSub = 1;
+  for (let i = 0; i < nodes.length; i++) if (nodes[i].sub > maxSub) maxSub = nodes[i].sub;
+
+  // rhizomorph cords over high-traffic edges
+  const g = layer;
+  g.strokeCap(ROUND);
+  const cordCol = mix(hyphaRGB, [255,255,255], 0.10);
+  for (let i = 0; i < nodes.length; i++){
+    const n = nodes[i];
+    if (n.parent < 0) continue;
+    const f = n.sub / maxSub;
+    if (f < 0.012) continue;
+    const w = params.cords * (0.6 + 7.5 * Math.sqrt(f));
+    g.stroke(cordCol[0], cordCol[1], cordCol[2], 40 + 120 * Math.sqrt(f));
+    g.strokeWeight(w);
+    g.line(nodes[n.parent].x, nodes[n.parent].y, n.x, n.y);
+  }
+
+  // adjacency graph (parent links + fusion edges, bidirectional)
+  childrenOf = Array.from({ length: nodes.length }, () => []);
+  adj = Array.from({ length: nodes.length }, () => []);
+  for (let i = 0; i < nodes.length; i++){
+    const p = nodes[i].parent;
+    if (p >= 0){ childrenOf[p].push(i); adj[i].push(p); adj[p].push(i); }
+  }
+  for (let k = 0; k < fusionEdges.length; k++){
+    const a = fusionEdges[k][0], b = fusionEdges[k][1];
+    adj[a].push(b); adj[b].push(a);
+  }
+
+  // scattered primordia at mature tips (baked, subtle)
+  fruitNodes = [];
+  const tips = [];
+  for (let i = 0; i < nodes.length; i++) if (childrenOf[i].length === 0) tips.push(i);
+  for (let i = tips.length - 1; i > 0; i--){ const j = Math.floor(random(i + 1)); const t = tips[i]; tips[i] = tips[j]; tips[j] = t; }
+  const fcount = Math.min(params.fruiting, tips.length);
+  for (let i = 0; i < fcount; i++){
+    const idx = tips[i];
+    fruitNodes.push(idx);
+    const n = nodes[idx];
+    const rad = random(4, 9);
+    const grad = g.drawingContext.createRadialGradient(n.x, n.y, 0, n.x, n.y, rad * 3);
+    grad.addColorStop(0, `rgba(${fruitRGB[0]},${fruitRGB[1]},${fruitRGB[2]},0.45)`);
+    grad.addColorStop(0.5, `rgba(${fruitRGB[0]},${fruitRGB[1]},${fruitRGB[2]},0.16)`);
+    grad.addColorStop(1, `rgba(${fruitRGB[0]},${fruitRGB[1]},${fruitRGB[2]},0)`);
+    g.drawingContext.fillStyle = grad;
+    g.drawingContext.fillRect(n.x - rad * 3, n.y - rad * 3, rad * 6, rad * 6);
+    g.noStroke();
+    g.fill(mix(fruitRGB, [255,255,255], 0.5).map(Math.round));
+    g.circle(n.x, n.y, rad * 0.6);
+  }
+
+  // rhizomorphic fringe growing out past the coastline
+  growFringe();
+
+  // vignette
+  const vg = g.drawingContext.createRadialGradient(CX, CY, W * 0.30, CX, CY, W * 0.74);
+  vg.addColorStop(0, 'rgba(0,0,0,0)');
+  vg.addColorStop(1, 'rgba(0,0,0,0.42)');
+  g.drawingContext.fillStyle = vg;
+  g.drawingContext.fillRect(0, 0, W, H);
+
+  // nutrient pulses
+  spawnPulses();
+  growing = false;
+}
+
+function spawnPulses(){
+  pulses = [];
+  const usable = [];
+  for (let i = 0; i < nodes.length; i++) if (adj[i].length > 0) usable.push(i);
+  if (usable.length === 0) return;
+  for (let i = 0; i < params.flow; i++){
+    const a = usable[Math.floor(random(usable.length))];
+    const b = adj[a][Math.floor(random(adj[a].length))];
+    pulses.push({ a, b, prev: a, t: random(), col: random() < 0.78 ? tipRGB : fruitRGB, trail: [] });
+  }
+}
+
+function advancePulse(p){
+  const A = nodes[p.a], B = nodes[p.b];
+  const segLenPix = Math.hypot(B.x - A.x, B.y - A.y) || 1;
+  p.t += (params.flowSpeed * 1.9) / segLenPix;
+  while (p.t >= 1){
+    p.t -= 1;
+    const nbrs = adj[p.b];
+    let next;
+    if (nbrs.length === 1){ next = nbrs[0]; }
+    else {
+      let tries = 0;
+      do { next = nbrs[Math.floor(random(nbrs.length))]; tries++; } while (next === p.a && tries < 4);
+    }
+    p.prev = p.a; p.a = p.b; p.b = next; p.trail.length = 0;
+  }
+}
+
+/* ============================================================
+   CITY FRUITING BODIES + LABELS  (live, drawn over the layer)
+   ============================================================ */
+function drawCities(){
+  const cg = params.cityGlow;
+  push();
+  blendMode(ADD);
+  noStroke();
+  for (let i = 0; i < CITY_SCREEN.length; i++){
+    const c = CITY_SCREEN[i];
+    const col = c.special ? asheRGB : cityRGB;
+    const haloR = [16, 23, 32][c.mag - 1] * cg;
+    const coreR = [3.4, 4.8, 6.4][c.mag - 1];
+    const pulse = 0.82 + 0.18 * Math.sin(frameCount * 0.045 + c.phase);
+    fill(col[0], col[1], col[2], 16); circle(c.x, c.y, haloR * 2.4 * pulse);
+    fill(col[0], col[1], col[2], 30); circle(c.x, c.y, haloR * 1.25 * pulse);
+    fill(col[0], col[1], col[2], 75); circle(c.x, c.y, coreR * 2.0);
+    fill(col[0], col[1], col[2], 150); circle(c.x, c.y, coreR);
+    fill(255, 255, 255, 175); circle(c.x, c.y, coreR * 0.5);
+    if (c.special){
+      // Asheville — a foxfire ring that breathes
+      noFill();
+      stroke(col[0], col[1], col[2], 110 + 60 * (pulse - 0.82) / 0.18);
+      strokeWeight(1.6);
+      circle(c.x, c.y, coreR * 4.4 + 6 * pulse);
+      noStroke();
+    }
+  }
+  pop();
+}
+
+function labelAnchor(c, off){
+  const d = c.dir, o = off, dg = o * 0.72;
+  switch (d){
+    case 'e':  return { x:c.x + o,  y:c.y,      ha:LEFT,   va:CENTER };
+    case 'w':  return { x:c.x - o,  y:c.y,      ha:RIGHT,  va:CENTER };
+    case 'n':  return { x:c.x,      y:c.y - o,  ha:CENTER, va:BOTTOM };
+    case 's':  return { x:c.x,      y:c.y + o,  ha:CENTER, va:TOP    };
+    case 'ne': return { x:c.x + dg, y:c.y - dg, ha:LEFT,   va:BOTTOM };
+    case 'nw': return { x:c.x - dg, y:c.y - dg, ha:RIGHT,  va:BOTTOM };
+    case 'se': return { x:c.x + dg, y:c.y + dg, ha:LEFT,   va:TOP    };
+    case 'sw': return { x:c.x - dg, y:c.y + dg, ha:RIGHT,  va:TOP    };
+  }
+  return { x:c.x + o, y:c.y, ha:LEFT, va:CENTER };
+}
+
+function drawLabels(){
+  const LS = params.labelScale;          // overall label-size multiplier
+  const ow = params.labelOutline;        // outline width (0 = none → soft shadow instead)
+  const oc = outlineRGB;
+  push();
+  textFont('Poppins, sans-serif');
+  textStyle(NORMAL);
+  strokeJoin(ROUND);
+  for (let i = 0; i < CITY_SCREEN.length; i++){
+    const c = CITY_SCREEN[i];
+    if (!c.special && !params.labels) continue;
+
+    const baseSize = c.special ? 18.5 : (c.mag >= 3 ? 14.5 : (c.mag === 2 ? 13 : 11.5));
+    const baseOff  = c.special ? 17   : (c.mag >= 3 ? 18   : (c.mag === 2 ? 15 : 12));
+    const size = baseSize * LS;
+    const off  = baseOff;                 // keep labels tight to the dot so big text still clears the rim
+    const a = labelAnchor(c, off);
+
+    if (c.special){
+      // foxfire leader line to Asheville
+      stroke(asheRGB[0], asheRGB[1], asheRGB[2], 150);
+      strokeWeight(1.3);
+      line(c.x, c.y, a.x, a.y);
+    }
+
+    const fc = c.special ? mix(asheRGB, [255,255,255], 0.35) : mix(cityRGB, [255,255,255], 0.45);
+    const fa = c.special ? 255 : (c.mag >= 2 ? 225 : 185);
+    textAlign(a.ha, a.va);
+    textSize(size);
+
+    if (ow > 0){
+      // crisp outline in the chosen edge color
+      stroke(oc[0], oc[1], oc[2], 240);
+      strokeWeight(ow * (0.55 + 0.45 * LS));   // grows a little with label size
+      fill(fc[0], fc[1], fc[2], fa);
+      text(c.n, a.x, a.y);
+      noStroke();
+    } else {
+      // fallback: soft drop shadow for legibility
+      noStroke();
+      fill(0, 0, 0, c.special ? 150 : 130);
+      text(c.n, a.x + 1, a.y + 1.4);
+      fill(fc[0], fc[1], fc[2], fa);
+      text(c.n, a.x, a.y);
+    }
+  }
+  pop();
+}
+
+/* ============================================================
+   p5 LIFECYCLE
+   ============================================================ */
+function preload(){
+  // accurate U.S. state boundaries in lon/lat — projected with the same Albers
+  // transform as the cities. Loads from a CDN; on failure the map simply omits
+  // the borders (everything else still renders).
+  STATES_GEO = loadJSON(
+    'https://cdn.jsdelivr.net/gh/PublicaMundi/MappingAPI@master/data/geojson/us-states.json',
+    () => {}, () => {}
+  );
+}
+
+function setup(){
+  const c = createCanvas(W, H);
+  c.parent('canvas-container');
+  layer = createGraphics(W, H);
+  buildProjection();
+  buildStateLines();
+  initSystem();
+}
+
+function draw(){
+  image(layer, 0, 0);
+
+  if (growing){
+    let alive = true;
+    for (let k = 0; k < params.growthRate && alive; k++) alive = growStep();
+    // glowing growth front (foxfire)
+    push();
+    blendMode(ADD);
+    noStroke();
+    const gl = params.glow;
+    for (let i = 0; i < frontNodes.length; i++){
+      const n = nodes[frontNodes[i]];
+      fill(tipRGB[0], tipRGB[1], tipRGB[2], 26);
+      circle(n.x, n.y, gl * 6);
+      fill(tipRGB[0], tipRGB[1], tipRGB[2], 80);
+      circle(n.x, n.y, gl * 2.6);
+    }
+    pop();
+    if (!alive) finalizeNetwork();
+    if (params.dish) image(dishLayer, 0, 0);
+    drawCities();
+    drawLabels();
+    return;
+  }
+
+  // mature: nutrient translocation
+  if (pulses && pulses.length){
+    push();
+    blendMode(ADD);
+    const gl = params.glow;
+    for (let i = 0; i < pulses.length; i++){
+      const p = pulses[i];
+      advancePulse(p);
+      const A = nodes[p.a], B = nodes[p.b];
+      const t = p.t;
+      const x = A.x + (B.x - A.x) * t;
+      const y = A.y + (B.y - A.y) * t;
+      p.trail.push(x, y);
+      if (p.trail.length > 14) p.trail.splice(0, p.trail.length - 14);
+      const col = p.col;
+      strokeCap(ROUND);
+      const segs = p.trail.length / 2;
+      for (let s = 1; s < segs; s++){
+        const a0 = s / segs;
+        stroke(col[0], col[1], col[2], 55 * a0 * a0);
+        strokeWeight(gl * 1.3 * a0);
+        line(p.trail[(s-1)*2], p.trail[(s-1)*2+1], p.trail[s*2], p.trail[s*2+1]);
+      }
+      noStroke();
+      fill(col[0], col[1], col[2], 34);
+      circle(x, y, gl * 6);
+      fill(col[0], col[1], col[2], 95);
+      circle(x, y, gl * 2.8);
+      fill(255, 255, 255, 150);
+      circle(x, y, gl * 1.2);
+    }
+    pop();
+  }
+
+  if (params.dish) image(dishLayer, 0, 0);
+  drawCities();
+  drawLabels();
+}
+
+</script>
+</body>
+</html>
