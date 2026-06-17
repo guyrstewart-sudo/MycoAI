@@ -75,7 +75,7 @@
 <body>
 <div id="stage"><div id="canvas-container"></div></div>
 <style>
-  html,body{height:100%;margin:0;background:#070b14;overflow:hidden;}
+  html,body{height:100%;margin:0;background:transparent;overflow:hidden;}
   #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
   #stage canvas{width:min(100vw,100vh)!important;height:min(100vw,100vh)!important;display:block;}
 </style>
@@ -351,15 +351,9 @@ function paintSubstrate(){
   const g = layer, ctx = g.drawingContext;
 
   if (params.dish){
-    // the bench/counter the dish rests on — darker than the gel inside
-    const bench = mix(bgRGB, [0,0,0], 0.45);
-    g.background(bench[0], bench[1], bench[2]);
-
-    // soft contact shadow cast by the dish, offset down-right
-    const ds = ctx.createRadialGradient(CX + 12, CY + 24, DISH_R * 0.72, CX + 12, CY + 28, DISH_R * 1.14);
-    ds.addColorStop(0, 'rgba(0,0,0,0.55)');
-    ds.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = ds; ctx.fillRect(0, 0, W, H);
+    // transparent canvas — only the circular dish is drawn, so the page shows
+    // through behind it (no rectangular backdrop)
+    g.clear();
 
     // the agar gel disk — a translucent puck of medium, lit from upper-left
     const agarCtr = mix(bgRGB, [255,255,255], 0.06);
@@ -832,12 +826,18 @@ function finalizeNetwork(){
   // rhizomorphic fringe growing out past the coastline
   growFringe();
 
-  // vignette
-  const vg = g.drawingContext.createRadialGradient(CX, CY, W * 0.30, CX, CY, W * 0.74);
-  vg.addColorStop(0, 'rgba(0,0,0,0)');
-  vg.addColorStop(1, 'rgba(0,0,0,0.42)');
-  g.drawingContext.fillStyle = vg;
-  g.drawingContext.fillRect(0, 0, W, H);
+  // vignette — clipped to the dish so the surrounding canvas stays transparent
+  {
+    const vctx = g.drawingContext;
+    vctx.save();
+    vctx.beginPath(); vctx.arc(CX, CY, DISH_R, 0, Math.PI * 2); vctx.clip();
+    const vg = vctx.createRadialGradient(CX, CY, W * 0.30, CX, CY, W * 0.74);
+    vg.addColorStop(0, 'rgba(0,0,0,0)');
+    vg.addColorStop(1, 'rgba(0,0,0,0.42)');
+    vctx.fillStyle = vg;
+    vctx.fillRect(0, 0, W, H);
+    vctx.restore();
+  }
 
   // nutrient pulses
   spawnPulses();
@@ -991,6 +991,7 @@ function setup(){
 }
 
 function draw(){
+  clear();                 // keep the canvas transparent outside the dish
   image(layer, 0, 0);
 
   if (growing){
