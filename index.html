@@ -1147,7 +1147,7 @@ if(!RM && innerWidth>680){
   var TEAL=[55,214,176],TEALD=[29,141,119],GOLD=[224,164,74],INK=[120,140,165];
   function rgba(c,a){return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';}
   function mix(a,b,k){return [a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k,a[2]+(b[2]-a[2])*k];}
-  function resize(){DPR=Math.min(window.devicePixelRatio||1,2);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=W*DPR;canvas.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);build();}
+  function resize(){DPR=Math.min(window.devicePixelRatio||1,2);W=window.innerWidth;H=window.innerHeight;canvas.width=W*DPR;canvas.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);build();}
   function build(){
     var base=Math.min(W,H);
     var count=Math.max(26,Math.min(54,Math.round((W*H)/40000)));
