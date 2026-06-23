@@ -356,11 +356,11 @@ function paintSubstrate(){
     g.clear();
 
     // the agar gel disk — a translucent puck of medium, lit from upper-left
-    const agarCtr = mix([40,116,98], [255,255,255], 0.06);
-    const agarEdge = mix([40,116,98], [0,0,0], 0.28);
+    const agarCtr = mix([20,64,52], [255,255,255], 0.06);
+    const agarEdge = mix([20,64,52], [0,0,0], 0.28);
     const ag = ctx.createRadialGradient(CX, CY * 0.84, 0, CX, CY, DISH_R);
     ag.addColorStop(0,    `rgb(${agarCtr[0]|0},${agarCtr[1]|0},${agarCtr[2]|0})`);
-    ag.addColorStop(0.82, 'rgb(40,116,98)');
+    ag.addColorStop(0.82, 'rgb(20,64,52)');
     ag.addColorStop(1,    `rgb(${agarEdge[0]|0},${agarEdge[1]|0},${agarEdge[2]|0})`);
     ctx.fillStyle = ag;
     ctx.beginPath(); ctx.arc(CX, CY, DISH_R, 0, Math.PI * 2); ctx.fill();
@@ -384,7 +384,7 @@ function paintSubstrate(){
   }
 
   // the continental landmass — nutrient-rich agar, slightly lighter & warmer
-  const landTint = mix(mix([40,116,98], hyphaRGB, 0.12), [255,255,255], 0.03);
+  const landTint = mix(mix([20,64,52], hyphaRGB, 0.12), [255,255,255], 0.03);
   g.noStroke();
   g.fill(landTint[0], landTint[1], landTint[2]);
   g.beginShape();
