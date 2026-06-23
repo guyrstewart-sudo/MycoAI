@@ -530,7 +530,18 @@ body::before{position:fixed !important;inset:0 !important;background-image:radia
 .hero-logo-word{font-family:'Fraunces',serif !important;font-style:italic !important;font-weight:600 !important;letter-spacing:-.01em !important}
 @media(max-width:760px){.hero-logo-halo{width:330px !important;height:330px !important}}
 .brand{font-size:20.5px !important}
-.brand .mark{width:38px !important;height:38px !important}</style>
+.brand .mark{width:38px !important;height:38px !important}
+@media(min-width:900px){
+#about .about-grid>div:has(.idcard){display:contents}
+#about .about-grid>.about-text{grid-column:1;grid-row:1}
+#about .about-figure{grid-column:1;grid-row:2;align-self:start;justify-self:start;width:100%;max-width:380px;margin:10px 0 0}
+#about .about-figure img{width:100%;height:auto;object-fit:cover}
+#about .idcard{grid-column:2;grid-row:1 / span 2;align-self:start}
+}
+@media(max-width:760px){
+#about .idrow{flex-direction:column;align-items:flex-start;gap:3px}
+#about .idrow .v{text-align:left}
+}</style>
 
 <!-- JSON-LD: FAQ -->
 <script type="application/ld+json">
