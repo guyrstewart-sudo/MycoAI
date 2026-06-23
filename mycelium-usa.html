@@ -107,8 +107,8 @@ const DEFAULTS = {
   fineness: 1.05,
   fusion: 18,
   growthRate: 6,
-  cords: 3.2,
-  fringe: 3.4,
+  cords: 2.2,
+  fringe: 1.3,
   fruiting: 12,
   dish: 1,
   cityGlow: 1.4,
@@ -783,21 +783,21 @@ function drawFlowerOfLife(g){
 
   // pass 1 — soft foxfire halo along every circle (additive glow)
   ctx.globalCompositeOperation = 'lighter';
-  g.strokeWeight(7);
-  for (const [x, y] of centers){ g.stroke(glow[0], glow[1], glow[2], 24); g.circle(x, y, 2 * R); }
+  g.strokeWeight(8);
+  for (const [x, y] of centers){ g.stroke(glow[0], glow[1], glow[2], 34); g.circle(x, y, 2 * R); }
 
   // pass 2 — crisp bright hyphal strands forming the lattice
   ctx.globalCompositeOperation = 'source-over';
-  g.strokeWeight(1.8);
-  for (const [x, y] of centers){ g.stroke(hyL[0], hyL[1], hyL[2], 175); g.circle(x, y, 2 * R); }
+  g.strokeWeight(2.1);
+  for (const [x, y] of centers){ g.stroke(hyL[0], hyL[1], hyL[2], 205); g.circle(x, y, 2 * R); }
 
   // pass 3 — luminous fruiting nodes at every lattice vertex
   ctx.globalCompositeOperation = 'lighter';
   g.noStroke();
   for (const [x, y] of centers){
     if (x < minx || x > maxx || y < miny || y > maxy) continue;
-    g.fill(glow[0], glow[1], glow[2], 42); g.circle(x, y, 15);
-    g.fill(255, 255, 255, 165);            g.circle(x, y, 4.2);
+    g.fill(glow[0], glow[1], glow[2], 56); g.circle(x, y, 17);
+    g.fill(255, 255, 255, 195);            g.circle(x, y, 4.6);
   }
   ctx.globalCompositeOperation = 'source-over';
   ctx.restore();
