@@ -515,7 +515,14 @@ h1.title .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 
 #proof .pcard .pmeta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--faint);margin-bottom:22px}
 #proof .pcard .spacer{flex:1}
 #proof .pcard .btn{width:100%;justify-content:center}
-@media(max-width:860px){#proof .proof-grid{grid-template-columns:1fr}}</style>
+@media(max-width:860px){#proof .proof-grid{grid-template-columns:1fr}}
+.hero-right{display:flex;flex-direction:column;align-items:stretch;gap:20px;min-width:0}
+.hero-logo{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:4px 0 2px}
+.hero-logo-halo{position:absolute;top:42%;left:50%;width:240px;height:240px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(55,214,176,.30) 0%,rgba(232,163,61,.13) 45%,transparent 72%);filter:blur(28px);z-index:0;pointer-events:none}
+.hero-logo-mark{position:relative;z-index:1;width:92px;height:92px;display:block;filter:drop-shadow(0 0 16px rgba(55,214,176,.40))}
+.hero-logo-word{position:relative;z-index:1;font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:1.45rem;letter-spacing:.01em;color:var(--ink)}
+@media(max-width:760px){.hero-logo-mark{width:78px;height:78px}.hero-logo-halo{width:190px;height:190px}}
+</style>
 
 <!-- JSON-LD: FAQ -->
 <script type="application/ld+json">
@@ -639,6 +646,16 @@ h1.title .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 
           <div class="stat"><div class="n">ASBC</div><div class="l">Microbiology<br>subcommittee chair</div></div>
         </div>
       </div>
+      <div class="hero-right">
+      <div class="hero-logo" aria-label="MycoAI">
+        <span class="hero-logo-halo" aria-hidden="true"></span>
+        <svg class="hero-logo-mark" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MycoAI">
+          <defs><linearGradient id="hlMark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#37d6b0"/><stop offset="1" stop-color="#1d8d77"/></linearGradient></defs>
+          <path d="M 225.36 97.24 A 92 92 0 1 0 225.36 202.76" fill="none" stroke="url(#hlMark)" stroke-width="40" stroke-linecap="round"/>
+          <circle cx="206" cy="150" r="40" fill="#E9B74A"/>
+        </svg>
+        <div class="hero-logo-word">MycoAI</div>
+      </div>
       <figure class="term" aria-label="Illustrative agent workflow">
         <div class="term-bar">
           <i class="tb-r"></i><i class="tb-y"></i><i class="tb-g"></i>
@@ -647,6 +664,7 @@ h1.title .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 
         <div class="term-body" id="termbody" aria-hidden="true"></div>
         <div class="term-cap">illustrative — live agent demo</div>
       </figure>
+      </div>
     </div>
   </div>
 </div>
