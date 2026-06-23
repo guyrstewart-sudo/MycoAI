@@ -996,7 +996,7 @@ function draw(){
 
   if (growing){
     let alive = true;
-    for (let k = 0; k < params.growthRate && alive; k++) alive = growStep();
+    while (alive) alive = growStep();
     // glowing growth front (foxfire)
     push();
     blendMode(ADD);
