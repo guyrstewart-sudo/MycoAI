@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f4f1ea">
+<title>Brewery & Distillery Contamination Control Checklist | MycoAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --light:#f4f1ea;--paper:#fbfaf6;--ink:#161e2e;--body:#3a4150;--faint:#6a7286;
+  --teal:#02909f;--teal-deep:#016170;--gold:#c47d2a;--gold-bright:#e8a33d;--navy:#161E46;
+  --line:rgba(20,30,46,.12);--line2:rgba(20,30,46,.20);
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--light);color:var(--body);font-family:var(--font-body);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:840px;margin:0 auto;padding:48px 30px 80px}
+.kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+h1{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;line-height:1.08;font-size:clamp(28px,4.6vw,40px);color:var(--ink);margin:0 0 14px}
+h2{font-family:var(--font-display);font-weight:600;font-size:21px;color:var(--ink);margin:0;display:flex;align-items:baseline;gap:12px}
+p{margin:0 0 14px;font-size:15.5px}
+.lede{font-size:17px;color:var(--ink)}
+strong{color:var(--ink);font-weight:600}
+em{color:var(--teal-deep);font-style:italic}
+a{color:var(--teal-deep);text-decoration:none;font-weight:500}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:34px;padding-bottom:18px;border-bottom:2px solid var(--line)}
+.brandbar svg{height:42px;width:auto}
+.cred{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.7}
+.intro{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:0 0 30px}
+.intro p{margin:0;font-size:14.5px;color:var(--body)}
+.sec{margin:28px 0;break-inside:avoid}
+.sechead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.tag{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--teal-deep);padding:4px 9px;border-radius:6px;white-space:nowrap}
+.tag.gold{background:var(--gold)}
+.tag.navy{background:var(--navy)}
+.sub{font-size:13.5px;color:var(--faint);margin:2px 0 14px}
+ul.check{list-style:none;padding:0;margin:0}
+ul.check li{position:relative;padding:9px 0 9px 34px;font-size:15px;color:var(--body);border-bottom:1px solid var(--line)}
+ul.check li:last-child{border-bottom:0}
+ul.check li::before{content:"";position:absolute;left:2px;top:11px;width:16px;height:16px;border:1.5px solid var(--teal-deep);border-radius:4px;background:var(--paper)}
+ul.check li b{color:var(--ink);font-weight:600}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media(max-width:680px){.cols{grid-template-columns:1fr}}
+.red{background:#fcf6ee;border:1px solid var(--gold);border-radius:12px;padding:22px 24px;margin:30px 0}
+.red h2{font-size:19px;margin-bottom:12px}
+.red ul.check li::before{border-color:var(--gold)}
+.note{font-size:13px;color:var(--faint);font-style:italic;margin-top:8px}
+.cta{margin-top:36px;background:var(--navy);border-radius:14px;padding:30px 28px;color:#dfe4f0;text-align:center}
+.cta h2{color:#fff;justify-content:center;margin-bottom:8px}
+.cta p{color:#b9c1d4;font-size:15px;max-width:520px;margin:0 auto 14px}
+.btn{display:inline-block;font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#08110b;background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);padding:13px 24px;border-radius:10px;font-weight:500}
+.foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media print{body{background:#fff}.wrap{padding:24px}.sec,.red,.cta{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brandbar">
+    <svg viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif" aria-label="MycoAI">
+      <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#02909f"/><stop offset="1" stop-color="#016170"/></linearGradient></defs>
+      <path d="M 225.36 97.24 A 92 92 0 1 0 225.36 202.76" fill="none" stroke="url(#cg)" stroke-width="40" stroke-linecap="round"/>
+      <circle cx="183" cy="150" r="31" fill="#E9B74A"/><circle cx="183" cy="150" r="31" fill="none" stroke="#caa23f" stroke-width="2"/>
+      <text x="300" y="168" font-size="74" font-weight="700" fill="#161E46" letter-spacing="-1">Myco<tspan fill="#02909f">AI</tspan></text>
+      <text x="302" y="205" font-size="19" font-weight="400" fill="#6A7286" letter-spacing="3">FERMENTATION · AI · CODE</text>
+    </svg>
+    <div class="cred">ASBC Microbiology<br>ex–New Belgium yeast<br>Head Distiller</div>
+  </div>
+
+  <p class="kicker">field checklist // contamination control</p>
+  <h1>The craft brewery &amp; distillery contamination control checklist</h1>
+  <p class="lede">Most contamination isn't bad luck — it's a missed step that nobody owns. This is the routine I'd run on your floor, organized so a shift lead can work down it without thinking. Print it, laminate it, hang it by the CIP station.</p>
+
+  <div class="intro">
+    <p>Built from real production experience, not a textbook: yeast and microbiology work at the ASBC, a Yeast Specialist role at New Belgium, and time as a Head Distiller. Use what fits your process; the goal is a <em>repeatable routine</em>, because contamination thrives on the steps you skip when you're busy.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><h2>Every shift</h2><span class="tag">daily</span></div>
+    <p class="sub">The five-minute habits that catch 80% of problems before they spread.</p>
+    <ul class="check">
+      <li><b>Sanitizer concentration verified</b> — test, don't eyeball. Log the PPM/strength for each batch of solution made.</li>
+      <li><b>Hose ends off the floor</b> — no hose end, racking cane, or wand ever touches a drain, a boot, or standing water.</li>
+      <li><b>Sample ports + valves sanitized</b> before and after every draw. They're the most-touched, least-cleaned surfaces you have.</li>
+      <li><b>Drains cleaned + treated</b> — the #1 reservoir for wild yeast and bacteria. Foam-clean daily; never spray a drain near open vessels.</li>
+      <li><b>Visual + smell check</b> on every fermenter you open: pellicle, ropiness, off-aromas (phenolic, lactic, acetic, butyric). Trust your nose.</li>
+      <li><b>Hands + gloves</b> sanitized at each transfer; no jewelry, no touching faces, then product-contact surfaces.</li>
+    </ul>
+  </div>
+
+  <div class="cols">
+    <div class="sec">
+      <div class="sechead"><h2>Weekly</h2><span class="tag gold">weekly</span></div>
+      <ul class="check">
+        <li><b>Full CIP</b> on all transfer hoses, pumps, and heat exchangers — disassemble quick-disconnects and inspect gaskets.</li>
+        <li><b>Gaskets &amp; O-rings</b> pulled, inspected, swapped if cracked, scored, or stained. The hidden home of infection.</li>
+        <li><b>Yeast viability + vitality</b> check before repitch; methylene blue or equivalent. Cap your generations.</li>
+        <li><b>Plate or test</b> a sample from each brand — even a simple forcing/turbidity test catches drift early.</li>
+        <li><b>Walls, floors, ceilings</b> in the cellar washed down; check for mold at drains and cold spots.</li>
+      </ul>
+    </div>
+    <div class="sec">
+      <div class="sechead"><h2>Monthly &amp; periodic</h2><span class="tag navy">monthly</span></div>
+      <ul class="check">
+        <li><b>CIP efficacy verified</b> — swab + ATP or plate post-clean on a rotating vessel. Prove the clean, don't assume it.</li>
+        <li><b>Glycol &amp; cooling jackets</b> inspected; condensation and biofilm love jacket exteriors and trub lines.</li>
+        <li><b>Packaging line</b> deep clean — filler, capper/seamer, fill tubes. Most DO pickup + late infection starts here.</li>
+        <li><b>Spare-parts audit</b> — gaskets, seals, sanitizer stock on hand so a worn part never becomes "we'll do it next week."</li>
+        <li><b>Training refresh</b> — one routine, written down, so it survives staff turnover.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="red">
+    <div class="sechead"><h2>Red flags — stop and investigate</h2><span class="tag gold">act now</span></div>
+    <ul class="check">
+      <li><b>Sudden over-attenuation</b> or gravity dropping past terminal — suspect wild yeast / <i>Brettanomyces</i> or <i>Diastaticus</i>.</li>
+      <li><b>Pellicle, ropiness, or haze</b> that wasn't designed in — likely <i>Lactobacillus</i>, <i>Pediococcus</i>, or <i>Acetobacter</i>.</li>
+      <li><b>Gushing or over-carbonation</b> in package — refermentation; isolate the batch and check your most recent fillings.</li>
+      <li><b>Off-aromas:</b> sour where it shouldn't be, "Band-Aid" phenolic, buttery diacetic that won't clean up, vinegar.</li>
+      <li><b>Same tank, repeat problem</b> — quarantine it, tear down every fitting, and verify CIP before it's back in rotation.</li>
+    </ul>
+    <p class="note">When in doubt, isolate the batch and the vessel before it cross-contaminates the cellar. One lost batch is cheaper than a house infection.</p>
+  </div>
+
+  <div class="cta">
+    <p class="kicker" style="color:#37d6b0">turn the routine into a system</p>
+    <h2>Want this running on autopilot?</h2>
+    <p>I help craft producers turn checklists like this into living systems — digital logs, automatic reminders, and an AI assistant that flags drift before it becomes a house infection. Fermentation operator who builds the software too.</p>
+    <a class="btn" href="https://mycoai.net/#book" target="_blank" rel="noopener">Book a free 30-min call →</a>
+  </div>
+
+  <div class="foot">
+    <span>MycoAI · Guy Stewart · mycoai.net</span>
+    <span>fermentation × intelligence × code</span>
+  <

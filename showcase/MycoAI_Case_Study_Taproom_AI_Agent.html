@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#060a12">
+<title>Concept Demo — AI Front-of-House Agent + Site for a WNC Taproom | MycoAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060a12;--s1:#0c1422;--s2:#101c30;--s3:#15243c;--light:#f4f1ea;
+  --teal:#37d6b0;--teal-dim:#1d8d77;--gold:#e8a33d;--gold2:#c47d2a;--violet:#9d7bff;
+  --ink:#eef2fb;--muted:#9fb0cc;--faint:#8595ad;
+  --line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.13);
+  --maxw:920px;--radius:14px;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font-body);font-weight:300;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(60% 50% at 100% 0%, rgba(232,163,61,.10), transparent 60%),
+    radial-gradient(55% 45% at 0% 12%, rgba(55,214,176,.09), transparent 60%),
+    radial-gradient(50% 40% at 50% 100%, rgba(157,123,255,.06), transparent 60%);
+  background-attachment:fixed;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:64px 28px 96px}
+.kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+h1{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;line-height:1.08;font-size:clamp(30px,5vw,48px);margin:0 0 18px}
+h2{font-family:var(--font-display);font-weight:600;letter-spacing:-.01em;font-size:clamp(22px,3.2vw,30px);margin:54px 0 16px}
+h3{font-family:var(--font-body);font-weight:600;font-size:18px;margin:0 0 8px;color:var(--ink)}
+p{color:var(--muted);margin:0 0 16px;font-size:16.5px}
+strong{color:var(--ink);font-weight:600}
+em{color:var(--gold);font-style:italic}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+.lede{font-size:19px;color:var(--ink);font-weight:400;line-height:1.6}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:46px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.brandbar svg{height:46px;width:auto}
+.status{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal)}
+.banner{background:linear-gradient(160deg,var(--s1),var(--s2));border:1px solid var(--line2);border-left:3px solid var(--gold);border-radius:12px;padding:18px 22px;margin:0 0 8px}
+.banner p{margin:0;font-size:14.5px;color:var(--muted)}
+.banner strong{color:var(--gold)}
+.card{background:linear-gradient(160deg,var(--s1),var(--s2));border:1px solid var(--line2);border-radius:16px;padding:26px 28px;margin:18px 0}
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:680px){.grid-2,.grid-3{grid-template-columns:1fr}}
+.metric{padding:22px}
+.metric .num{font-family:var(--font-display);font-weight:600;font-size:34px;color:var(--teal);line-height:1;margin-bottom:6px}
+.metric .lbl{font-size:14px;color:var(--muted)}
+.metric .cap{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:10px}
+ul.clean{list-style:none;padding:0;margin:0 0 16px}
+ul.clean li{position:relative;padding:0 0 12px 26px;color:var(--muted);font-size:16px}
+ul.clean li::before{content:"";position:absolute;left:2px;top:9px;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+ul.clean li.live::before{background:var(--teal);box-shadow:0 0 8px var(--teal)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:10px 0 6px}
+.node{flex:1;min-width:130px;background:rgba(255,255,255,.02);border:1px solid var(--line2);border-radius:11px;padding:14px 16px}
+.node .t{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.node .d{font-size:13.5px;color:var(--muted);line-height:1.5}
+.arrow{display:flex;align-items:center;color:var(--gold);font-size:20px}
+@media(max-width:680px){.arrow{transform:rotate(90deg)}}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}
+@media(max-width:680px){.tiers{grid-template-columns:1fr}}
+.tier{background:linear-gradient(160deg,var(--s1),var(--s2));border:1px solid var(--line2);border-radius:16px;padding:24px}
+.tier.feature{border-color:var(--gold);box-shadow:0 0 0 1px rgba(232,163,61,.25)}
+.tier .name{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.tier .price{font-family:var(--font-display);font-size:24px;color:var(--ink);margin-bottom:14px}
+.tier ul{list-style:none;padding:0;margin:0;font-size:14px;color:var(--muted)}
+.tier li{padding:6px 0;border-top:1px solid var(--line)}
+.tier li:first-child{border-top:0}
+.cta{margin-top:54px;text-align:center;background:linear-gradient(160deg,var(--s1),var(--s2));border:1px solid var(--line2);border-radius:18px;padding:40px 28px}
+.cta h2{margin:0 0 10px}
+.btn{display:inline-block;margin-top:8px;font-family:var(--font-mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#08110b;background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);padding:14px 26px;border-radius:11px;font-weight:500}
+.foot{margin-top:54px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.motif{font-family:var(--font-mono);text-transform:lowercase;letter-spacing:.04em;color:var(--teal)}
+@media print{
+  body{background:var(--light);color:#10131a;background-image:none}
+  .card,.tier,.banner,.cta{background:#fff;border-color:#d8d2c4}
+  p,.node .d,.tier ul{color:#3a3f4a}
+  a{color:#016170}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brandbar">
+    <svg viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif" aria-label="MycoAI">
+      <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#37d6b0"/><stop offset="1" stop-color="#1d8d77"/></linearGradient></defs>
+      <path d="M 225.36 97.24 A 92 92 0 1 0 225.36 202.76" fill="none" stroke="url(#cg)" stroke-width="40" stroke-linecap="round"/>
+      <circle cx="183" cy="150" r="31" fill="#E9B74A"/><circle cx="183" cy="150" r="31" fill="none" stroke="#caa23f" stroke-width="2"/>
+      <text x="300" y="168" font-size="74" font-weight="700" fill="#eef2fb" letter-spacing="-1">Myco<tspan fill="#37d6b0">AI</tspan></text>
+      <text x="302" y="205" font-size="19" font-weight="400" fill="#9fb0cc" letter-spacing="3">FERMENTATION · AI · CODE</text>
+    </svg>
+    <div class="status"><span class="dot"></span> Concept Demo · v1</div>
+  </div>
+
+  <p class="kicker">case study // what i'd build</p>
+  <h1>The bartender that never sleeps: an AI front-of-house agent + site for a Western&nbsp;NC taproom</h1>
+  <p class="lede">A small taproom loses hours every week answering the same five questions and chasing event inquiries in DMs. Here is the system I'd build to take that off the owner's plate — a fast website, a live tap list, and an AI agent that handles the front desk on the web and over text.</p>
+
+  <div class="banner">
+    <p><strong>Read this first.</strong> This is a <strong>concept demo</strong> built to show the approach and the craft — not a paid client engagement. "Foothold Brewing" is a composite of real WNC taprooms I've spent time in. Figures are illustrative, anchored to public industry benchmarks and my own operating experience, not measured from one live account.</p>
+  </div>
+
+  <h2>The taproom</h2>
+  <div class="card">
+    <p style="margin:0"><strong>Foothold Brewing</strong> — a 7-bbl neighborhood taproom outside Asheville. Two owners, four part-time pourers, twelve taps that rotate weekly, a rotating food-truck calendar, and a back room they rent for private events. No marketing hire. The website is a one-page site from 2019 with a PDF menu that's three months stale.</p>
+  </div>
+
+  <h2>The problem, in the owner's words</h2>
+  <ul class="clean">
+    <li>"Staff spend half their shift answering the same questions — hours, are you dog-friendly, what's on tap, do you have anything gluten-free, who's the truck tonight."</li>
+    <li>"Private-event inquiries come in through Instagram DMs and email. I answer them at 11pm. Half go cold before I reply."</li>
+    <li>"Our tap list online is never right. People show up for a beer that kicked last weekend."</li>
+    <li>"I know I should be collecting emails and posting more. There's no time."</li>
+  </ul>
+  <p>None of this is a beer problem. It's a <em>front-of-house and information</em> problem — exactly the kind of repetitive, rules-based work an agent handles well, and a brewer rarely has time to systematize.</p>
+
+  <h2>What I'd build</h2>
+  <div class="grid grid-3">
+    <div class="card metric" style="margin:0">
+      <h3>1 · Fast site refresh</h3>
+      <p style="font-size:14.5px;margin:0">A clean, mobile-first site that loads instantly. Hours, location, the rotating food-truck calendar, and a <strong>live tap list</strong> that updates itself — never stale again.</p>
+    </div>
+    <div class="card metric" style="margin:0">
+      <h3>2 · The AI agent</h3>
+      <p style="font-size:14.5px;margin:0">A chat agent on the site <em>and</em> over SMS that answers FAQs in the taproom's voice, drafts private-event quotes, and captures every lead with a name and email.</p>
+    </div>
+    <div class="card metric" style="margin:0">
+      <h3>3 · Back-of-house</h3>
+      <p style="font-size:14.5px;margin:0">The agent drafts a weekly "what's on tap" email and social post from the same live data, ready for the owner to approve in one tap.</p>
+    </div>
+  </div>
+
+  <h2>How it works</h2>
+  <p>Plain architecture — nothing the owner has to babysit. The agent reads from one source of truth (the tap list and event rules), so the site, the chat, the texts, and the weekly email never disagree with each other.</p>
+  <div class="flow">
+    <div class="node"><div class="t">source of truth</div><div class="d">Tap list, hours, event rules, FAQs — edited in one simple place by the owner.</div></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="t">the agent</div><div class="d">LLM grounded only in the taproom's own data. No hallucinated answers, no made-up beers.</div></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="t">channels</div><div class="d">Website chat · SMS · weekly email + social draft — all from the same brain.</div></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="t">captured</div><div class="d">Every event inquiry and email lands in one list the owner actually checks.</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--faint);margin-top:14px">Built on a static front end (fast, cheap to host), an LLM grounded in the taproom's data, and lightweight hooks into the tools they already use — point-of-sale for taps, a calendar for events, a phone number for SMS. Guardrails keep the agent inside what it actually knows; anything it can't answer routes straight to the owner.</p>
+
+  <h2>Illustrative impact</h2>
+  <div class="grid grid-3">
+    <div class="card metric" style="margin:0"><div class="num">~6 hrs</div><div class="lbl">owner admin time saved per week — late-night DM replies and "what's on tap" updates handled automatically</div><div class="cap">illustrative</div></div>
+    <div class="card metric" style="margin:0"><div class="num">&lt;2 min</div><div class="lbl">first response to a private-event inquiry, day or night, vs. hours or a missed reply</div><div class="cap">illustrative</div></div>
+    <div class="card metric" style="margin:0"><div class="num">0</div><div class="lbl">stale tap lists — the public list is the live list, always</div><div class="cap">by design</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--faint)">Why these are credible: faster lead response is one of the most consistent findings in sales research, and the admin hours come from tasks the agent removes entirely. On a live account I'd instrument all three and report the real numbers — measured, not asserted.</p>
+
+  <h2>Why me for this</h2>
+  <div class="card">
+    <p>I'm a fermentation scientist who ships software. I ran yeast and microbiology at the <strong>ASBC</strong> (Microbiology committee, via White Labs), was a <strong>Yeast Specialist at New Belgium</strong>, and worked as a <strong>Head Distiller</strong> — then I taught myself to build agentic AI, software, and websites, and now I ship them. So I speak both languages: I understand a brewer's actual day, and I can build the system without a translation layer or a five-person agency markup. <span class="motif">fermentation × intelligence × code</span>.</p>
+  </div>
+
+  <h2>How an engagement is scoped</h2>
+  <div class="tiers">
+    <div class="tier">
+      <div class="name">Diagnostic</div>
+      <div class="price">Half-day</div>
+      <ul>
+        <li>Walk the floor, map the repetitive work</li>
+        <li>Pinpoint the highest-ROI automation</li>
+        <li>A one-page plan you own, build it with anyone</li>
+      </ul>
+    </div>
+    <div class="tier feature">
+      <div class="name">Build · most popular</div>
+      <div class="price">Fixed scope</div>
+      <ul>
+        <li>Site refresh + live tap list</li>
+        <li>AI agent on web + SMS</li>
+        <li>Lead capture + weekly email draft</li>
+        <li>Trained on your data, in your voice</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <div class="name">Care</div>
+      <div class="price">Monthly</div>
+      <ul>
+        <li>Hosting, monitoring, updates</li>
+        <li>Tune the agent as you grow</li>
+        <li>Add channels (reservations, loyalty)</li>
+      </ul>
+    </div>
+  </div>
+  <p style="font-size:13.5px;color:var(--faint)">Pricing shared after the Diagnostic, scoped to the actual build — no surprise retainers.</p>
+
+  <div class="cta">
+    <p class="kicker" style="color:var(--teal)">live // let's talk</p>
+    <h2>Want this for your taproom?</h2>
+    <p style="max-width:540px;margin:0 auto 6px">I'll do the half-day Diagnostic first so you see the plan before you spend on the build. If it's not worth it, I'll tell you.</p>
+    <a class="btn" href="https://mycoai.net/#book" target="_blank" rel="noopener">Book a free 30-min call →</a>
+  </div>
+
+  <div class="foot">
+    <span>MycoAI · Guy Stewart · Asheville, NC</span>
+    <span>fermentation × intelligence × code

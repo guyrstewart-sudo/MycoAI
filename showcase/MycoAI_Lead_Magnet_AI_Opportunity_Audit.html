@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f4f1ea">
+<title>The 20-Minute AI Opportunity Audit for Craft Beverage | MycoAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --light:#f4f1ea;--paper:#fbfaf6;--ink:#161e2e;--body:#3a4150;--faint:#6a7286;
+  --teal:#02909f;--teal-deep:#016170;--gold:#c47d2a;--gold-bright:#e8a33d;--navy:#161E46;
+  --line:rgba(20,30,46,.12);--line2:rgba(20,30,46,.22);
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--light);color:var(--body);font-family:var(--font-body);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:840px;margin:0 auto;padding:48px 30px 80px}
+.kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+h1{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;line-height:1.08;font-size:clamp(28px,4.6vw,40px);color:var(--ink);margin:0 0 14px}
+h2{font-family:var(--font-display);font-weight:600;font-size:21px;color:var(--ink);margin:0}
+h3{font-family:var(--font-body);font-weight:600;font-size:15px;color:var(--ink);margin:0 0 4px}
+p{margin:0 0 14px;font-size:15.5px}
+.lede{font-size:17px;color:var(--ink)}
+strong{color:var(--ink);font-weight:600}
+em{color:var(--teal-deep);font-style:italic}
+a{color:var(--teal-deep);text-decoration:none;font-weight:500}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:34px;padding-bottom:18px;border-bottom:2px solid var(--line)}
+.brandbar svg{height:42px;width:auto}
+.cred{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.7}
+.intro{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:0 0 28px}
+.intro p{margin:0;font-size:14.5px}
+.step{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:30px 0 6px;display:flex;align-items:center;gap:10px}
+.step::before{content:"";width:26px;height:1.5px;background:var(--gold)}
+.sec{margin:6px 0 22px;break-inside:avoid}
+.q{font-size:14px;color:var(--faint);margin:0 0 12px}
+table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:14.5px}
+th{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:0 8px 8px;border-bottom:1.5px solid var(--line2)}
+th.c,td.c{text-align:center}
+td{padding:11px 8px;border-bottom:1px solid var(--line);color:var(--body);vertical-align:middle}
+td b{color:var(--ink)}
+.box{display:inline-block;width:26px;height:24px;border:1.5px solid var(--teal-deep);border-radius:5px;background:var(--paper)}
+.scorebox{display:inline-block;width:42px;height:24px;border:1.5px solid var(--gold);border-radius:5px;background:#fff}
+.tasklist{list-style:none;padding:0;margin:0}
+.tasklist li{position:relative;padding:10px 0 10px 34px;font-size:15px;border-bottom:1px solid var(--line)}
+.tasklist li::before{content:"";position:absolute;left:2px;top:12px;width:16px;height:16px;border:1.5px solid var(--teal-deep);border-radius:4px;background:var(--paper)}
+.tasklist li b{color:var(--ink)}
+.rubric{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:14px 0}
+.rubric ol{margin:0;padding-left:20px}
+.rubric li{font-size:14.5px;margin-bottom:8px}
+.score-key{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media(max-width:680px){.score-key{grid-template-columns:1fr}}
+.sk{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.sk .r{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:4px}
+.sk.hot .r{color:var(--gold)}
+.sk p{font-size:13px;margin:0}
+.winner{border:1.5px dashed var(--gold);border-radius:12px;padding:18px 22px;margin:16px 0;background:#fcf6ee}
+.winner .blank{display:block;border-bottom:1.5px solid var(--line2);height:26px;margin-top:10px}
+.cta{margin-top:34px;background:var(--navy);border-radius:14px;padding:30px 28px;color:#dfe4f0;text-align:center}
+.cta h2{color:#fff;margin-bottom:8px}
+.cta p{color:#b9c1d4;font-size:15px;max-width:520px;margin:0 auto 14px}
+.btn{display:inline-block;font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#08110b;background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);padding:13px 24px;border-radius:10px;font-weight:500}
+.foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media print{body{background:#fff}.wrap{padding:24px}.sec,.rubric,.winner,.cta{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brandbar">
+    <svg viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif" aria-label="MycoAI">
+      <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#02909f"/><stop offset="1" stop-color="#016170"/></linearGradient></defs>
+      <path d="M 225.36 97.24 A 92 92 0 1 0 225.36 202.76" fill="none" stroke="url(#cg)" stroke-width="40" stroke-linecap="round"/>
+      <circle cx="183" cy="150" r="31" fill="#E9B74A"/><circle cx="183" cy="150" r="31" fill="none" stroke="#caa23f" stroke-width="2"/>
+      <text x="300" y="168" font-size="74" font-weight="700" fill="#161E46" letter-spacing="-1">Myco<tspan fill="#02909f">AI</tspan></text>
+      <text x="302" y="205" font-size="19" font-weight="400" fill="#6A7286" letter-spacing="3">FERMENTATION · AI · CODE</text>
+    </svg>
+    <div class="cred">brewer who builds<br>the software too</div>
+  </div>
+
+  <p class="kicker">worksheet // 20 minutes, pen + this page</p>
+  <h1>The 20-minute AI opportunity audit for craft beverage</h1>
+  <p class="lede">You don't have an AI problem. You have a "the same boring task eats six hours a week" problem. This worksheet finds the one task worth automating first — the highest return for the least disruption — so you spend on the thing that actually pays back.</p>
+
+  <div class="intro">
+    <p>No jargon, no hype. Work down the four steps, score honestly, and you'll finish with a ranked shortlist and a clear #1. Built by a fermentation operator who now ships AI and software — so the recommendations fit how a brewery or distillery actually runs, not how a tech demo wishes it did.</p>
+  </div>
+
+  <div class="step">Step 1</div>
+  <div class="sec">
+    <h3>Where does the time actually go?</h3>
+    <p class="q">Check every task someone on your team does that's <em>repetitive, rules-based, and doesn't require a human's judgment.</em> These are the candidates.</p>
+    <ul class="tasklist">
+      <li><b>Answering the same customer questions</b> — hours, taps, tours, events, allergens, shipping</li>
+      <li><b>Replying to event / wholesale / distribution inquiries</b> by hand</li>
+      <li><b>Updating the website, tap list, or menu</b> across multiple places</li>
+      <li><b>Writing social posts &amp; the weekly email</b> from scratch</li>
+      <li><b>Logging production / QC data</b> into spreadsheets by hand</li>
+      <li><b>Pulling sales or inventory numbers</b> into a report each week</li>
+      <li><b>Onboarding / scheduling staff</b> and answering their repeat questions</li>
+      <li><b>Chasing reviews, reservations, or follow-ups</b></li>
+    </ul>
+  </div>
+
+  <div class="step">Step 2</div>
+  <div class="sec">
+    <h3>Score your checked tasks</h3>
+    <p class="q">List your top candidates from Step 1. Score each column 1–5 (5 = high). Add them up — highest total wins.</p>
+    <table>
+      <thead><tr><th style="width:34%">Task</th><th class="c">Hours/wk it eats</th><th class="c">How repetitive (1–5)</th><th class="c">Low risk if AI helps (1–5)</th><th class="c">Total</th></tr></thead>
+      <tbody>
+        <tr><td><span class="blank" style="border-bottom:1.5px solid var(--line2);display:block;height:18px"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td></tr>
+        <tr><td><span class="blank" style="border-bottom:1.5px solid var(--line2);display:block;height:18px"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td></tr>
+        <tr><td><span class="blank" style="border-bottom:1.5px solid var(--line2);display:block;height:18px"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td></tr>
+        <tr><td><span class="blank" style="border-bottom:1.5px solid var(--line2);display:block;height:18px"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td></tr>
+      </tbody>
+    </table>
+    <p class="q" style="margin-top:10px">Rule of thumb: <em>repetitive + low-risk + many hours</em> = automate first. A high-judgment, high-stakes task (your recipe, your hiring) is the <strong>last</strong> place to start, not the first.</p>
+  </div>
+
+  <div class="step">Step 3</div>
+  <div class="sec">
+    <h3>What data are you already sitting on?</h3>
+    <p class="q">AI is only as good as what you feed it. Check what you already have — it's usually more than you think.</p>
+    <ul class="tasklist">
+      <li><b>Point-of-sale / sales history</b> (Square, Toast, etc.)</li>
+      <li><b>Customer emails or a mailing list</b></li>
+      <li><b>Production &amp; QC logs</b> (even messy spreadsheets count)</li>
+      <li><b>Your own FAQs, menus, and SOPs</b> written down somewhere</li>
+      <li><b>Inventory / ordering records</b></li>
+    </ul>
+  </div>
+
+  <div class="step">Step 4</div>
+  <div class="sec">
+    <h3>Read your score</h3>
+    <div class="score-key">
+      <div class="sk"><div class="r">Total 8–10</div><p>Worth doing eventually. Keep it on the list, but it's not your first move.</p></div>
+      <div class="sk hot"><div class="r">Total 11–13</div><p>Strong candidate. Real hours back with manageable effort — shortlist it.</p></div>
+      <div class="sk hot"><div class="r">Total 14–15</div><p>Start here. High return, low risk, repetitive. This is your flagship automation.</p></div>
+    </div>
+    <div class="winner">
+      <h3>My highest-scoring task to automate first:</h3>
+      <span class="blank"></span>
+      <p class="q" style="margin:12px 0 0">Estimated hours back per week: ______ &nbsp;×&nbsp; 50 weeks = ______ hours/year of your team's time.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <p class="kicker" style="color:#37d6b0">step 5 // the easy part</p>
+    <h2>Got your #1? Let's build it.</h2>
+    <p>Bring this filled-out sheet to a free 30-minute call. I'll tell you straight whether your top task is worth automating, roughly what it takes, and how I'd build it — or whether you should skip it. No pitch deck, just a plan.</p>
+    <a class="btn" href="https://mycoai.net/#book" target="_blank" rel="noopener">Book your free 30-min call →</a>
+  </div>
+
+  <div class="foot">
+    <span>MycoAI · Guy Stewart · mycoai.net</span>
+    <span>fermentation × intelligence × code</span>
+ 
