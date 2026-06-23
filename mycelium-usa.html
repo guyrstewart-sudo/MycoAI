@@ -1034,7 +1034,7 @@ function drawLabels(){
       strokeWeight(1.3);
       line(c.x, c.y, it.x, it.y);
     }
-    const fc = c.special ? mix(asheRGB, [255,255,255], 0.35) : mix(cityRGB, [255,255,255], 0.45);
+    const fc = c.special ? [46, 190, 159] : mix(cityRGB, [255,255,255], 0.45);   // Asheville label = teal swatch
     const fa = c.special ? 255 : (c.mag >= 2 ? 225 : 185);
     textAlign(it.ha, it.va);
     textSize(it.size);
