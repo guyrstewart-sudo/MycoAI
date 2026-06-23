@@ -101,8 +101,8 @@ const PRESETS = {
 
 const DEFAULTS = {
   seed: 7,
-  spores: 7,
-  growthField: 11000,
+  spores: 4,
+  growthField: 3800,
   reach: 58,
   fineness: 1.05,
   fusion: 18,
@@ -113,7 +113,7 @@ const DEFAULTS = {
   dish: 1,
   cityGlow: 1.4,
   labels: 1,
-  labelScale: 5.8,
+  labelScale: 4.64,
   labelOutline: 3.0,
   outlineColor: '#0a0f0c',
   flow: 200,
@@ -760,28 +760,46 @@ function drawFlowerOfLife(g){
     if (p.x < minx) minx = p.x; if (p.x > maxx) maxx = p.x;
     if (p.y < miny) miny = p.y; if (p.y > maxy) maxy = p.y;
   }
-  const R  = (maxx - minx) / 10;       // circle radius -> ~10 circles across the country
+  const R  = (maxx - minx) / 9;        // circle radius -> ~9 circles across the country
   const dx = R, dy = R * Math.sqrt(3) / 2;   // hexagonal packing = overlapping Flower-of-Life circles
-  const col = mix(tipRGB, [120, 235, 205], 0.6);  // luminous mint, harmonised with the foxfire tips
+  const hyL  = mix(hyphaRGB, [255, 255, 255], 0.25);  // bright mycelial strand
+  const glow = tipRGB;                                 // foxfire glow
+
+  // collect lattice centers (hex grid) once
+  const centers = [];
+  for (let y = miny - R, row = 0; y <= maxy + R; y += dy, row++){
+    const xoff = (row % 2) ? dx / 2 : 0;
+    for (let x = minx - R + xoff; x <= maxx + R; x += dx) centers.push([x, y]);
+  }
 
   ctx.save();
-  // clip everything to the US shape so the geometry only blooms inside the country
+  // clip everything to the US silhouette so the geometry is the country
   ctx.beginPath();
   ctx.moveTo(POLY[0].x, POLY[0].y);
   for (let i = 1; i < POLY.length; i++) ctx.lineTo(POLY[i].x, POLY[i].y);
   ctx.closePath();
   ctx.clip();
-  ctx.globalCompositeOperation = 'lighter';   // additive: overlaps glow into petal rosettes
   g.noFill();
-  g.strokeWeight(1.15);
-  let row = 0;
-  for (let y = miny - R; y <= maxy + R; y += dy, row++){
-    const xoff = (row % 2) ? dx / 2 : 0;
-    for (let x = minx - R + xoff; x <= maxx + R; x += dx){
-      g.stroke(col[0], col[1], col[2], 20);
-      g.circle(x, y, 2 * R);
-    }
+
+  // pass 1 — soft foxfire halo along every circle (additive glow)
+  ctx.globalCompositeOperation = 'lighter';
+  g.strokeWeight(7);
+  for (const [x, y] of centers){ g.stroke(glow[0], glow[1], glow[2], 24); g.circle(x, y, 2 * R); }
+
+  // pass 2 — crisp bright hyphal strands forming the lattice
+  ctx.globalCompositeOperation = 'source-over';
+  g.strokeWeight(1.8);
+  for (const [x, y] of centers){ g.stroke(hyL[0], hyL[1], hyL[2], 175); g.circle(x, y, 2 * R); }
+
+  // pass 3 — luminous fruiting nodes at every lattice vertex
+  ctx.globalCompositeOperation = 'lighter';
+  g.noStroke();
+  for (const [x, y] of centers){
+    if (x < minx || x > maxx || y < miny || y > maxy) continue;
+    g.fill(glow[0], glow[1], glow[2], 42); g.circle(x, y, 15);
+    g.fill(255, 255, 255, 165);            g.circle(x, y, 4.2);
   }
+  ctx.globalCompositeOperation = 'source-over';
   ctx.restore();
 }
 
@@ -942,70 +960,96 @@ function labelAnchor(c, off){
 }
 
 function drawLabels(){
-  const LS = params.labelScale;          // overall label-size multiplier
-  const ow = params.labelOutline;        // outline width (0 = none → soft shadow instead)
+  const LS = params.labelScale;
+  const ow = params.labelOutline;
   const oc = outlineRGB;
   push();
   textFont('Poppins, sans-serif');
   textStyle(NORMAL);
   strokeJoin(ROUND);
+
+  // phase 1: build each label's box at its natural anchor
+  const items = [];
   for (let i = 0; i < CITY_SCREEN.length; i++){
     const c = CITY_SCREEN[i];
     if (!c.special && !params.labels) continue;
-
     const baseSize = c.special ? 18.5 : (c.mag >= 3 ? 14.5 : (c.mag === 2 ? 13 : 11.5));
     const baseOff  = c.special ? 17   : (c.mag >= 3 ? 18   : (c.mag === 2 ? 15 : 12));
     const size = baseSize * LS;
-    const off  = baseOff;                 // keep labels tight to the dot so big text still clears the rim
-    const a = labelAnchor(c, off);
-
-    // keep the entire label inside the dish so big text never overlaps the rim
     textSize(size);
-    {
-      const tw = textWidth(c.n), th = size;
-      let bx0, bx1, by0, by1;
-      if (a.ha === LEFT){ bx0 = a.x; bx1 = a.x + tw; }
-      else if (a.ha === RIGHT){ bx0 = a.x - tw; bx1 = a.x; }
-      else { bx0 = a.x - tw/2; bx1 = a.x + tw/2; }
-      if (a.va === TOP){ by0 = a.y; by1 = a.y + th; }
-      else if (a.va === BOTTOM){ by0 = a.y - th; by1 = a.y; }
-      else { by0 = a.y - th/2; by1 = a.y + th/2; }
-      const corners = [[bx0,by0],[bx1,by0],[bx0,by1],[bx1,by1]];
-      let maxD = 0, fx = a.x, fy = a.y;
-      for (const p of corners){ const d = Math.hypot(p[0]-CX, p[1]-CY); if (d > maxD){ maxD = d; fx = p[0]; fy = p[1]; } }
-      const RLIM = DISH_R - 78;            // padding so labels clear the glass rim
-      if (maxD > RLIM){
-        const ux = (fx-CX)/maxD, uy = (fy-CY)/maxD, pull = maxD - RLIM;
-        a.x -= ux * pull; a.y -= uy * pull;
+    const a = labelAnchor(c, baseOff);
+    items.push({ c, size, tw: textWidth(c.n), th: size, ha: a.ha, va: a.va,
+                 x: a.x, y: a.y, pri: c.special ? 100 : c.mag });
+  }
+  const box = (it) => {
+    let x0, x1, y0, y1;
+    if (it.ha === LEFT){ x0 = it.x; x1 = it.x + it.tw; }
+    else if (it.ha === RIGHT){ x0 = it.x - it.tw; x1 = it.x; }
+    else { x0 = it.x - it.tw/2; x1 = it.x + it.tw/2; }
+    if (it.va === TOP){ y0 = it.y; y1 = it.y + it.th; }
+    else if (it.va === BOTTOM){ y0 = it.y - it.th; y1 = it.y; }
+    else { y0 = it.y - it.th/2; y1 = it.y + it.th/2; }
+    return { x0, y0, x1, y1, cx: (x0+x1)/2, cy: (y0+y1)/2 };
+  };
+  const clampInside = (it) => {
+    const b = box(it);
+    const cs = [[b.x0,b.y0],[b.x1,b.y0],[b.x0,b.y1],[b.x1,b.y1]];
+    let maxD = 0, fx = it.x, fy = it.y;
+    for (const p of cs){ const d = Math.hypot(p[0]-CX, p[1]-CY); if (d > maxD){ maxD = d; fx = p[0]; fy = p[1]; } }
+    const RLIM = DISH_R - 52;
+    if (maxD > RLIM){ const ux = (fx-CX)/maxD, uy = (fy-CY)/maxD, k = maxD - RLIM; it.x -= ux*k; it.y -= uy*k; }
+  };
+  items.forEach(clampInside);
+
+  // phase 2: separate overlapping labels (priority-weighted), re-clamp inside each pass
+  const PAD = 5;
+  for (let iter = 0; iter < 80; iter++){
+    let moved = false;
+    for (let i = 0; i < items.length; i++){
+      for (let j = i + 1; j < items.length; j++){
+        const A = box(items[i]), B = box(items[j]);
+        const ox = Math.min(A.x1, B.x1) - Math.max(A.x0, B.x0) + PAD;
+        const oy = Math.min(A.y1, B.y1) - Math.max(A.y0, B.y0) + PAD;
+        if (ox > 0 && oy > 0){
+          let dx = 0, dy = 0;
+          if (ox < oy) dx = (A.cx < B.cx ? -1 : 1) * ox;
+          else         dy = (A.cy < B.cy ? -1 : 1) * oy;
+          const tot = items[i].pri + items[j].pri;
+          const wi = items[j].pri / tot, wj = items[i].pri / tot;
+          items[i].x += dx * wi; items[i].y += dy * wi;
+          items[j].x -= dx * wj; items[j].y -= dy * wj;
+          moved = true;
+        }
       }
     }
+    items.forEach(clampInside);
+    if (!moved) break;
+  }
 
+  // phase 3: draw the resolved labels
+  for (const it of items){
+    const c = it.c;
     if (c.special){
-      // foxfire leader line to Asheville
       stroke(asheRGB[0], asheRGB[1], asheRGB[2], 150);
       strokeWeight(1.3);
-      line(c.x, c.y, a.x, a.y);
+      line(c.x, c.y, it.x, it.y);
     }
-
     const fc = c.special ? mix(asheRGB, [255,255,255], 0.35) : mix(cityRGB, [255,255,255], 0.45);
     const fa = c.special ? 255 : (c.mag >= 2 ? 225 : 185);
-    textAlign(a.ha, a.va);
-    textSize(size);
-
+    textAlign(it.ha, it.va);
+    textSize(it.size);
     if (ow > 0){
-      // crisp outline in the chosen edge color
       stroke(oc[0], oc[1], oc[2], 240);
-      strokeWeight(ow * (0.55 + 0.45 * LS));   // grows a little with label size
+      strokeWeight(ow * (0.55 + 0.45 * LS));
       fill(fc[0], fc[1], fc[2], fa);
-      text(c.n, a.x, a.y);
+      text(c.n, it.x, it.y);
       noStroke();
     } else {
-      // fallback: soft drop shadow for legibility
       noStroke();
       fill(0, 0, 0, c.special ? 150 : 130);
-      text(c.n, a.x + 1, a.y + 1.4);
+      text(c.n, it.x + 1, it.y + 1.4);
       fill(fc[0], fc[1], fc[2], fa);
-      text(c.n, a.x, a.y);
+      text(c.n, it.x, it.y);
     }
   }
   pop();
