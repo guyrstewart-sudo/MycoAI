@@ -1301,7 +1301,7 @@ if(!RM && innerWidth>680){
   }
   var FRAME_MS=1000/30;
   function loop(now){ if(!running)return; raf=requestAnimationFrame(loop); if(now-lastFrame<FRAME_MS)return; lastFrame=now; t+=2; renderFrame(); }
-  function resize(){ var iw=window.innerWidth, ih=window.innerHeight; if(iw===lastW && canvas.width)return; lastW=iw; DPR=Math.min(window.devicePixelRatio||1, small?1.5:2); W=iw; H=ih; canvas.width=W*DPR; canvas.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); spriteCache={}; build(); if(STATIC){ t+=20; renderFrame(); } }
+  function resize(){ var iw=window.innerWidth, ih=window.innerHeight; if(iw===lastW && canvas.width)return; lastW=iw; DPR=Math.min(window.devicePixelRatio||1, 1); W=iw; H=ih; canvas.width=W*DPR; canvas.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); spriteCache={}; build(); if(STATIC){ t+=20; renderFrame(); } }
   var rT; window.addEventListener('resize',function(){ clearTimeout(rT); rT=setTimeout(resize,180); });
   document.addEventListener('visibilitychange',function(){ if(document.hidden){ running=false; if(raf)cancelAnimationFrame(raf); } else if(!STATIC&&!running){ running=true; lastFrame=0; raf=requestAnimationFrame(loop); } });
   resize();
