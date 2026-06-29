@@ -133,10 +133,10 @@ if(!RM && matchMedia('(pointer:fine)').matches){
   typeLine();
 })();
 
-/* ---- border beam on terminal ---- */
-if(!RM && innerWidth>680){
-  let beam=0,braf=null,bvis=true; const term=document.querySelector('.term');
-  function spin(){ beam=(beam+0.6)%360; term&&term.style.setProperty('--beam',beam+'deg'); braf=requestAnimationFrame(spin); }
+/* ---- border beam on terminal (30fps, skip touch) ---- */
+if(!RM && innerWidth>680 && !matchMedia('(pointer:coarse)').matches){
+  let beam=0,braf=null,bvis=true,blast=0; const term=document.querySelector('.term');
+  function spin(now){ braf=requestAnimationFrame(spin); if(now-blast<33)return; blast=now; beam=(beam+1.2)%360; term&&term.style.setProperty('--beam',beam+'deg'); }
   function bStart(){ if(!braf&&bvis) braf=requestAnimationFrame(spin); }
   function bStop(){ if(braf){cancelAnimationFrame(braf);braf=null;} }
   if(term) new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?bStart():bStop()),{threshold:0}).observe(term);
