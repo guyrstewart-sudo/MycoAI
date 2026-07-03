@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brewery QC Dashboard — Done-for-You Build ($1.5k–3k) | MycoAI</title>
+<meta name="description" content="A concierge brewery QC dashboard wired to your tanks — automated capture, per-style spec checks, out-of-spec alerts, and an optional AI agent. Built by a former New Belgium yeast specialist. Fixed fee, $1.5k–3k.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/services/qc-dashboard/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/services/qc-dashboard/">
+<meta property="og:title" content="Brewery QC Dashboard — Done-for-You Build">
+<meta property="og:description" content="Automated capture, spec-checks, and out-of-spec alerts wired to your tanks — plus an optional AI agent that compares each batch to your own history. Fixed fee, $1.5k–3k.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service",
+"serviceType":"Brewery QC dashboard — done-for-you build",
+"name":"Brewery QC Dashboard",
+"url":"https://mycoai.net/services/qc-dashboard/",
+"description":"A concierge quality-control dashboard for small breweries — automated data capture, per-style spec checks, out-of-spec alerting, and an optional AI agent that compares each batch to your own history.",
+"provider":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]},
+"areaServed":["Asheville","United States"],
+"offers":{"@type":"Offer","priceCurrency":"USD","price":"1500","priceSpecification":{"@type":"PriceSpecification","minPrice":"1500","maxPrice":"3000","priceCurrency":"USD"},"description":"Fixed-fee one-time build, $1,500–3,000 depending on tanks, styles, and integrations."}}
+</script>
+<style>
+/* ---- QC dashboard service · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:116px 0 4px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces',serif;font-size:clamp(2.1rem,4.6vw,3.5rem);font-weight:600;letter-spacing:-.03em;line-height:1.04;margin-top:16px;max-width:17ch;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:64ch;color:var(--muted);font-size:clamp(1.04rem,1.6vw,1.22rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+.headmeta{display:flex;gap:22px;flex-wrap:wrap;align-items:center;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--faint)}
+.headmeta b{color:var(--teal);font-weight:500}
+.headcta{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.microcta{margin-top:14px;font-size:13px;color:var(--faint)}
+
+.sec{position:relative;z-index:2;padding:56px 0}
+.sec.tight{padding:34px 0}
+.lede{max-width:760px}
+.lede h2{margin-top:14px}
+.lede p{color:var(--muted);font-size:1.06rem;line-height:1.66;margin-top:18px;max-width:66ch}
+.lede p b{color:var(--ink);font-weight:600}
+
+/* deliver loop grid */
+.deliver{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px}
+.dcard{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.dcard .dstep{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.dcard h3{font-size:1.14rem;font-weight:600;margin:8px 0 8px;letter-spacing:-.01em}
+.dcard p{font-size:13.5px;color:var(--muted);line-height:1.55}
+
+/* included scope */
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;margin-top:10px}
+.scope div{font-size:14.5px;color:var(--muted);padding-left:24px;position:relative;line-height:1.5}
+.scope div::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:700}
+.scope div b{color:var(--ink);font-weight:600}
+
+/* process steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.pstep{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.pstep .pn{font-family:'Fraunces',serif;font-size:2rem;font-weight:600;color:var(--gold);line-height:1}
+.pstep h3{font-size:1.12rem;font-weight:600;margin:10px 0 7px}
+.pstep p{font-size:13.5px;color:var(--muted);line-height:1.55}
+
+/* pricing */
+.price-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
+.pricecard{background:var(--s1);border:1px solid rgba(224,164,74,.4);border-radius:20px;padding:32px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 24px 50px -30px rgba(224,164,74,.3)}
+.pricecard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.pricecard .pl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.pricecard .pnum{font-family:'Fraunces',serif;font-size:clamp(2.6rem,6vw,3.6rem);font-weight:600;color:var(--ink);line-height:1.02;margin:8px 0 2px}
+.pricecard .pnum small{font-size:.9rem;color:var(--faint);font-family:'JetBrains Mono',monospace;font-weight:400}
+.pricecard .pdesc{color:var(--muted);font-size:14.5px;margin:6px 0 20px;max-width:44ch;line-height:1.55}
+.pricecard .plist{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
+.pricecard .plist li{font-size:13.6px;color:var(--muted);padding-left:20px;position:relative}
+.pricecard .plist li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.pricecard .btn{width:100%;justify-content:center}
+.priceside{background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:28px 30px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.priceside .ps-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.priceside h3{font-size:1.18rem;font-weight:600;margin-bottom:10px;letter-spacing:-.01em}
+.priceside p{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:12px}
+.priceside p b{color:var(--ink);font-weight:600}
+.priceside .ongoing{border-top:1px solid var(--line);padding-top:14px;margin-top:14px;font-size:13.5px;color:var(--faint)}
+.priceside .ongoing b{color:var(--teal);font-weight:600}
+
+/* fit two-col */
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.fitcard{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:26px 28px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.fitcard h3{font-size:1.12rem;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.fitcard.yes h3{color:var(--teal)}.fitcard.no h3{color:var(--gold)}
+.fitcard ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fitcard li{font-size:14px;color:var(--muted);padding-left:22px;position:relative;line-height:1.5}
+.fitcard.yes li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:700}
+.fitcard.no li::before{content:"—";position:absolute;left:0;color:var(--faint);font-weight:700}
+
+/* credibility */
+.credbar{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:26px 30px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.credbar .cav{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--teal),var(--teal-dim));display:grid;place-items:center;color:#04130f;font-family:'Fraunces',serif;font-weight:700;font-size:24px;flex:none}
+.credbar .ct{flex:1;min-width:240px}
+.credbar .ct p{color:var(--muted);font-size:14.5px;line-height:1.6}
+.credbar .ct b{color:var(--ink);font-weight:600}
+
+/* faq */
+.faq{display:grid;gap:14px;max-width:820px}
+.faq-item{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:20px 24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.faq-item h3{font-family:'Fraunces',serif;font-size:1.12rem;font-weight:600;color:var(--ink);margin-bottom:7px;letter-spacing:-.005em}
+.faq-item p{color:var(--muted);font-size:14.6px;line-height:1.62}
+.faq-item p a{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3)}
+
+@media(max-width:1000px){.deliver{grid-template-columns:1fr 1fr}.price-wrap{grid-template-columns:1fr}}
+@media(max-width:760px){.steps{grid-template-columns:1fr}.scope{grid-template-columns:1fr}.fit{grid-template-columns:1fr}}
+@media(max-width:520px){.deliver{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services" class="cur">Services</a>
+        <a href="/calculators/">Calculators</a>
+        <a href="/guides/brewery-qc-automation/">Guides</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Book a call →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/brewery-qc-automation/">Guides</a>
+  <a href="https://mycoai.net/#contact">Book a call →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="https://mycoai.net/#services">Services</a><span>/</span>QC Dashboard
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Done-for-you · fixed fee</span>
+    <h1 class="ptitle">A QC dashboard <span class="grad">wired to your tanks.</span></h1>
+    <p class="psub">Stop finding out a batch went wrong after it's packaged. I build a quality-control dashboard that <b>captures your readings, checks every batch against your own spec bands, and alerts you the moment one drifts</b> — plus an optional AI agent that tells you <em>why</em>. Built by a former New Belgium yeast specialist, not a generic dev shop.</p>
+    <div class="headmeta">
+      <span><b>$1.5k–3k</b> one-time build</span>
+      <span><b>2–4 weeks</b> to live</span>
+      <span><b>Your data</b> stays yours</span>
+    </div>
+    <div class="headcta">
+      <a href="https://mycoai.net/#contact" class="btn btn-primary">Book a scoping call →</a>
+      <a href="mailto:mycoai@mycoai.net?subject=QC%20Dashboard%20inquiry" class="btn btn-ghost">Email me directly</a>
+    </div>
+    <p class="microcta">Free 30-minute scoping call — no obligation, and you'll leave with a clearer QC plan either way.</p>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="sec">
+  <div class="wrap">
+    <div class="lede">
+      <span class="kicker">The problem</span>
+      <h2>Spreadsheets don't catch a batch drifting out of spec.</h2>
+      <p>A small brewery runs QC on a tangle of spreadsheets and gut feel. Readings get transcribed wrong, nobody sees a batch trending off until it's in cans, and yeast health is a guess instead of a number. One dumped batch costs more than this entire build — and the ones you sell off-spec quietly cost your reputation.</p>
+      <p>The fix isn't more software you won't use. It's a small, focused system that runs the <b>capture → check → alert → learn</b> loop automatically, wired to how <em>you</em> actually brew. That's what this is.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="sec tight">
+  <div class="wrap">
+    <span class="kicker">What you get</span>
+    <h2 style="margin:14px 0 26px">The whole loop, running whether or not anyone remembers to run it.</h2>
+    <div class="deliver">
+      <div class="dcard">
+        <div class="dstep">01 · Capture</div>
+        <h3>Readings in, once</h3>
+        <p>Gravity, temp, pH, DO, and pitch data captured in one place — entered once, never re-keyed from a clipboard.</p>
+      </div>
+      <div class="dcard">
+        <div class="dstep">02 · Check</div>
+        <h3>Per-style spec bands</h3>
+        <p>Every batch checked against bands built from <em>your</em> history — attenuation-vs-target as the highest-signal alarm.</p>
+      </div>
+      <div class="dcard">
+        <div class="dstep">03 · Alert</div>
+        <h3>The right person, in time</h3>
+        <p>Out-of-spec batches ping you by email, Slack, or SMS — matched to severity, tuned to avoid alarm fatigue.</p>
+      </div>
+      <div class="dcard">
+        <div class="dstep">04 · Learn</div>
+        <h3>An agent, when ready</h3>
+        <p>Optional AI agent compares each batch to your baseline: <em>"Batch 12 is attenuating 8% slow — check pitch rate."</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INCLUDED -->
+<section class="sec tight">
+  <div class="wrap">
+    <div class="lede">
+      <span class="kicker">What's included</span>
+      <h2 style="margin-bottom:22px">Every build ships with:</h2>
+    </div>
+    <div class="scope">
+      <div><b>A working dashboard</b> — hosted, mobile-friendly, and yours.</div>
+      <div><b>Data capture</b> from your existing sheets or a clean entry form.</div>
+      <div><b>Per-style spec bands</b> set from your own batch history.</div>
+      <div><b>Automated spec checks</b> on every reading, every batch.</div>
+      <div><b>Out-of-spec alerting</b> to email / Slack / SMS by severity.</div>
+      <div><b>Attenuation &amp; yeast-health tracking</b> (pitch rate, viability, DO).</div>
+      <div><b>You keep your data</b> — full export, no lock-in, no reselling.</div>
+      <div><b>Handoff + training</b> so your team actually uses it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec tight">
+  <div class="wrap">
+    <span class="kicker">How it works</span>
+    <h2 style="margin:14px 0 26px">Three steps, two to four weeks.</h2>
+    <div class="steps">
+      <div class="pstep">
+        <div class="pn">1</div>
+        <h3>Scoping call</h3>
+        <p>A free 30 minutes on your tanks, styles, current QC, and where batches slip. You leave with a clear plan and a fixed quote — no obligation.</p>
+      </div>
+      <div class="pstep">
+        <div class="pn">2</div>
+        <h3>Build</h3>
+        <p>I build the dashboard around your data and styles, set your spec bands from real history, and wire the alerts. You review as it comes together.</p>
+      </div>
+      <div class="pstep">
+        <div class="pn">3</div>
+        <h3>Handoff</h3>
+        <p>Live, tested, and documented, with your team trained to run it. Optional ongoing support and the AI-agent upgrade when you want them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec">
+  <div class="wrap">
+    <span class="kicker">Pricing</span>
+    <h2 style="margin:14px 0 26px">One fixed fee. No surprises.</h2>
+    <div class="price-wrap">
+      <div class="pricecard">
+        <div class="pl">Done-for-you build</div>
+        <div class="pnum">$1,500–3,000 <small>one-time</small></div>
+        <p class="pdesc">A complete QC dashboard, built and handed off. Where you land in the range depends on tank count, number of styles, and how many integrations (Slack, SMS, sensors) you want wired in.</p>
+        <ul class="plist">
+          <li>Everything in "What's included" above</li>
+          <li>Fixed quote after the free scoping call — no scope creep</li>
+          <li>Two to four weeks from kickoff to live</li>
+          <li>Your data stays yours, always</li>
+        </ul>
+        <a href="https://mycoai.net/#contact" class="btn btn-primary">Book a scoping call →</a>
+      </div>
+      <div class="priceside">
+        <div class="ps-k">Is it worth it?</div>
+        <h3>One dumped batch pays for it.</h3>
+        <p>For most small breweries a single off-spec batch — dumped or sold at a loss — costs more than the entire build. Catch <b>one</b> a year earlier and the dashboard has paid for itself several times over.</p>
+        <p>Not sure what off-spec is costing you today? That's exactly the number the scoping call pins down.</p>
+        <div class="ongoing">Want it maintained and watched over time? <b>Optional ongoing support</b> is available after handoff — we scope it once you're live, never before.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIT -->
+<section class="sec tight">
+  <div class="wrap">
+    <span class="kicker">Honest fit</span>
+    <h2 style="margin:14px 0 26px">Who this is — and isn't — for.</h2>
+    <div class="fit">
+      <div class="fitcard yes">
+        <h3>A fit if you…</h3>
+        <ul>
+          <li>Run a nano or small brewery, cidery, or distillery and QC on spreadsheets today</li>
+          <li>Have lost a batch (or nearly) because nobody caught the drift in time</li>
+          <li>Want it built and working now, without becoming a software project</li>
+          <li>Care about owning your data and understanding the numbers</li>
+        </ul>
+      </div>
+      <div class="fitcard no">
+        <h3>Not a fit if you…</h3>
+        <ul>
+          <li>Already run a full production-management platform you're happy with</li>
+          <li>Want an off-the-shelf app with a login and a monthly bill, no customization</li>
+          <li>Aren't capturing any fermentation readings yet (start there first)</li>
+          <li>Need enterprise multi-site rollout — let's talk, but that's a different scope</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDIBILITY -->
+<section class="sec tight">
+  <div class="wrap">
+    <div class="credbar">
+      <div class="cav" aria-hidden="true">G</div>
+      <div class="ct">
+        <p><b>Built by someone who ran it on the floor.</b> I spent seven years as Yeast Specialist at <b>New Belgium Brewing</b>, chaired the <b>ASBC Microbiology</b> committee, and taught for White Labs' professional program — then learned to build the software. You get bench-grade QC thinking and the tooling to run it, from one operator, not a committee.</p>
+      </div>
+      <a href="https://mycoai.net/#about" class="btn btn-ghost">More about me →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec tight">
+  <div class="wrap">
+    <span class="kicker">Questions</span>
+    <h2 style="margin:14px 0 22px">Before you book.</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3>What if my data is a mess right now?</h3>
+        <p>That's normal, and it's step one. If you're capturing readings anywhere — even a rough spreadsheet — we can build on it. If you're not capturing yet, start with the free <a href="/calculators/">calculators</a> and the <a href="/guides/brewery-qc-automation/">QC automation guide</a>, then come back.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do I have to buy the AI agent?</h3>
+        <p>No. The core build is the capture → check → alert loop, which is where most of the value is. The agent (comparing each batch to your baseline) is an optional upgrade you add when you're ready — not a requirement.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Who owns the data and the dashboard?</h3>
+        <p>You do. Full export, no lock-in, and your fermentation data is never resold or shared. In a small industry, that privacy is part of the point.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How is the price fixed if every brewery is different?</h3>
+        <p>The free scoping call is where we nail the scope — tanks, styles, integrations — and I give you a fixed quote in the $1.5k–3k range before any work starts. No hourly billing, no scope creep.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="sec">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Stop finding out too late</span>
+      <h2 style="position:relative;margin-top:14px">Let's build QC that catches it early.</h2>
+      <p>Book a free 30-minute scoping call. We'll look at your tanks and your current QC, and you'll leave with a clear plan and a fixed quote — whether or not you hire me.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="https://mycoai.net/#contact" class="btn btn-primary">Book a scoping call →</a>
+        <a href="/guides/brewery-qc-automation/" class="btn btn-ghost">Read the approach first →</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script>
+/* subpage shell: header scroll + progress + drawer (app.js is homepage-only) */
+(function(){
+  var hdr=document.getElementById('hdr'),prog=document.getElementById('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=document.getElementById('menubtn'),dr=document.getElementById('drawer'),dc=document.getElementById('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>
