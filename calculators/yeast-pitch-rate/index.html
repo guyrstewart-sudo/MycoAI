@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yeast Pitch Rate Calculator (Ale &amp; Lager) | MycoAI</title>
+<meta name="description" content="Free pitch rate calculator for ale and lager. Enter volume, gravity, and target cell density — get cells and grams of yeast. Built by a former New Belgium yeast specialist.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/calculators/yeast-pitch-rate/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/calculators/yeast-pitch-rate/">
+<meta property="og:title" content="Yeast Pitch Rate Calculator (Ale &amp; Lager) | MycoAI">
+<meta property="og:description" content="Enter volume, gravity, and target cell density — get the exact cells, liquid packs, and grams of dry yeast to pitch. From a former New Belgium yeast specialist.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"Yeast Pitch Rate Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/calculators/yeast-pitch-rate/",
+"description":"Calculate the yeast pitch rate for ale and lager from batch volume, original gravity, and target cell density. Returns total cells, liquid yeast packs, grams of dry yeast, and starter growth needed.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<style>
+/* ---- yeast pitch rate calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces',serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/" class="cur">Calculators</a>
+        <a href="https://mycoai.net/#projects">Work menu</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="https://mycoai.net/#projects">Work menu</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/calculators/">Calculators</a><span>/</span>Yeast Pitch Rate
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">Yeast Pitch Rate <span class="grad">Calculator</span></h1>
+    <p class="psub">Enter your batch volume, original gravity, and target cell density — get the exact <b>cells to pitch</b>, <b>liquid yeast packs</b>, <b>grams of dry yeast</b>, and <b>starter growth</b> needed. Built on the standard <span class="mono">cells = rate × volume × °Plato</span> formula by a former New Belgium yeast specialist.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="Pitch rate inputs">
+        <div class="cp-k">Your batch</div>
+
+        <div class="field">
+          <label for="vol">Batch volume <span class="hint">(into the fermenter)</span></label>
+          <div class="inrow">
+            <input type="number" id="vol" value="5" min="0" step="0.5" inputmode="decimal" aria-label="Batch volume">
+            <div class="seg" role="group" aria-label="Volume unit">
+              <button type="button" data-vol="gal" class="on">gal</button>
+              <button type="button" data-vol="L">L</button>
+            </div>
+          </div>
+          <div class="conv" id="volConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="grav">Original gravity <span class="hint">(OG of the wort)</span></label>
+          <div class="inrow">
+            <input type="number" id="grav" value="1.055" min="1" step="0.001" inputmode="decimal" aria-label="Original gravity">
+            <div class="seg" role="group" aria-label="Gravity unit">
+              <button type="button" data-grav="sg" class="on">SG</button>
+              <button type="button" data-grav="plato">°P</button>
+            </div>
+          </div>
+          <div class="conv" id="gravConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="style">Target pitch rate</label>
+          <select id="style" aria-label="Target pitch rate">
+            <option value="0.75" selected>Ale — standard · 0.75 M cells/mL/°P</option>
+            <option value="1.0">High-gravity ale (OG &gt; 1.065) · 1.0</option>
+            <option value="1.5">Lager — standard · 1.5</option>
+            <option value="2.0">Big lager / high-gravity lager · 2.0</option>
+            <option value="custom">Custom…</option>
+          </select>
+        </div>
+
+        <div class="field" id="customWrap" style="display:none">
+          <label for="customRate">Custom rate <span class="hint">(million cells / mL / °Plato)</span></label>
+          <input type="number" id="customRate" value="0.75" min="0.1" max="4" step="0.05" inputmode="decimal" aria-label="Custom pitch rate">
+        </div>
+
+        <div class="field">
+          <label for="viab">Yeast viability <span class="hint">(fresh pack = 100%)</span></label>
+          <div class="inrow">
+            <input type="number" id="viab" value="100" min="1" max="100" step="1" inputmode="numeric" aria-label="Yeast viability percent">
+            <div class="seg" aria-hidden="true"><button type="button" class="on" tabindex="-1" style="cursor:default">%</button></div>
+          </div>
+          <div class="conv" id="viabConv"></div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel" aria-live="polite">
+        <div class="cp-k">Pitch this batch</div>
+        <div class="reshero">
+          <div class="rlabel">Total viable cells to pitch</div>
+          <div class="rbig"><span id="cellsBn">—</span></div>
+          <div class="rsub" id="cellsSub">billion cells · adjusted for viability</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🧫</span> Liquid yeast</div>
+            <div class="rc-v" id="packs">—</div>
+            <div class="rc-note" id="packsNote">White Labs / Wyeast packs</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🌾</span> Dry yeast</div>
+            <div class="rc-v" id="grams">—</div>
+            <div class="rc-note" id="gramsNote">≈ 11.5 g sachets</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">⚗️</span> Starter target</div>
+            <div class="rc-v" id="starter">—</div>
+            <div class="rc-note" id="starterNote">grow from a single fresh pack</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">📐</span> Working numbers</div>
+            <div class="rc-v" id="platoOut">—</div>
+            <div class="rc-note" id="rateNote">at your target rate</div>
+          </div>
+        </div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Formula: <code>cells = rate × volume(mL) × °P</code>. Assumes a fresh liquid pack ≈ <b>100 B</b> viable cells and dry yeast ≈ <b>10 B</b> viable cells/g — the standard planning figures, adjustable in the notes below.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Pitch the right number of healthy cells — every batch.</h2>
+      <p><b>Pitch rate = target cell density × volume × gravity in °Plato.</b> Underpitch and the yeast is stressed: sluggish or stuck fermentation, excess esters and fusels, diacetyl that won't clean up. Overpitch and you strip the character you were aiming for, with thin, muted beer. This tool does the fiddly cell math for you and converts it into the three things you actually buy — <b>liquid packs, grams of dry yeast, or a starter target</b> — so you hit the pitch you intended, not the one you guessed.</p>
+      <p>Everything runs client-side. Nothing is stored, nothing is sent — change any input and the result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The pitch rate formula, explained</span>
+      <h2 style="margin-top:14px">The math behind the number.</h2>
+      <h3>Cells = rate (M/mL/°P) × volume (mL) × gravity (°P)</h3>
+      <p>The industry-standard pitch equation multiplies three things: your <b>target cell density</b> (in million cells per millilitre per degree Plato), your <b>volume</b> in millilitres, and your wort's <b>gravity</b> in degrees Plato. The result is a raw cell count in millions, which this tool rolls up into billions and packages.</p>
+      <div class="formula">
+<span class="cmt"># million cells/mL/°P × mL × °P = million cells</span><br>
+cells_million = <span class="hl">rate</span> × <span class="hl">volume_mL</span> × <span class="hl">plato</span><br>
+cells_billion = cells_million ÷ 1000<br>
+<br>
+<span class="cmt"># viability lowers what each cell source actually delivers</span><br>
+required_viable = cells_billion  <span class="cmt"># fixed by the recipe</span><br>
+packs   = required_viable ÷ (100 × viability)<br>
+grams   = required_viable ÷ (10  × viability)
+      </div>
+      <h3>Ale vs lager: why lager needs ~2× the cells</h3>
+      <p>The classic targets are <b>0.75 million cells/mL/°P for ales</b> and <b>1.5 for lagers</b> — roughly double. Lagers ferment cold, where yeast is metabolically slower and reproduces less, so you compensate with a bigger starting population to get a clean, sulfur-free, well-attenuated fermentation. Big beers of either type push the rate up again: high-gravity worts (OG &gt; 1.065) stress yeast harder, so <b>1.0 for a strong ale</b> and up toward <b>2.0 for a big lager</b> are common. Pick the closest preset, or enter your own under <b>Custom</b>.</p>
+      <h3>Converting SG to °Plato (and why the app does it for you)</h3>
+      <p>The formula needs gravity in <b>degrees Plato</b>, but most homebrewers read <b>specific gravity</b> off a hydrometer. The tool converts automatically using the standard cubic polynomial, so you can type <span class="mono">1.055</span> and it works in <span class="mono">13.6 °P</span> under the hood:</p>
+      <div class="formula">°P = −616.868 + 1111.14·SG − 630.272·SG² + 135.997·SG³</div>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>20 gal of a 1.055 ale.</b> 20 gal = 75,708 mL. 1.055 SG ≈ 13.6 °P.</p>
+        <p>cells = 0.75 × 75,708 × 13.6 ≈ <b>770 billion viable cells</b>.</p>
+        <p>At 100 B per fresh liquid pack that's <b>~8 packs</b> — or about <b>77 g of dry yeast</b> — or one pack built up in a starter to reach 770 B.</p>
+      </div>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard pitch rate is wrong.</h2>
+      <p>The presets are a starting point, not gospel. Here's where the "just use 0.75" advice quietly costs you a batch.</p>
+      <h3>High-gravity worts (&gt; 1.065): scale up or stress the yeast</h3>
+      <p>Above ~1.065 the wort is a harsher environment — higher osmotic pressure, more alcohol to survive, more to attenuate. Pitching an ale-standard 0.75 into a 1.085 imperial stout under-provisions the crop and you'll taste it as hot solvents and a stall. Move to <b>1.0–1.25</b> for big ales, and pair the higher pitch with <b>good aeration/oxygenation</b> — cells need O₂ to build healthy membranes before they multiply.</p>
+      <h4>The overpitching myth for big beers</h4>
+      <p>Brewers hear "overpitching strips character" and under-pitch their biggest beers to protect flavor. For high-gravity worts that's backwards: the wort is so rich that a "high" pitch is really just <i>adequate</i>. The character risk from overpitching is real in small, delicate beers — not in a barleywine.</p>
+      <h3>Repitching from a healthy crop vs a fresh pack</h3>
+      <p>Harvested yeast from a previous batch can be pitched by <b>slurry volume and density</b> rather than pack count — but only if you know the concentration. A thick, healthy first-generation slurry is dense; an old, trub-heavy one is mostly dead cells and cold break. Count it (hemocytometer) before you trust it, or you're guessing at the one number that matters most.</p>
+      <h3>Viability decay: an old pack isn't the count on the label</h3>
+      <p>A liquid pack loses roughly <b>20–25% of its viable cells per month</b>. A "100 billion" pack three months old is closer to 40–50 billion — pitch it as fresh and you've silently under-pitched by half. Drop the <b>viability %</b> in the calculator to match the pack's age and the required packs/grams scale up accordingly. Don't know the number? <a class="link" href="/calculators/yeast-viability/">Estimate it with the viability calculator →</a></p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the lab</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the propagation lab</div>
+        <p>At New Belgium, pitch rate was never a single number we set and forgot — it was a target we <b>verified</b>. Every pitch got a cell count and a viability check, because a propagation that <i>looked</i> ready and one that <i>was</i> ready could differ by 30% on a bad week. The lesson that survives at homebrew scale: the pitch rate you calculate is only as good as the viability you assume. Two brewers pitching "one fresh pack" into identical 1.055 ales can be a clean fermentation and a stalled one apart — the difference is a three-week-old pack nobody counted. <b>Calculate the target, then respect the viability that gets you there.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your batch data</span>
+      <h2 style="position:relative;margin-top:14px">Track pitch rate against how the batch finishes.</h2>
+      <p>A pitch rate is a prediction. The value shows up when you log it against attenuation, temperature, and final gravity across every batch — and see which pitches actually produce clean beer. That's what a QC dashboard does automatically.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="/products/calculator-bundle/" class="btn btn-primary">Get all these calculators offline →</a>
+        <a href="/services/qc-dashboard/" class="btn btn-ghost">Track pitch vs attenuation →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/calculators/yeast-starter/">
+          <div class="xl-k">Next tool</div><div class="xl-t">Yeast Starter Calculator</div>
+          <div class="xl-d">Size the starter to hit the cell target above.</div>
+        </a>
+        <a class="xlink" href="/calculators/yeast-viability/">
+          <div class="xl-k">Cross-check</div><div class="xl-t">Yeast Viability Calculator</div>
+          <div class="xl-d">Find the real viability % for the field above.</div>
+        </a>
+        <a class="xlink" href="/calculators/">
+          <div class="xl-k">More</div><div class="xl-t">All fermentation calculators</div>
+          <div class="xl-d">ABV, attenuation, priming sugar, and more.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script>
+/* ================= PITCH RATE CALCULATOR ================= */
+const GAL_TO_L=3.78541, PACK_FRESH_B=100, DRY_B_PER_G=10, SACHET_G=11.5;
+let volUnit='gal', gravUnit='sg';
+const $=id=>document.getElementById(id);
+function sgToPlato(sg){return -616.868+1111.14*sg-630.272*sg*sg+135.997*sg*sg*sg;}
+function platoToSg(p){return 1+(p/(258.6-(p/258.2)*227.1));}
+function fmtB(b){if(!isFinite(b)||b<=0)return '—';if(b>=1000)return (b/1000).toFixed(2).replace(/\.?0+$/,'')+' T';if(b>=100)return Math.round(b)+' B';return b.toFixed(1).replace(/\.0$/,'')+' B';}
+function currentRate(){const s=$('style').value;return s==='custom'?parseFloat($('customRate').value):parseFloat(s);}
+function calc(){
+  const volRaw=parseFloat($('vol').value),gravRaw=parseFloat($('grav').value),rate=currentRate();
+  let viab=parseFloat($('viab').value);
+  const warn=$('warn');warn.classList.remove('show');warn.textContent='';
+  if(!isFinite(volRaw)||volRaw<=0||!isFinite(gravRaw)||gravRaw<=0||!isFinite(rate)||rate<=0){
+    ['cellsBn','packs','grams','starter','platoOut'].forEach(id=>$(id).textContent='—');
+    $('cellsSub').textContent='enter a volume, gravity, and rate';return;
+  }
+  if(!isFinite(viab)||viab<=0)viab=100;
+  viab=Math.min(100,Math.max(1,viab));
+  const volumeL=volUnit==='gal'?volRaw*GAL_TO_L:volRaw,volumeML=volumeL*1000;
+  const plato=gravUnit==='sg'?sgToPlato(gravRaw):gravRaw,sg=gravUnit==='sg'?gravRaw:platoToSg(gravRaw);
+  $('volConv').innerHTML=volUnit==='gal'?`= <b>${volumeL.toFixed(1)} L</b>`:`= <b>${(volumeL/GAL_TO_L).toFixed(2)} gal</b>`;
+  $('gravConv').innerHTML=gravUnit==='sg'?`= <b>${plato.toFixed(1)} °P</b>`:`= <b>${sg.toFixed(3)} SG</b>`;
+  $('viabConv').innerHTML=viab<100?`each source delivers <b>${viab}%</b> of its labeled cells`:`fresh — full labeled cell count`;
+  const cellsMillion=rate*volumeML*plato,requiredB=cellsMillion/1000;
+  const perPackEff=PACK_FRESH_B*(viab/100),perGramEff=DRY_B_PER_G*(viab/100);
+  const packsExact=requiredB/perPackEff,packsCeil=Math.ceil(packsExact);
+  const grams=requiredB/perGramEff,sachets=grams/SACHET_G,starterGap=requiredB-perPackEff;
+  $('cellsBn').textContent=fmtB(requiredB);
+  $('cellsSub').textContent=viab<100?`billion viable cells · at ${viab}% pack viability`:`billion viable cells · fresh yeast`;
+  $('packs').innerHTML=`${packsCeil} <span>pack${packsCeil!==1?'s':''}</span>`;
+  $('packsNote').textContent=`${packsExact.toFixed(1)} exact · ${Math.round(perPackEff)} B each`;
+  $('grams').innerHTML=`${grams.toFixed(0)} <span>g</span>`;
+  $('gramsNote').textContent=`≈ ${sachets.toFixed(1)} × ${SACHET_G} g sachet${sachets>=1.05?'s':''}`;
+  if(starterGap<=0){$('starter').innerHTML=`none <span>needed</span>`;$('starterNote').textContent='1 fresh pack already covers it';}
+  else{$('starter').innerHTML=`+${fmtB(starterGap)}`;$('starterNote').textContent=`grow this beyond one ${Math.round(perPackEff)} B pack`;}
+  $('platoOut').innerHTML=`${plato.toFixed(1)} <span>°P</span>`;
+  $('rateNote').textContent=`${rate} M cells/mL/°P × ${volumeL.toFixed(1)} L`;
+  const msgs=[];
+  if(sg>1.065&&rate<1.0)msgs.push('High-gravity wort (OG &gt; 1.065) with an ale-standard rate — consider bumping to 1.0–1.25 and oxygenating well.');
+  if(viab<60)msgs.push('Viability under 60% — an old pack. The pack/gram counts have scaled up to compensate; a starter is strongly advised.');
+  if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
+}
+document.querySelectorAll('[data-vol]').forEach(b=>{b.onclick=()=>{volUnit=b.dataset.vol;document.querySelectorAll('[data-vol]').forEach(x=>x.classList.toggle('on',x===b));calc();};});
+document.querySelectorAll('[data-grav]').forEach(b=>{b.onclick=()=>{const prev=gravUnit;gravUnit=b.dataset.grav;document.querySelectorAll('[data-grav]').forEach(x=>x.classList.toggle('on',x===b));const el=$('grav'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='sg'&&gravUnit==='plato'){el.value=sgToPlato(v).toFixed(1);el.step='0.1';}else if(prev==='plato'&&gravUnit==='sg'){el.value=platoToSg(v).toFixed(3);el.step='0.001';}}calc();};});
+$('style').onchange=()=>{const c=$('style').value==='custom';$('customWrap').style.display=c?'block':'none';if(c)$('customRate').focus();calc();};
+['vol','grav','customRate','viab'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>

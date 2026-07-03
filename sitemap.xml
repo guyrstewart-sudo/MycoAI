@@ -3,4 +3,7 @@
   <url><loc>https://mycoai.net/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://mycoai.net/mycelium-usa.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://mycoai.net/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://mycoai.net/calculators/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mycoai.net/calculators/yeast-pitch-rate/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mycoai.net/guides/brewery-qc-automation/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
