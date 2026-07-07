@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agar &amp; Media Calculator (PDA, MEA, LMEA) | MycoAI</title>
+<meta name="description" content="Free agar and media calculator for mushroom culture — grams of agar, malt, and dextrose for any number of PDA, MEA, or light-malt plates and slants. From a grower and fermentation scientist.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/mushrooms/agar-media/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/mushrooms/agar-media/">
+<meta property="og:title" content="Agar &amp; Media Calculator (PDA, MEA, LMEA) | MycoAI">
+<meta property="og:description" content="Enter your recipe, plate or slant count, and pour volume — get exact grams of agar, malt extract, dextrose, potato, and peptone. Built by a grower and fermentation scientist.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"Agar & Media Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/mushrooms/agar-media/",
+"description":"Calculate grams of agar, malt extract, dextrose, potato, and peptone for any number of PDA, MEA, or light-malt extract agar (LMEA) plates or slants, scaled to your exact pour volume.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and gourmet mushroom grower","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Mushrooms","item":"https://mycoai.net/mushrooms/"},
+{"@type":"ListItem","position":3,"name":"Agar & Media","item":"https://mycoai.net/mushrooms/agar-media/"}]}
+</script>
+<style>
+/* ---- agar & media calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.seg.full{display:flex;width:100%}.seg.full button{flex:1;padding:12px 8px}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.rcell.hide{display:none}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/">Calculators</a>
+        <a href="/guides/">Guides</a>
+        <a href="/mushrooms/" class="cur" aria-current="page">Mushrooms</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="/mushrooms/">Mushrooms</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/mushrooms/">Mushrooms</a><span>/</span>Agar &amp; Media
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">Agar &amp; Media <span class="grad">Calculator</span></h1>
+    <p class="psub">Pick your recipe — <b>LMEA</b>, <b>MEA</b>, or <b>PDA</b> — enter how many plates or slants you're pouring and at what volume, and get the exact <b>grams of agar</b>, <b>malt extract or dextrose</b>, <b>potato or peptone</b>, and <b>water</b> to weigh out. Scaled to any batch size by a grower and fermentation scientist.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="Agar and media inputs">
+        <div class="cp-k">Your pour</div>
+
+        <div class="field">
+          <label for="recipe">Recipe</label>
+          <select id="recipe" aria-label="Media recipe">
+            <option value="lmea" selected>LMEA — light malt extract agar</option>
+            <option value="mea">MEA — malt extract agar</option>
+            <option value="pda-diy">PDA — potato dextrose (DIY)</option>
+            <option value="pda-powder">PDA — commercial powder</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Vessel</label>
+          <div class="seg full" role="group" aria-label="Vessel type">
+            <button type="button" data-vessel="plates" class="on">Plates (90 mm)</button>
+            <button type="button" data-vessel="slants">Slants</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="count">Count <span class="hint">(how many you're pouring)</span></label>
+          <input type="number" id="count" value="40" min="1" step="1" inputmode="numeric" aria-label="Number of plates or slants">
+        </div>
+
+        <div class="field">
+          <label for="volEach">Volume each <span class="hint">(plates 18–25 mL, slants ~7 mL)</span></label>
+          <div class="inrow">
+            <input type="number" id="volEach" value="20" min="0" step="0.5" inputmode="decimal" aria-label="Volume per vessel in milliliters">
+            <div class="seg" aria-hidden="true"><button type="button" class="on" tabindex="-1" style="cursor:default">mL</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel">
+        <div class="cp-k">Weigh out</div>
+        <div class="reshero" aria-live="polite" aria-atomic="true">
+          <div class="rlabel">Total media to make</div>
+          <div class="rbig"><span id="totalMl">—</span></div>
+          <div class="rsub" id="totalSub">mL</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell" data-cell="agar">
+            <div class="rc-k"><span aria-hidden="true">🧊</span> Agar</div>
+            <div class="rc-v" id="agarG">—</div>
+            <div class="rc-note">~2% gels the set</div>
+          </div>
+          <div class="rcell" data-cell="maltdex">
+            <div class="rc-k"><span aria-hidden="true">🌾</span> <span id="maltdexLabel">Malt extract</span></div>
+            <div class="rc-v" id="maltdexG">—</div>
+            <div class="rc-note" id="maltdexNote">the carbon source</div>
+          </div>
+          <div class="rcell" data-cell="third">
+            <div class="rc-k"><span aria-hidden="true">🥔</span> <span id="thirdLabel">Potato</span></div>
+            <div class="rc-v" id="thirdG">—</div>
+            <div class="rc-note" id="thirdNote">infusion base</div>
+          </div>
+          <div class="rcell" data-cell="water">
+            <div class="rc-k"><span aria-hidden="true">💧</span> Water</div>
+            <div class="rc-v" id="waterMl">—</div>
+            <div class="rc-note">to total volume</div>
+          </div>
+        </div>
+
+        <div class="worknums" id="worknums">—</div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Sterilize media <code>30–45 min at 15 psi (250°F)</code>; pour at <code>~120–130°F</code>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Scale any agar recipe to your exact plate or slant count.</h2>
+      <p><b>Every recipe here is written per litre of finished media, then scaled by your total volume.</b> Pour too little and you're back in the kitchen mid-transfer session; pour too much and you've wasted malt extract and agar that won't be used before it dries out in storage. This tool takes the recipe you're already running, multiplies it out for the batch size in front of you, and hands back grams — not guesses.</p>
+      <p>Everything runs client-side. Nothing is stored, nothing is sent — change any input and the result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The recipes, explained</span>
+      <h2 style="margin-top:14px">Four media, one scaling method.</h2>
+      <h3>Total volume = count × volume each</h3>
+      <p>Everything starts with how much finished media you actually need. Multiply your <b>plate or slant count</b> by the <b>volume you pour into each one</b>, and every ingredient below scales off that one number as a fraction of a litre.</p>
+      <div class="formula">
+<span class="cmt"># mL</span><br>
+total_volume_mL = <span class="hl">count</span> × <span class="hl">volume_each_mL</span><br>
+scale = total_volume_mL ÷ 1000<span class="cmt">  # fraction of a litre</span><br>
+ingredient_g = recipe_g_per_L × scale
+      </div>
+      <h3>LMEA — light malt extract agar</h3>
+      <p>The standard general-purpose culture medium for gourmet mushroom work: clear enough to see contamination early, forgiving enough for most species. Per litre: <b>light malt extract 20 g + agar 20 g</b>.</p>
+      <h3>MEA — malt extract agar</h3>
+      <p>A slightly richer relative of LMEA, sometimes with peptone added for extra nitrogen on fussier or slower species. Per litre: <b>malt extract 20 g + agar 20 g</b>, with <b>peptone 2 g</b> as an optional addition.</p>
+      <h3>PDA — potato dextrose agar (DIY)</h3>
+      <p>Made from a real potato infusion rather than a powder — a step closer to what a mushroom finds in the ground, and a favorite for reviving sluggish or wild-collected cultures. Per litre: <b>potato 200 g (infusion) + dextrose 20 g + agar 18 g</b>.</p>
+      <h3>PDA — commercial powder</h3>
+      <p>Pre-blended potato dextrose agar powder, weighed and dissolved directly — no potato boiling, no straining. Per litre: <b>39 g of powder</b>.</p>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>40 plates × 20 mL = 800 mL of LMEA.</b> Scale = 800 ÷ 1000 = 0.8.</p>
+        <p>Light malt extract: 20 g × 0.8 = <b>16 g</b>. Agar: 20 g × 0.8 = <b>16 g</b>. Water: to <b>~800 mL</b> total.</p>
+        <p>Dissolve, sterilize, and pour — that's <b>~40 plates</b>. Make a little extra for bubbles and spills.</p>
+      </div>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard number is wrong.</h2>
+      <p>These recipes are solid, source-verified starting points — not the only correct answer. Here's where blindly trusting a preset costs you a batch.</p>
+      <h3>Agar % sets firmness — and 2% is the standard set</h3>
+      <p>Agar concentration is what makes the plate a solid instead of a soup. <b>~2% (20 g per litre)</b> is the standard set across LMEA and MEA for a reason: much less and the media won't gel firm enough to streak or pour clean plates; much more just wastes agar without buying you anything — plates that are needlessly stiff and harder to work with. Stay close to 2% unless you have a specific reason to move off it.</p>
+      <h3>Volume per plate is a real choice, not a fixed number</h3>
+      <p>The 18–25 mL range isn't padding — it's a real trade-off you're making every time you pour. A <b>thin pour (18 mL)</b> stretches your media further and gives you more plates per batch, but those plates dry out faster in storage and give you less working depth for isolation work. A <b>thicker pour (25 mL)</b> stores longer and gives more room to cut and transfer, but costs more media per plate and yields fewer plates from the same batch. Pick a volume and be consistent — that's what makes your plate counts (and your ordering) predictable.</p>
+      <h3>MEA and PDA aren't single recipes</h3>
+      <p>Don't treat the numbers on this page as the only version of these media that exists. The literature has real variation: malt-to-agar ratios show up as both <b>20:20</b> and <b>30:15</b> depending on the source, and DIY potato dextrose recipes call for anywhere from <b>200 g to 300 g</b> of potato per litre. The presets here are solid, workable starting points — if you're chasing a specific texture or growth rate and these aren't giving it to you, that's a sign to adjust the ratio deliberately, not that you've done something wrong.</p>
+      <h3>Antibiotics are deliberately left out</h3>
+      <p>You won't find a gentamicin or antibiotic dose on this page, and that's on purpose. Hobby-scale doses reported in the wild span an enormous range — <b>10 to 500 mg per litre</b> — and even at the high end they only knock back some bacteria, not all of it, while doing nothing for mold contamination. Antibiotics can mask a bad habit instead of fixing it. If your plates keep contaminating, the higher-leverage fix is almost always <b>clean flow-hood technique</b> — proper still-air zone, minimal movement across the pour, sterile tools — before you reach for a dosing chart.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the farm</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the culture room</div>
+        <p>Agar work is where fermentation-lab habits transfer straight over to mushroom farming — it's the same instinct to <b>respect the sterile boundary</b> whether you're streaking a yeast plate or a mycelium plate. The number that trips people up most isn't a ratio, it's <b>pour temperature</b>. Pour too hot and you cook condensation into the lid, which becomes free water for contaminants to swim in later; pour too cool and the agar starts setting in the pot before you've filled your last plate. <b>~120–130°F</b> is the window — warm enough to stay liquid and pour clean, cool enough that the glass doesn't scorch your hand through a glove. Get that one number right and the rest of the recipe takes care of itself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your grow-room data</span>
+      <h2 style="position:relative;margin-top:14px">Track every batch, flush, and yield — not just the pour.</h2>
+      <p>A media batch is one step in a much longer chain. The value shows up when you log it against every batch, flush, and yield across your grow rooms — and see which room is drifting toward a contamination problem before you lose a crop. That's what a Farm-Ops tracker does automatically.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="https://mycoai.net/#contact" class="btn btn-primary">Get a Farm-Ops tracker for your farm →</a>
+        <a href="/mushrooms/" class="btn btn-ghost">Explore all the mushroom tools →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/mushrooms/agar-plate-preparation/">
+          <div class="xl-k">Next step</div><div class="xl-t">Agar Plate Preparation Guide</div>
+          <div class="xl-d">Pour, cool, and store the media you just weighed out.</div>
+        </a>
+        <a class="xlink" href="/mushrooms/masters-mix/">
+          <div class="xl-k">Cross-check</div><div class="xl-t">Masters Mix Calculator</div>
+          <div class="xl-d">Scale your bulk substrate once the culture is ready.</div>
+        </a>
+        <a class="xlink" href="/mushrooms/">
+          <div class="xl-k">More</div><div class="xl-t">All mushroom tools</div>
+          <div class="xl-d">Substrate, sterilizer loads, yield, and grow-room ops.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* ================= AGAR & MEDIA CALCULATOR ================= */
+/* recipes: grams per LITRE of finished media */
+const RECIPES={
+  lmea:{label:'LMEA',maltdexLabel:'Malt extract',thirdLabel:null,agar:20,maltdex:20,maltdexKind:'malt',third:0,thirdKind:null},
+  mea:{label:'MEA',maltdexLabel:'Malt extract',thirdLabel:'Peptone (optional)',agar:20,maltdex:20,maltdexKind:'malt',third:2,thirdKind:'peptone'},
+  'pda-diy':{label:'PDA (DIY)',maltdexLabel:'Dextrose',thirdLabel:'Potato (infusion)',agar:18,maltdex:20,maltdexKind:'dextrose',third:200,thirdKind:'potato'},
+  'pda-powder':{label:'PDA (commercial powder)',maltdexLabel:'PDA powder',thirdLabel:null,agar:0,maltdex:39,maltdexKind:'powder',third:0,thirdKind:null}
+};
+let vessel='plates';
+const $=id=>document.getElementById(id);
+function fmtG(g){if(!isFinite(g)||g<0)return '—';if(g>=100)return Math.round(g).toString();if(g>=10)return g.toFixed(1).replace(/\.0$/,'');return g.toFixed(2).replace(/0$/,'').replace(/\.$/,'');}
+function fmtMl(ml){if(!isFinite(ml)||ml<0)return {n:'—',u:''};if(ml>=1000)return {n:(ml/1000).toFixed(ml>=10000?1:2).replace(/\.?0+$/,''),u:'L'};return {n:String(Math.round(ml)),u:'mL'};}
+function calc(){
+  const countRaw=parseFloat($('count').value),volRaw=parseFloat($('volEach').value);
+  const rec=RECIPES[$('recipe').value];
+  const warn=$('warn');warn.classList.remove('show');warn.textContent='';
+
+  if(!isFinite(countRaw)||countRaw<=0||!isFinite(volRaw)||volRaw<=0){
+    $('totalMl').textContent='—';$('totalSub').textContent='mL';
+    ['agarG','maltdexG','thirdG','waterMl'].forEach(id=>$(id).textContent='—');
+    $('worknums').textContent='—';
+    return;
+  }
+
+  const count=Math.round(countRaw);
+  const totalMl=count*volRaw;
+  const scale=totalMl/1000;
+
+  const agarG=rec.agar*scale;
+  const maltdexG=rec.maltdex*scale;
+  const thirdG=rec.third*scale;
+
+  const t=fmtMl(totalMl);
+  $('totalMl').innerHTML=`${t.n}`;
+  $('totalSub').textContent=totalMl>=1000?`mL · ${(totalMl/1000).toFixed(2).replace(/\.?0+$/,'')} L`:'mL';
+
+  // agar cell — hide entirely for commercial powder (folded into the single ingredient)
+  const agarCell=document.querySelector('.rcell[data-cell="agar"]');
+  if(rec.agar>0){
+    agarCell.classList.remove('hide');
+    $('agarG').innerHTML=`${fmtG(agarG)} <span>g</span>`;
+  }else{
+    agarCell.classList.add('hide');
+  }
+
+  $('maltdexLabel').textContent=rec.maltdexLabel;
+  $('maltdexG').innerHTML=`${fmtG(maltdexG)} <span>g</span>`;
+  $('maltdexNote').textContent=rec.maltdexKind==='powder'?'agar + carbon, pre-blended':(rec.maltdexKind==='dextrose'?'the sugar source':'the carbon source');
+
+  const thirdCell=document.querySelector('.rcell[data-cell="third"]');
+  if(rec.thirdLabel){
+    thirdCell.classList.remove('hide');
+    $('thirdLabel').textContent=rec.thirdKind==='potato'?'Potato':'Peptone';
+    $('thirdG').innerHTML=`${fmtG(thirdG)} <span>g</span>`;
+    $('thirdNote').textContent=rec.thirdKind==='potato'?'infusion base':'extra nitrogen, optional';
+  }else{
+    thirdCell.classList.add('hide');
+  }
+
+  const w=fmtMl(totalMl);
+  $('waterMl').innerHTML=`${w.n} <span>${w.u||'mL'}</span>`;
+
+  const vesselLabel=vessel==='plates'?'plate':'slant';
+  $('worknums').innerHTML=`<b>${rec.label}</b> · ${count} ${vesselLabel}${count!==1?'s':''} × ${volRaw} mL · ≈ <b>${count} ${vesselLabel}${count!==1?'s':''}</b>`;
+
+  const msgs=[];
+  const lowBound=vessel==='plates'?12:5;
+  const highBound=vessel==='plates'?27:10;
+  if(volRaw<lowBound||volRaw>highBound){
+    msgs.push(`${volRaw} mL per ${vesselLabel} is outside the typical ${lowBound}–${highBound} mL range for ${vesselLabel}s — double-check before you pour.`);
+  }
+  if(totalMl>2000){
+    msgs.push('Total volume is over 2 L — agar sets fast once it starts cooling. Consider pouring in smaller batches so the last plates aren\'t fighting a half-set pot.');
+  }
+  if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
+}
+$('recipe').addEventListener('change',calc);
+document.querySelectorAll('[data-vessel]').forEach(b=>{
+  b.onclick=()=>{
+    vessel=b.dataset.vessel;
+    document.querySelectorAll('[data-vessel]').forEach(x=>x.classList.toggle('on',x===b));
+    if(vessel==='slants'&&parseFloat($('volEach').value)===20)$('volEach').value='7';
+    else if(vessel==='plates'&&parseFloat($('volEach').value)===7)$('volEach').value='20';
+    calc();
+  };
+});
+['count','volEach'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>

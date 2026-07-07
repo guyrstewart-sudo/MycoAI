@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bubba Barrel Sterilizer Load Calculator | MycoAI</title>
+<meta name="description" content="Free sterilizer load calculator for a 55–150 gallon Bubba-barrel steamer — bags per load, cycle time, and loads to clear a batch of gourmet mushroom blocks. Honest, typical figures from a grower.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/mushrooms/sterilizer-load/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/mushrooms/sterilizer-load/">
+<meta property="og:title" content="Bubba Barrel Sterilizer Load Calculator | MycoAI">
+<meta property="og:description" content="Enter your barrel size, method, and block weight — get bags per load, cycle time, and total loads to clear a batch. Typical figures, labeled as typical, from a working grower.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"Bubba Barrel Sterilizer Load Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/mushrooms/sterilizer-load/",
+"description":"Calculate bags per load, cycle time, and total loads needed to sterilize a batch of gourmet mushroom substrate blocks in a 55–150 gallon Bubba-barrel-style steamer, atmospheric or pressure.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and gourmet mushroom grower","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Mushrooms","item":"https://mycoai.net/mushrooms/"},
+{"@type":"ListItem","position":3,"name":"Sterilizer Load Calculator","item":"https://mycoai.net/mushrooms/sterilizer-load/"}]}
+</script>
+<style>
+/* ---- sterilizer load calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/">Calculators</a>
+        <a href="/guides/">Guides</a>
+        <a href="/mushrooms/" class="cur" aria-current="page">Mushrooms</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="/mushrooms/">Mushrooms</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/mushrooms/">Mushrooms</a><span>/</span>Sterilizer Load Calculator
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">Sterilizer Load <span class="grad">Calculator</span></h1>
+    <p class="psub">Enter your barrel size, method, and finished block weight — get <b>bags per load</b>, <b>cycle time</b>, and <b>total loads</b> to clear a batch in a 55–150 gallon Bubba-barrel-style steamer. Capacities and hold times are <b>typical, adjustable defaults</b> — barrel makers publish almost nothing official, so this tool treats every figure as a starting point you verify on your own rig, not gospel.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="Sterilizer load inputs">
+        <div class="cp-k">Your sterilizer</div>
+
+        <div class="field">
+          <label for="barrel">Barrel size <span class="hint">(steamer volume)</span></label>
+          <select id="barrel" aria-label="Barrel size">
+            <option value="55" selected>55 gal — Bubba Barrel standard</option>
+            <option value="85">85 gal</option>
+            <option value="100">100 gal</option>
+            <option value="150">150 gal</option>
+            <option value="custom">Custom…</option>
+          </select>
+        </div>
+
+        <div class="field" id="customGalWrap" style="display:none">
+          <label for="customGal">Custom barrel volume <span class="hint">(gallons)</span></label>
+          <input type="number" id="customGal" value="55" min="5" step="1" inputmode="decimal" aria-label="Custom barrel volume in gallons">
+        </div>
+
+        <div class="field">
+          <label>Method</label>
+          <div class="seg" role="group" aria-label="Sterilization method" style="width:100%;display:flex">
+            <button type="button" data-method="atmospheric" class="on" style="flex:1">Atmospheric (~210°F)</button>
+            <button type="button" data-method="pressure" style="flex:1">Pressure (15 psi)</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="blockWt">Finished block weight</label>
+          <div class="inrow">
+            <input type="number" id="blockWt" value="5" min="0.1" step="0.1" inputmode="decimal" aria-label="Finished block weight">
+            <div class="seg" role="group" aria-label="Weight unit">
+              <button type="button" data-wt="lb" class="on">lb</button>
+              <button type="button" data-wt="kg">kg</button>
+            </div>
+          </div>
+          <div class="conv" id="wtConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="bags">Bags in this batch</label>
+          <input type="number" id="bags" value="80" min="1" step="1" inputmode="numeric" aria-label="Bags in this batch">
+        </div>
+
+        <div class="field">
+          <label for="hold">Hold time <span class="hint">(hours — typical default, edit for your rig)</span></label>
+          <input type="number" id="hold" value="16" min="0.5" step="0.5" inputmode="decimal" aria-label="Hold time in hours">
+          <div class="conv" id="holdConv"></div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel">
+        <div class="cp-k">Your run</div>
+        <div class="reshero" aria-live="polite" aria-atomic="true">
+          <div class="rlabel">Loads needed</div>
+          <div class="rbig"><span id="loadsBig">—</span></div>
+          <div class="rsub" id="loadsSub">for your batch in this barrel</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">📦</span> Bags per load</div>
+            <div class="rc-v" id="bagsPerLoad">—</div>
+            <div class="rc-note" id="bagsPerLoadNote">at typical capacity</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">⏱️</span> Cycle time / load</div>
+            <div class="rc-v" id="cyclePerLoad">—</div>
+            <div class="rc-note">hold + come-up + cool, typical</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🕒</span> Total time, all loads</div>
+            <div class="rc-v" id="totalTime">—</div>
+            <div class="rc-note" id="totalTimeNote">one barrel, sequential</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">⚖️</span> Total substrate</div>
+            <div class="rc-v" id="totalSubstrate">—</div>
+            <div class="rc-note">bags × block weight</div>
+          </div>
+        </div>
+
+        <div class="worknums" id="worknums">—</div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Capacity model: <code>capacity (lb) ≈ 3.6 × gallons</code> — typical, ~200 lb @55 gal, ~300 lb @85 gal. Overhead per load (typical): atmospheric ≈ <b>come-up 2.5 h + cool 2 h</b>; pressure ≈ <b>come-up 1 h + cool 1.5 h</b>. No propane/water figures are baked in — meter your own rig.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Plan loads before you light the burner, not after.</h2>
+      <p><b>Loads = bags in the batch ÷ bags that fit per load, rounded up.</b> A barrel steamer only sterilizes what physically fits inside it in one cycle, and every cycle costs the same fixed overhead — come-up time and cool-down — whether it's packed full or half empty. This tool takes your barrel size, your block weight, and your batch size, and tells you how many loads you're actually running and how long the whole batch will take, so you can plan a sterilizing day instead of discovering at 9pm that you need a third cycle.</p>
+      <p>Everything runs client-side. Nothing is stored, nothing is sent — change any input and the result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The load and cycle math, explained</span>
+      <h2 style="margin-top:14px">Capacity, bags per load, and cycle time.</h2>
+      <h3>Capacity: gallons to pounds of substrate</h3>
+      <p>Barrel makers publish surprisingly little in the way of hard specs — I could not confirm Bubba's Barrels' own load figures directly, and no source anywhere publishes propane or water use for these rigs. What circulates among growers are secondary, word-of-mouth numbers: roughly <b>200 lb</b> of blocks in a 55 gallon barrel, and roughly <b>300 lb</b> in an 85 gallon barrel. That works out to about <b>3.6 lb of finished substrate per gallon</b> of barrel volume, which is the ratio this calculator uses to scale to 100, 150, or a custom barrel. Treat it as a planning starting point, not a spec sheet — weigh a real load in your rig once and you'll know your actual number.</p>
+      <div class="formula">
+<span class="cmt"># typical capacity — verify for your rig</span><br>
+capacity_lb  = <span class="hl">3.6</span> × gallons<br>
+<br>
+<span class="cmt"># how many finished blocks physically fit</span><br>
+bags_per_load = floor(capacity_lb ÷ <span class="hl">block_weight_lb</span>)<br>
+loads         = ceil(bags ÷ bags_per_load)
+      </div>
+      <h3>Cycle time: hold + come-up + cool</h3>
+      <p>Every cycle has three phases: <b>come-up</b> (the barrel and its contents climb to temperature), <b>hold</b> (the temperature that actually kills contaminants is sustained), and <b>cool-down</b> (safe enough to open and unload). The hold time is the one number you should treat as most provisional and most important — this tool auto-fills a typical default by method but makes it fully editable, because your load size, packing density, and burner all change how long a true hold actually needs to be. Come-up and cool overhead are typically shorter for pressure cooking (higher differential drives faster heating, and pressure vessels vent down faster) than for atmospheric steam.</p>
+      <div class="formula">
+<span class="cmt"># typical overhead per load, by method</span><br>
+atmospheric_overhead = <span class="hl">2.5</span> h come-up + <span class="hl">2.0</span> h cool = 4.5 h<br>
+pressure_overhead     = <span class="hl">1.0</span> h come-up + <span class="hl">1.5</span> h cool = 2.5 h<br>
+<br>
+cycle_per_load = hold_hours + overhead<br>
+total_time     = loads × cycle_per_load  <span class="cmt"># sequential, one barrel</span><br>
+total_substrate = bags × block_weight
+      </div>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>80 × 5 lb bags in a 55 gal barrel, atmospheric, 16 h hold.</b> Capacity ≈ 3.6 × 55 ≈ <b>200 lb</b> (typical).</p>
+        <p>Bags per load = floor(200 ÷ 5) = <b>40 bags/load</b>. Loads = ceil(80 ÷ 40) = <b>2 loads</b>.</p>
+        <p>Cycle per load ≈ 16 + (2.5 + 2.0) ≈ <b>20.5 h</b>. Total for both loads ≈ 2 × 20.5 ≈ <b>41 h</b>.</p>
+        <p>Total substrate = 80 × 5 = <b>400 lb</b>. (All figures typical — verify for your setup.)</p>
+      </div>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard number is wrong.</h2>
+      <p>These capacities and cycle times are typical, not gospel — barrel makers publish surprisingly little, and I could not confirm Bubba's Barrels' own specs directly. Treat every output above as a planning starting point and verify it against your actual rig.</p>
+      <h3>The hold clock starts at the core, not the barrel</h3>
+      <p>Atmospheric steam only sterilizes once the <b>bag core</b> reaches roughly 210°F and holds there — a short hold timed from when the barrel itself comes up to temperature can leave the center of a tightly packed load still cold, and that load comes out contaminated days later. Time the hold from when the <b>core</b> is confirmed up to temperature, not the chamber. A data-logging probe pushed into a center bag on a full load pays for itself the first time it saves a batch.</p>
+      <h3>Supplemented substrate needs sterilization, not pasteurization</h3>
+      <p>Bran- or soy-hull-supplemented sawdust must be fully <b>sterilized</b>, not just pasteurized — the extra nitrogen that makes supplemented blocks so productive is exactly what gives any surviving contaminant, especially <i>Trichoderma</i>, a massive head start if the kill isn't complete. Atmospheric barrels run long holds precisely because they're capped near 212°F (100°C) at sea level and can't push past it the way a pressure vessel can — the only lever atmospheric steam has is time.</p>
+      <h3>Propane and water aren't published — meter your own first cycle</h3>
+      <p>Nobody publishes propane or water consumption for these barrel rigs, and it genuinely varies with insulation, ambient temperature, wind, and burner output — a bare steel barrel in a Vermont winter and an insulated one in Georgia summer are different machines. This tool won't invent a number here. Meter your own tank before and after a real cycle once, and you'll have a rig-specific figure worth more than anything a spec sheet could tell you.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the farm</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the sterilizing shed</div>
+        <p>The number that actually matters on a barrel steamer isn't the one on a spec sheet — it's the one you get from packing your own barrel and running your own probe. Bubba's Barrels and rigs like it are workhorses, but the growers who build them don't publish load charts, and the "200 lb" and "300 lb" figures floating around forums are grower folklore, not engineering data. I use them as a planning starting point and nothing more. <b>The first cycle on a new setup should have a temperature logger in the coldest-looking bag you can find</b> — usually dead center, low in the barrel — and I don't trust a hold time until that probe confirms it. Every barrel, burner, and climate is a little different; the calculator gets you in the right neighborhood, the probe gets you the truth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your batch data</span>
+      <h2 style="position:relative;margin-top:14px">Track every batch, flush, and yield — not just the sterilizer.</h2>
+      <p>A load calculation gets you through one sterilizing day. The value compounds when every batch, flush, yield, and contamination rate is logged across your grow rooms — so you catch a room drifting before a crop is lost, instead of after.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="https://mycoai.net/#contact" class="btn btn-primary">Get a Farm-Ops tracker for your farm →</a>
+        <a href="/mushrooms/" class="btn btn-ghost">Explore all the mushroom tools →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/mushrooms/bubba-barrel-sterilizer/">
+          <div class="xl-k">Read the guide</div><div class="xl-t">Bubba Barrel Sterilizer Guide</div>
+          <div class="xl-d">The full build-and-run procedure this calculator plans loads for.</div>
+        </a>
+        <a class="xlink" href="/mushrooms/masters-mix/">
+          <div class="xl-k">Related tool</div><div class="xl-t">Masters Mix Calculator</div>
+          <div class="xl-d">Size the substrate batch you're about to sterilize.</div>
+        </a>
+        <a class="xlink" href="/mushrooms/">
+          <div class="xl-k">More</div><div class="xl-t">All mushroom tools</div>
+          <div class="xl-d">Substrate, sterilization, yield, and media calculators.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* ================= STERILIZER LOAD CALCULATOR ================= */
+const LB_TO_KG=0.453592, LB_PER_GAL=3.6;
+const ATMO_HOLD_DEFAULT=16, PRESS_HOLD_DEFAULT=2.5;
+const ATMO_OVERHEAD=2.5+2.0, PRESS_OVERHEAD=1.0+1.5;
+let method='atmospheric', wtUnit='lb', holdTouched=false;
+const $=id=>document.getElementById(id);
+function fmtH(h){if(!isFinite(h)||h<=0)return '—';return (h>=100?Math.round(h):h.toFixed(1).replace(/\.0$/,''))+' h';}
+function currentGallons(){const v=$('barrel').value;return v==='custom'?parseFloat($('customGal').value):parseFloat(v);}
+function applyHoldDefault(){if(holdTouched)return;$('hold').value=method==='atmospheric'?ATMO_HOLD_DEFAULT:PRESS_HOLD_DEFAULT;}
+function calc(){
+  const gallons=currentGallons();
+  let blockWtRaw=parseFloat($('blockWt').value);
+  const bags=parseFloat($('bags').value);
+  let hold=parseFloat($('hold').value);
+  const warn=$('warn');warn.classList.remove('show');warn.textContent='';
+
+  const invalid = !isFinite(gallons)||gallons<=0 || !isFinite(blockWtRaw)||blockWtRaw<=0 || !isFinite(bags)||bags<=0 || !isFinite(hold)||hold<=0;
+  if(invalid){
+    ['loadsBig','bagsPerLoad','cyclePerLoad','totalTime','totalSubstrate'].forEach(id=>$(id).textContent='—');
+    $('worknums').textContent='—';
+    $('loadsSub').textContent='enter a barrel size, block weight, bags, and hold time';
+    return;
+  }
+
+  const blockWtLb = wtUnit==='lb'?blockWtRaw:blockWtRaw/LB_TO_KG;
+  $('wtConv').innerHTML = wtUnit==='lb' ? `= <b>${(blockWtRaw*LB_TO_KG).toFixed(2)} kg</b>` : `= <b>${(blockWtRaw/LB_TO_KG).toFixed(2)} lb</b>`;
+
+  // Capacity is a typical/provisional figure, not a measured spec — round to the
+  // nearest 10 lb rather than imply false precision (e.g. "198 lb" reads as exact;
+  // "200 lb" reads as the typical, verify-for-your-rig number it actually is).
+  const capacityLb = Math.round(LB_PER_GAL*gallons/10)*10;
+  const bagsPerLoad = Math.floor(capacityLb/blockWtLb);
+  const overhead = method==='atmospheric'?ATMO_OVERHEAD:PRESS_OVERHEAD;
+  $('holdConv').innerHTML = `typical default for <b>${method==='atmospheric'?'atmospheric':'pressure'}</b> · overhead ≈ <b>${overhead.toFixed(1)} h</b> come-up+cool`;
+
+  if(bagsPerLoad<=0){
+    ['loadsBig','bagsPerLoad','cyclePerLoad','totalTime'].forEach(id=>$(id).textContent='—');
+    $('totalSubstrate').innerHTML=`${(bags*blockWtLb).toFixed(0)} <span>lb</span>`;
+    $('worknums').innerHTML=`Capacity ≈ <b>${capacityLb.toFixed(0)} lb</b> (typical) · block weight <b>${blockWtLb.toFixed(2)} lb</b>`;
+    $('loadsSub').textContent='block heavier than barrel capacity';
+    warn.innerHTML='Bags per load computes to 0 — the block weight is heavier than the typical barrel capacity. Check your units (lb vs kg) or barrel size.';
+    warn.classList.add('show');
+    return;
+  }
+
+  const loads = Math.ceil(bags/bagsPerLoad);
+  const cyclePerLoad = hold+overhead;
+  const totalTime = loads*cyclePerLoad;
+  const totalSubstrate = bags*blockWtLb;
+
+  $('loadsBig').textContent=loads;
+  $('loadsSub').textContent=`for ${Math.round(bags)} bags in a ${gallons%1===0?gallons:gallons.toFixed(1)} gal barrel`;
+  $('bagsPerLoad').textContent=bagsPerLoad;
+  $('bagsPerLoadNote').textContent=`at ≈ ${capacityLb.toFixed(0)} lb typical capacity`;
+  $('cyclePerLoad').innerHTML=`${fmtH(cyclePerLoad)}`;
+  $('totalTime').innerHTML=`${fmtH(totalTime)}`;
+  $('totalTimeNote').textContent=`${loads} load${loads!==1?'s':''} × ${fmtH(cyclePerLoad)} each`;
+  $('totalSubstrate').innerHTML=`${totalSubstrate.toFixed(0)} <span>lb</span>`;
+  $('worknums').innerHTML=`Capacity ≈ <b>${capacityLb.toFixed(0)} lb</b> (typical) · method <b>${method==='atmospheric'?'atmospheric ~210°F':'pressure 15 psi'}</b> · hold used <b>${hold} h</b>`;
+
+  const msgs=[];
+  if(method==='atmospheric' && hold<10) msgs.push('Atmospheric hold under 10 h on a full load risks cold cores in the center of the barrel — extend the hold or split into smaller loads, and confirm with a core probe.');
+  if(gallons>200) msgs.push('Very large custom barrel (over 200 gal) — even heating the load gets difficult at this scale; expect longer, less even come-up than these typical figures assume.');
+  if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
+}
+$('barrel').onchange=()=>{const c=$('barrel').value==='custom';$('customGalWrap').style.display=c?'block':'none';if(c)$('customGal').focus();calc();};
+document.querySelectorAll('[data-method]').forEach(b=>{b.onclick=()=>{method=b.dataset.method;document.querySelectorAll('[data-method]').forEach(x=>x.classList.toggle('on',x===b));applyHoldDefault();calc();};});
+document.querySelectorAll('[data-wt]').forEach(b=>{b.onclick=()=>{const prev=wtUnit;wtUnit=b.dataset.wt;document.querySelectorAll('[data-wt]').forEach(x=>x.classList.toggle('on',x===b));const el=$('blockWt'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='lb'&&wtUnit==='kg'){el.value=(v*LB_TO_KG).toFixed(2);}else if(prev==='kg'&&wtUnit==='lb'){el.value=(v/LB_TO_KG).toFixed(2);}}calc();};});
+$('hold').addEventListener('input',()=>{holdTouched=true;calc();});
+['customGal','blockWt','bags'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biological Efficiency &amp; Mushroom Yield Calculator | MycoAI</title>
+<meta name="description" content="Free biological efficiency and mushroom yield calculator — turn block dry weight and species BE into fresh yield per flush, or work backward from a weekly order to blocks needed. From a grower.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/mushrooms/biological-efficiency/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/mushrooms/biological-efficiency/">
+<meta property="og:title" content="Biological Efficiency &amp; Mushroom Yield Calculator | MycoAI">
+<meta property="og:description" content="Turn block dry weight and species BE into fresh yield per flush, or work backward from a weekly order to blocks needed. From a grower and fermentation scientist.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"Biological Efficiency & Yield Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/mushrooms/biological-efficiency/",
+"description":"Calculate fresh mushroom yield per flush from block dry substrate weight, block count, and species biological efficiency — or work backward from a target harvest to the number of blocks needed.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and gourmet mushroom grower","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Mushrooms","item":"https://mycoai.net/mushrooms/"},
+{"@type":"ListItem","position":3,"name":"Biological Efficiency","item":"https://mycoai.net/mushrooms/biological-efficiency/"}]}
+</script>
+<style>
+/* ---- biological efficiency & yield calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/">Calculators</a>
+        <a href="/guides/">Guides</a>
+        <a href="/mushrooms/" class="cur" aria-current="page">Mushrooms</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="/mushrooms/">Mushrooms</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/mushrooms/">Mushrooms</a><span>/</span>Biological Efficiency
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">Biological Efficiency &amp; <span class="grad">Yield</span></h1>
+    <p class="psub">Enter your species, block count, and <b>dry</b> substrate weight — get the <b>fresh mushroom yield</b> per flush, or flip it around and find how many blocks a <b>target harvest</b> actually needs. Built on <span class="mono">BE% = fresh ÷ dry substrate</span>, the number most growers quietly get wrong, by a working gourmet mushroom farm.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="Biological efficiency inputs">
+        <div class="cp-k">Your blocks</div>
+
+        <div class="field">
+          <label for="species">Species <span class="hint">(sets a typical BE preset, editable)</span></label>
+          <select id="species" aria-label="Mushroom species">
+            <option value="75" selected>Blue / Pearl Oyster · BE ≈ 75%</option>
+            <option value="60">Pink Oyster · BE ≈ 60%</option>
+            <option value="75">Golden Oyster · BE ≈ 75%</option>
+            <option value="60">King Trumpet · BE ≈ 60%</option>
+            <option value="55">Lion's Mane · BE ≈ 55%</option>
+            <option value="90">Shiitake · BE ≈ 90%</option>
+            <option value="40">Maitake · BE ≈ 40%</option>
+            <option value="50">Chestnut (Pholiota) · BE ≈ 50%</option>
+            <option value="custom">Custom…</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="be">Biological efficiency <span class="hint">(auto-filled from species, editable)</span></label>
+          <div class="inrow">
+            <input type="number" id="be" value="75" min="1" max="400" step="1" inputmode="decimal" aria-label="Biological efficiency percent">
+            <div class="seg" aria-hidden="true"><button type="button" class="on" tabindex="-1" style="cursor:default">%</button></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="blocks">Number of blocks</label>
+          <input type="number" id="blocks" value="20" min="1" step="1" inputmode="numeric" aria-label="Number of blocks">
+        </div>
+
+        <div class="field">
+          <label for="drywt">Dry substrate per block</label>
+          <div class="inrow">
+            <input type="number" id="drywt" value="2" min="0" step="0.1" inputmode="decimal" aria-label="Dry substrate weight per block">
+            <div class="seg" role="group" aria-label="Dry weight unit">
+              <button type="button" data-wt="lb" class="on">lb</button>
+              <button type="button" data-wt="kg">kg</button>
+            </div>
+          </div>
+          <div class="conv" id="wtConv">a 5 lb block at 60% moisture ≈ 2 lb DRY substrate</div>
+        </div>
+
+        <div class="field">
+          <label for="target">Target fresh harvest <span class="hint">(optional — leave blank to skip)</span></label>
+          <div class="inrow">
+            <input type="number" id="target" value="" placeholder="e.g. 40" min="0" step="0.5" inputmode="decimal" aria-label="Target fresh harvest weight, optional">
+            <div class="seg" aria-hidden="true"><button type="button" class="on" tabindex="-1" style="cursor:default" id="targetUnit">lb</button></div>
+          </div>
+          <div class="conv" id="targetConv">enter a weekly order to see blocks needed</div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel">
+        <div class="cp-k">Expected yield</div>
+        <div class="reshero" aria-live="polite" aria-atomic="true">
+          <div class="rlabel">Total fresh yield</div>
+          <div class="rbig"><span id="totalFresh">—</span></div>
+          <div class="rsub" id="totalSub">across 20 blocks, all flushes</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🍄</span> Yield per block</div>
+            <div class="rc-v" id="perBlock">—</div>
+            <div class="rc-note">fresh weight, all flushes</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">1️⃣</span> First flush ≈</div>
+            <div class="rc-v" id="firstFlush">—</div>
+            <div class="rc-note">typically ~50% of total</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🎯</span> <span id="thirdCellLabel">Blocks needed for target</span></div>
+            <div class="rc-v" id="thirdCell">—</div>
+            <div class="rc-note" id="thirdCellNote">enter a target above</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🪵</span> Dry substrate total</div>
+            <div class="rc-v" id="dryTotal">—</div>
+            <div class="rc-note">across all blocks</div>
+          </div>
+        </div>
+
+        <div class="worknums" id="worknums">—</div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Formula: <code>BE% = fresh ÷ DRY substrate × 100</code>. BE is on <b>dry substrate weight</b>, not the wet block — the #1 place this math goes wrong. First flush ≈50%, second ≈30%, later flushes make up the rest.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Turn a block count and species into a real yield number.</h2>
+      <p><b>Biological efficiency (BE%) is fresh mushroom weight divided by dry substrate weight, times 100.</b> It's the standard way growers compare yield across species, substrates, and farms — and the one number most new growers apply to the wrong weight. This tool takes your species, block count, and dry substrate weight and turns BE% into an actual fresh-yield number, split across flushes. Flip it around and enter a target harvest (say, a weekly wholesale order) and it tells you how many blocks you need to make that order, working backward from the same math.</p>
+      <p>Everything runs client-side. Nothing is stored, nothing is sent — change any input and the result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The BE formula, explained</span>
+      <h2 style="margin-top:14px">The math behind the number.</h2>
+      <h3>BE% is always measured against dry substrate</h3>
+      <p>The definition never changes: <b>BE% = (fresh mushroom weight ÷ dry substrate weight) × 100.</b> "Dry substrate weight" means the bone-dry mass of sawdust, soy hulls, straw, or whatever the mushroom is actually consuming — not the wet, hydrated, finished block weight that goes into the autoclave. That distinction is the entire crux of this calculator, and of the BE number in general.</p>
+      <div class="formula">
+<span class="cmt"># fresh yield per block, from BE% and DRY substrate weight</span><br>
+freshPerBlock = <span class="hl">dryPerBlock</span> × (<span class="hl">BE</span> ÷ 100)<br>
+totalFresh    = blocks × freshPerBlock<br>
+<br>
+<span class="cmt"># typical flush split — most of the crop comes early</span><br>
+firstFlush  = totalFresh × 0.50<br>
+secondFlush = totalFresh × 0.30<br>
+<br>
+<span class="cmt"># working backward from a target harvest</span><br>
+blocksNeeded = ceil( target ÷ freshPerBlock )
+      </div>
+      <h3>Why this tool asks for dry weight, not block weight</h3>
+      <p>A finished 5 lb gourmet block isn't 5 lb of substrate — it's roughly 60% water. At 60% moisture, that 5 lb block is only about <b>2 lb of dry substrate</b>. If you plug the full 5 lb into a BE calculation, you overstate every yield number by roughly 2.5×, because you've divided by a weight that includes water the mushroom never metabolized. This is the single most common BE mistake, and it's why the input here is explicitly the dry weight, with a hint reminding you what a typical hydrated block converts to.</p>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>20 blocks, 2 lb dry substrate each, 75% BE (standard oyster).</b></p>
+        <p>freshPerBlock = 2 × 0.75 = <b>1.5 lb fresh per block</b>. totalFresh = 20 × 1.5 = <b>30 lb total</b>.</p>
+        <p>firstFlush ≈ 30 × 0.50 = <b>15 lb</b> from the first flush alone.</p>
+        <p>Now say a wholesale account wants <b>40 lb a week</b>. blocksNeeded = ceil(40 ÷ 1.5) = <b>27 blocks</b> — not 20, and not a round guess.</p>
+      </div>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard number is wrong.</h2>
+      <p>BE% is one of the most-quoted numbers in gourmet growing, and one of the most-misapplied. Here's where it quietly costs you a batch or a bad order commitment.</p>
+      <h3>BE on the wet block overstates yield by ~2.5×</h3>
+      <p>This is worth repeating on its own: <b>BE is on DRY substrate weight, never the wet block.</b> A 5 lb hydrated block is roughly 2 lb dry. Plug 5 lb into the BE math and you'll project a yield that's 2.5× too optimistic — a projection that looks great on a spreadsheet and falls apart the first time you actually weigh a harvest. If you don't know your dry weight, work it out from your masters mix ratio, not from the finished block on the scale.</p>
+      <h3>BE varies enormously by species, strain, and substrate</h3>
+      <p>The presets in this tool are typical planning numbers, not fixed constants. In the literature, <b>lion's mane BE has been reported anywhere from 22% to 89%</b>, and <b>shiitake from 74% to over 107%</b>, depending on strain, substrate formulation, and growing conditions. Treat every preset as a starting assumption for planning — your farm's real BE is whatever you measure across a few actual batches on your actual substrate, not a number from a chart.</p>
+      <h3>Most of the crop is the first flush — plan on 1.5–2 strong flushes, not four equal ones</h3>
+      <p>New growers sometimes model yield as four or five equal harvests. In practice the <b>first flush is roughly half the total crop</b>, the second is around 30%, and it falls off sharply after that. Plan your labor, packaging, and sales commitments around <b>1.5 to 2 strong flushes</b>, and treat anything beyond that as bonus yield — not a reliable line item in a production schedule.</p>
+      <h3>BE over 100% is real — but chasing it can cost you more than it earns</h3>
+      <p>A BE% above 100 isn't a typo or an error state; it simply means the fresh mushroom weight exceeded the dry substrate weight, which is normal for a good oyster or shiitake run on a well-supplemented substrate. But pushing BE higher with heavy nitrogen supplementation raises contamination risk at the same time — and yield you lose to a green, trashed bag doesn't show up anywhere in a BE spreadsheet. A batch run at a slightly lower BE that all makes it to harvest often beats a "higher BE" recipe that loses a quarter of its bags to <i>Trichoderma</i>.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the farm</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the grow room</div>
+        <p>The first time I ran a real BE calculation on my own farm, I used the finished block weight because that's what was written on the tag — and the number came back so good I nearly took a wholesale order I couldn't have filled. It wasn't until I sat down and worked out what that 5 lb block actually was — about 2 lb of hardwood sawdust and soy hull, the rest just water I'd added at the mixer — that the math lined back up with what I was actually pulling off the shelves flush after flush. <b>The formula was never wrong. I was dividing by the wrong weight.</b> Now every yield projection I run starts from the dry substrate number, and every wholesale commitment gets built on the first-and-second-flush total, not the optimistic four-flush fantasy — because the account still wants their order the week the third flush comes in light.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your farm data</span>
+      <h2 style="position:relative;margin-top:14px">Track every batch, flush, and yield — not just the projection.</h2>
+      <p>A BE calculation is a planning estimate. The value shows up when you log actual flush weights against batch, substrate, and grow room across every harvest — and see which rooms are really hitting the BE you assumed, and which are quietly drifting before a crop is lost. That's what a Farm-Ops tracker does automatically.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="https://mycoai.net/#contact" class="btn btn-primary">Get a Farm-Ops tracker for your farm →</a>
+        <a href="/mushrooms/" class="btn btn-ghost">Explore all the mushroom tools →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/mushrooms/masters-mix/">
+          <div class="xl-k">Before the flush</div><div class="xl-t">Masters Mix Calculator</div>
+          <div class="xl-d">Get the dry substrate weight this tool starts from.</div>
+        </a>
+        <a class="xlink" href="/mushrooms/weekly-production-calendar/">
+          <div class="xl-k">Plan the week</div><div class="xl-t">Weekly Production Calendar</div>
+          <div class="xl-d">Turn a yield target into a repeatable weekly cadence.</div>
+        </a>
+        <a class="xlink" href="/mushrooms/">
+          <div class="xl-k">More</div><div class="xl-t">All mushroom tools</div>
+          <div class="xl-d">Substrate, sterilization, yield, and media.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* ================= BIOLOGICAL EFFICIENCY & YIELD CALCULATOR ================= */
+const LB_TO_KG=0.453592;
+let wtUnit='lb';
+const $=id=>document.getElementById(id);
+function fmtWt(lb){if(!isFinite(lb))return '—';const dp=lb<10?2:(lb<100?1:0);return lb.toFixed(dp).replace(/\.0+$/,'').replace(/(\.\d*[1-9])0+$/,'$1');}
+function toLb(v){return wtUnit==='kg'?v/LB_TO_KG:v;}
+function fromLb(lb){return wtUnit==='kg'?lb*LB_TO_KG:lb;}
+
+$('species').addEventListener('change',()=>{
+  const v=$('species').value;
+  if(v!=='custom'){$('be').value=v;}
+  calc();
+});
+$('be').addEventListener('input',()=>{
+  $('species').value='custom';
+  calc();
+});
+
+function calc(){
+  const beRaw=parseFloat($('be').value);
+  const blocksRaw=parseFloat($('blocks').value);
+  const drywtRaw=parseFloat($('drywt').value);
+  const targetRaw=$('target').value.trim()===''?null:parseFloat($('target').value);
+  const warn=$('warn');warn.classList.remove('show');warn.textContent='';
+
+  const invalid = !isFinite(beRaw)||beRaw<=0 ||
+                  !isFinite(blocksRaw)||blocksRaw<=0 ||
+                  !isFinite(drywtRaw)||drywtRaw<=0;
+
+  if(invalid){
+    ['totalFresh','perBlock','firstFlush','thirdCell','dryTotal'].forEach(id=>$(id).textContent='—');
+    $('worknums').textContent='—';
+    $('totalSub').textContent='enter valid species, blocks, and dry weight';
+    return;
+  }
+
+  const dryPerBlockLb = toLb(drywtRaw);
+  const freshPerBlockLb = dryPerBlockLb * (beRaw/100);
+  const totalFreshLb = blocksRaw * freshPerBlockLb;
+  const firstFlushLb = totalFreshLb * 0.50;
+  const secondFlushLb = totalFreshLb * 0.30;
+  const dryTotalLb = blocksRaw * dryPerBlockLb;
+
+  const totalFreshKg = totalFreshLb * LB_TO_KG;
+  $('totalFresh').innerHTML = `${fmtWt(totalFreshLb)} <span>lb</span>`;
+  $('totalSub').innerHTML = `≈ ${fmtWt(totalFreshKg)} kg · across <b>${blocksRaw}</b> block${blocksRaw!=1?'s':''}, all flushes`;
+
+  $('perBlock').innerHTML = `${fmtWt(fromLb(freshPerBlockLb))} <span>${wtUnit}</span>`;
+  $('firstFlush').innerHTML = `${fmtWt(fromLb(firstFlushLb))} <span>${wtUnit}</span>`;
+  $('dryTotal').innerHTML = `${fmtWt(fromLb(dryTotalLb))} <span>${wtUnit}</span>`;
+
+  if(targetRaw!==null && isFinite(targetRaw) && targetRaw>0){
+    const targetLb = toLb(targetRaw);
+    const blocksNeeded = Math.ceil(targetLb / freshPerBlockLb);
+    $('thirdCellLabel').textContent = 'Blocks needed for target';
+    $('thirdCell').innerHTML = `${blocksNeeded} <span>block${blocksNeeded!=1?'s':''}</span>`;
+    $('thirdCellNote').innerHTML = `for <b>${fmtWt(targetRaw)} ${wtUnit}</b> target`;
+    $('targetConv').innerHTML = `= <b>${fmtWt(fromLb(secondFlushLb))} ${wtUnit}</b> would come from flush 1+2 of a ${blocksRaw}-block batch`;
+  } else {
+    $('thirdCellLabel').textContent = 'First 2 flushes ≈';
+    $('thirdCell').innerHTML = `${fmtWt(fromLb(firstFlushLb+secondFlushLb))} <span>${wtUnit}</span>`;
+    $('thirdCellNote').textContent = 'flush 1 + flush 2, ≈80% of total';
+    $('targetConv').textContent = 'enter a weekly order to see blocks needed';
+  }
+
+  $('wtConv').textContent = wtUnit==='kg' ? `= ${(toLb(drywtRaw)).toFixed(2)} lb dry per block` : 'a 5 lb block at 60% moisture ≈ 2 lb DRY substrate';
+  $('targetUnit').textContent = wtUnit;
+
+  const speciesSel=$('species'), speciesLabel = speciesSel.options[speciesSel.selectedIndex].text.split(' · ')[0];
+  $('worknums').innerHTML = `<b>${speciesLabel}</b> · BE <b>${beRaw}%</b> · <b>${fmtWt(drywtRaw)} ${wtUnit}</b> dry per block · BE is on DRY substrate weight`;
+
+  const msgs=[];
+  if(beRaw>200)msgs.push('BE over 200% — verify: check you used the DRY substrate weight (not the wet block) and that you weighed fresh mushrooms, not dried ones.');
+  if(drywtRaw>10)msgs.push('Dry substrate per block over 10 lb looks like a wet block weight — BE needs the DRY weight. A typical 5 lb hydrated block is ≈2 lb dry.');
+  if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
+}
+
+document.querySelectorAll('[data-wt]').forEach(b=>{b.onclick=()=>{
+  const prev=wtUnit; wtUnit=b.dataset.wt;
+  document.querySelectorAll('[data-wt]').forEach(x=>x.classList.toggle('on',x===b));
+  const el=$('drywt'), v=parseFloat(el.value);
+  if(isFinite(v)){
+    if(prev==='lb'&&wtUnit==='kg'){el.value=(v*LB_TO_KG).toFixed(2);}
+    else if(prev==='kg'&&wtUnit==='lb'){el.value=(v/LB_TO_KG).toFixed(2);}
+  }
+  const tEl=$('target'), tv=parseFloat(tEl.value);
+  if(isFinite(tv)){
+    if(prev==='lb'&&wtUnit==='kg'){tEl.value=(tv*LB_TO_KG).toFixed(2);}
+    else if(prev==='kg'&&wtUnit==='lb'){tEl.value=(tv/LB_TO_KG).toFixed(2);}
+  }
+  calc();
+};});
+['blocks','drywt','target'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>
