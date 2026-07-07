@@ -81,6 +81,12 @@
 .rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
 .rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
 .rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.srcseg{display:flex;width:100%;margin-top:2px}
+.srcseg button{flex:1;padding:9px 4px;font-size:12.5px}
+.rcell{transition:border-color .2s,background .2s}
+.rcell.sel{border-color:var(--teal);background:rgba(55,214,176,.07)}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
 .reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
 .reswarn.show{display:block}
 .resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
@@ -240,33 +246,54 @@
           <div class="rsub" id="cellsSub">billion cells · adjusted for viability</div>
         </div>
 
+        <div class="field" style="margin-top:18px">
+          <label>Pitch from <span class="hint">(pick your yeast source)</span></label>
+          <div class="seg srcseg" role="group" aria-label="Pitch source">
+            <button type="button" data-src="packs" class="on">Packs</button>
+            <button type="button" data-src="dry">Dry</button>
+            <button type="button" data-src="slurry">Slurry</button>
+            <button type="button" data-src="starter">Starter</button>
+          </div>
+        </div>
+
+        <div class="field" id="densWrap" style="display:none">
+          <label for="dens" id="densLabel">Slurry concentration</label>
+          <div class="inrow">
+            <input type="number" id="dens" value="1" min="0.02" max="5" step="0.05" inputmode="decimal" aria-label="Cell density, billion cells per mL">
+            <div class="seg" aria-hidden="true"><button type="button" class="on" tabindex="-1" style="cursor:default">B/mL</button></div>
+          </div>
+          <div class="conv" id="densNote"></div>
+        </div>
+
         <div class="resgrid">
-          <div class="rcell">
-            <div class="rc-k"><span aria-hidden="true">🧫</span> Liquid yeast</div>
+          <div class="rcell" data-cell="packs">
+            <div class="rc-k"><span aria-hidden="true">🧫</span> Liquid packs</div>
             <div class="rc-v" id="packs">—</div>
             <div class="rc-note" id="packsNote">White Labs / Wyeast packs</div>
           </div>
-          <div class="rcell">
+          <div class="rcell" data-cell="dry">
             <div class="rc-k"><span aria-hidden="true">🌾</span> Dry yeast</div>
             <div class="rc-v" id="grams">—</div>
             <div class="rc-note" id="gramsNote">≈ 11.5 g sachets</div>
           </div>
-          <div class="rcell">
-            <div class="rc-k"><span aria-hidden="true">⚗️</span> Starter target</div>
-            <div class="rc-v" id="starter">—</div>
-            <div class="rc-note" id="starterNote">grow from a single fresh pack</div>
+          <div class="rcell" data-cell="slurry">
+            <div class="rc-k"><span aria-hidden="true">🧪</span> Slurry</div>
+            <div class="rc-v" id="slurry">—</div>
+            <div class="rc-note" id="slurryNote">thick repitch slurry</div>
           </div>
-          <div class="rcell">
-            <div class="rc-k"><span aria-hidden="true">📐</span> Working numbers</div>
-            <div class="rc-v" id="platoOut">—</div>
-            <div class="rc-note" id="rateNote">at your target rate</div>
+          <div class="rcell" data-cell="starter">
+            <div class="rc-k"><span aria-hidden="true">⚗️</span> Starter</div>
+            <div class="rc-v" id="starter">—</div>
+            <div class="rc-note" id="starterNote">finished starter volume</div>
           </div>
         </div>
+
+        <div class="worknums" id="worknums">—</div>
 
         <div class="reswarn" id="warn"></div>
 
         <div class="resfoot">
-          Formula: <code>cells = rate × volume(mL) × °P</code>. Assumes a fresh liquid pack ≈ <b>100 B</b> viable cells and dry yeast ≈ <b>10 B</b> viable cells/g — the standard planning figures, adjustable in the notes below.
+          Formula: <code>cells = rate × volume(mL) × °P</code>. Fresh liquid pack ≈ <b>100 B</b> · dry ≈ <b>10 B</b>/g · slurry &amp; starter use the <b>cell density you set</b> — the number most worth measuring. Viability scales every source.
         </div>
       </div>
     </div>
@@ -307,6 +334,10 @@ grams   = required_viable ÷ (10  × viability)
         <p>cells = 0.75 × 75,708 × 13.6 ≈ <b>770 billion viable cells</b>.</p>
         <p>At 100 B per fresh liquid pack that's <b>~8 packs</b> — or about <b>77 g of dry yeast</b> — or one pack built up in a starter to reach 770 B.</p>
       </div>
+
+      <h3>Pitching by slurry or starter volume</h3>
+      <p>Most working breweries don't pitch by the pack — they pitch a measured <b>volume of yeast slurry</b> harvested from a previous batch, or the <b>volume of a starter</b> they grew. Both are just cells suspended in liquid, so the same total-cell target applies: divide the cells you need by the slurry or starter's <b>cell density</b> to get millilitres. Switch the <b>Pitch from</b> tabs on the result to <b>Slurry</b> or <b>Starter</b> and set the density that matches your yeast.</p>
+      <p>The catch is that density is a real variable, not a constant. A thick, decanted repitch slurry runs around <b>1 billion cells/mL</b>, but a trub-heavy or looser one is lower and a very clean, tightly-packed one higher — so slurry cell density is the single number most worth confirming with a <a class="link" href="/calculators/">cell count</a> before you trust it. A finished stir-plate starter lands near <b>0.15–0.2 billion cells/mL</b>; a still (unstirred) starter closer to 0.1. The tool defaults to conservative figures and lets you dial in your own.</p>
 
       <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
       <h2 style="margin-top:14px">When the standard pitch rate is wrong.</h2>
@@ -372,6 +403,8 @@ grams   = required_viable ÷ (10  × viability)
 /* ================= PITCH RATE CALCULATOR ================= */
 const GAL_TO_L=3.78541, PACK_FRESH_B=100, DRY_B_PER_G=10, SACHET_G=11.5;
 let volUnit='gal', gravUnit='sg';
+let pitchSrc='packs', slurryDens=1, starterDens=0.15;
+function fmtVol(ml){if(!isFinite(ml)||ml<=0)return {n:'—',u:''};if(ml>=1000)return {n:(ml/1000).toFixed(ml>=10000?1:2).replace(/\.?0+$/,''),u:'L'};return {n:String(Math.round(ml)),u:'mL'};}
 const $=id=>document.getElementById(id);
 function sgToPlato(sg){return -616.868+1111.14*sg-630.272*sg*sg+135.997*sg*sg*sg;}
 function platoToSg(p){return 1+(p/(258.6-(p/258.2)*227.1));}
@@ -382,7 +415,7 @@ function calc(){
   let viab=parseFloat($('viab').value);
   const warn=$('warn');warn.classList.remove('show');warn.textContent='';
   if(!isFinite(volRaw)||volRaw<=0||!isFinite(gravRaw)||gravRaw<=0||!isFinite(rate)||rate<=0){
-    ['cellsBn','packs','grams','starter','platoOut'].forEach(id=>$(id).textContent='—');
+    ['cellsBn','packs','grams','slurry','starter'].forEach(id=>$(id).textContent='—');$('worknums').textContent='—';
     $('cellsSub').textContent='enter a volume, gravity, and rate';return;
   }
   if(!isFinite(viab)||viab<=0)viab=100;
@@ -395,18 +428,22 @@ function calc(){
   const cellsMillion=rate*volumeML*plato,requiredB=cellsMillion/1000;
   const perPackEff=PACK_FRESH_B*(viab/100),perGramEff=DRY_B_PER_G*(viab/100);
   const packsExact=requiredB/perPackEff,packsCeil=Math.ceil(packsExact);
-  const grams=requiredB/perGramEff,sachets=grams/SACHET_G,starterGap=requiredB-perPackEff;
+  const grams=requiredB/perGramEff,sachets=grams/SACHET_G;
+  const effViab=viab/100;
+  const slurryMl=requiredB/(slurryDens*effViab), starterMl=requiredB/(starterDens*effViab);
+  const sv=fmtVol(slurryMl), st=fmtVol(starterMl);
   $('cellsBn').textContent=fmtB(requiredB);
-  $('cellsSub').textContent=viab<100?`billion viable cells · at ${viab}% pack viability`:`billion viable cells · fresh yeast`;
+  $('cellsSub').textContent=viab<100?`billion viable cells · at ${viab}% viability`:`billion viable cells · fresh yeast`;
   $('packs').innerHTML=`${packsCeil} <span>pack${packsCeil!==1?'s':''}</span>`;
   $('packsNote').textContent=`${packsExact.toFixed(1)} exact · ${Math.round(perPackEff)} B each`;
   $('grams').innerHTML=`${grams.toFixed(0)} <span>g</span>`;
   $('gramsNote').textContent=`≈ ${sachets.toFixed(1)} × ${SACHET_G} g sachet${sachets>=1.05?'s':''}`;
-  if(packsExact<=1.05){$('starter').innerHTML=`none <span>needed</span>`;$('starterNote').textContent='1 fresh pack already covers it';}
-  else if(packsExact<=3){$('starter').innerHTML=`+${fmtB(starterGap)}`;$('starterNote').textContent=`grow this beyond one ${Math.round(perPackEff)} B pack`;}
-  else{$('starter').innerHTML=`n/a`;$('starterNote').textContent=`buy ${packsCeil} packs — too large for one starter`;}
-  $('platoOut').innerHTML=`${plato.toFixed(1)} <span>°P</span>`;
-  $('rateNote').textContent=`${rate} M cells/mL/°P × ${volumeL.toFixed(1)} L`;
+  $('slurry').innerHTML=`${sv.n} <span>${sv.u}</span>`;
+  $('slurryNote').textContent=`at ${slurryDens} B cells/mL`;
+  $('starter').innerHTML=`${st.n} <span>${st.u}</span>`;
+  $('starterNote').textContent=`at ${starterDens} B cells/mL finished`;
+  $('worknums').innerHTML=`Wort <b>${plato.toFixed(1)} °P</b> (${sg.toFixed(3)} SG) · rate <b>${rate}</b> M cells/mL/°P · <b>${volumeL.toFixed(1)} L</b>`;
+  document.querySelectorAll('.rcell[data-cell]').forEach(c=>c.classList.toggle('sel',c.dataset.cell===pitchSrc));
   const msgs=[];
   if(sg>1.25||sg<1.000)msgs.push('That gravity looks outside the normal brewing range — double-check the units (SG like 1.055, or °Plato like 13.6) and any missing decimal.');
   else{
@@ -421,6 +458,16 @@ document.querySelectorAll('[data-vol]').forEach(b=>{b.onclick=()=>{volUnit=b.dat
 document.querySelectorAll('[data-grav]').forEach(b=>{b.onclick=()=>{const prev=gravUnit;gravUnit=b.dataset.grav;document.querySelectorAll('[data-grav]').forEach(x=>x.classList.toggle('on',x===b));const el=$('grav'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='sg'&&gravUnit==='plato'){el.value=sgToPlato(v).toFixed(1);el.step='0.1';}else if(prev==='plato'&&gravUnit==='sg'){el.value=platoToSg(v).toFixed(3);el.step='0.001';}}calc();};});
 $('style').onchange=()=>{const c=$('style').value==='custom';$('customWrap').style.display=c?'block':'none';if(c)$('customRate').focus();calc();};
 ['vol','grav','customRate','viab'].forEach(id=>$(id).addEventListener('input',calc));
+function applySrc(){
+  document.querySelectorAll('[data-src]').forEach(b=>b.classList.toggle('on',b.dataset.src===pitchSrc));
+  var show=(pitchSrc==='slurry'||pitchSrc==='starter');
+  $('densWrap').style.display=show?'block':'none';
+  if(pitchSrc==='slurry'){$('densLabel').textContent='Slurry concentration';$('dens').value=slurryDens;$('densNote').innerHTML='Typical decanted repitch slurry ≈ <b>1 B/mL</b> — the one number most worth measuring (hemocytometer).';}
+  else if(pitchSrc==='starter'){$('densLabel').textContent='Starter finished density';$('dens').value=starterDens;$('densNote').innerHTML='Stir-plate starter ≈ <b>0.15–0.2 B/mL</b>; a still starter is closer to 0.1.';}
+}
+document.querySelectorAll('[data-src]').forEach(b=>{b.onclick=()=>{pitchSrc=b.dataset.src;applySrc();calc();};});
+$('dens').addEventListener('input',()=>{var v=parseFloat($('dens').value);if(isFinite(v)&&v>0){if(pitchSrc==='slurry')slurryDens=v;else if(pitchSrc==='starter')starterDens=v;}calc();});
+applySrc();
 calc();
 
 /* subpage shell: header scroll + progress + drawer */
