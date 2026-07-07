@@ -3,19 +3,19 @@
 <head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fermentation &amp; Brewing Calculators | MycoAI</title>
-<meta name="description" content="Free, no-signup brewing and fermentation calculators — yeast pitch rate, starters, viability, ABV, attenuation, and more. Built by a former New Belgium yeast specialist.">
+<title>Fermentation &amp; Brewery Ops Guides | MycoAI</title>
+<meta name="description" content="Practical, build-it-right guides for automating brewery quality control, tracking fermentation data, and running a lean QC program — from a former New Belgium yeast specialist.">
 <meta name="author" content="Guy Richard Stewart">
-<link rel="canonical" href="https://mycoai.net/calculators/">
+<link rel="canonical" href="https://mycoai.net/guides/">
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://mycoai.net/calculators/">
-<meta property="og:title" content="Fermentation &amp; Brewing Calculators | MycoAI">
-<meta property="og:description" content="Free, no-signup brewing and fermentation calculators from a former New Belgium yeast specialist. Start with the Yeast Pitch Rate Calculator.">
+<meta property="og:url" content="https://mycoai.net/guides/">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Fermentation &amp; Brewery Ops Guides | MycoAI">
+<meta property="og:description" content="Build-it-right guides for brewery QC automation and fermentation data — from a former New Belgium yeast specialist.">
 <meta property="og:image" content="https://mycoai.net/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
-<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://mycoai.net/og-card.png">
 <meta name="theme-color" content="#060a12">
@@ -28,20 +28,20 @@
 <link rel="stylesheet" href="/styles.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CollectionPage",
-"name":"Fermentation & Brewing Calculators",
-"url":"https://mycoai.net/calculators/",
-"description":"A hub of free client-side brewing and fermentation calculators for yeast, gravity, and QC math.",
+"name":"Fermentation & Brewery Ops Guides",
+"url":"https://mycoai.net/guides/",
+"description":"Practical guides for brewery QC automation and fermentation data.",
 "isPartOf":{"@type":"WebSite","name":"MycoAI","url":"https://mycoai.net/"},
-"mainEntity":[{"@type":"WebPage","@id":"https://mycoai.net/calculators/yeast-pitch-rate/","name":"Yeast Pitch Rate Calculator"}],
+"mainEntity":[{"@type":"Article","@id":"https://mycoai.net/guides/brewery-qc-automation/","name":"How to Automate Brewery Quality Control"}],
 "author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
 {"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
-{"@type":"ListItem","position":2,"name":"Calculators","item":"https://mycoai.net/calculators/"}]}
+{"@type":"ListItem","position":2,"name":"Guides","item":"https://mycoai.net/guides/"}]}
 </script>
 <style>
-/* ---- calculators hub · page-specific (inherits tokens/shell from /styles.css) ---- */
+/* ---- guides hub · page-specific (inherits tokens/shell from /styles.css) ---- */
 .pagehead{position:relative;z-index:2;padding:118px 0 6px}
 .crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
 .crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
@@ -62,7 +62,7 @@
 .hbadge{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;font-weight:600}
 .hbadge.on{color:#04130f;background:var(--teal)}
 .hbadge.off{color:var(--faint);background:rgba(255,255,255,.04);border:1px solid var(--line)}
-.hcard h3{font-family:'Fraunces',serif;font-size:1.16rem;font-weight:600;margin-bottom:8px;line-height:1.25;letter-spacing:-.01em}
+.hcard h2,.hcard h3{font-family:'Fraunces',serif;font-size:1.16rem;font-weight:600;margin-bottom:8px;line-height:1.25;letter-spacing:-.01em}
 .hcard p{font-size:13.5px;color:var(--muted);flex:1;line-height:1.55}
 .hc-go{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--teal)}
 .hcard.soon .hc-go{color:var(--faint)}
@@ -72,6 +72,7 @@
 .hoffer h2{font-size:1.5rem;margin-top:0}
 .hoffer p{color:var(--muted);margin-top:8px;font-size:1rem;max-width:560px}
 .hoffer .btn{position:relative}
+.section-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:500;display:inline-block}
 @media(max-width:1000px){.hubgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:680px){.hubgrid{grid-template-columns:1fr}.hoffer{flex-direction:column;align-items:flex-start}}
 </style>
@@ -98,10 +99,10 @@
       <div class="navlinks">
         <a href="https://mycoai.net/#about">About</a>
         <a href="https://mycoai.net/#services">Services</a>
-        <a href="/calculators/" class="cur" aria-current="page">Calculators</a>
-        <a href="/guides/">Guides</a>
+        <a href="/calculators/">Calculators</a>
+        <a href="/guides/" class="cur" aria-current="page">Guides</a>
       </div>
-      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <a href="/services/qc-dashboard/" class="navcta">Get a QC dashboard →</a>
       <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
     </nav>
   </div>
@@ -112,98 +113,60 @@
   <a href="https://mycoai.net/#services">Services</a>
   <a href="/calculators/">Calculators</a>
   <a href="/guides/">Guides</a>
-  <a href="https://mycoai.net/#contact">Let's talk →</a>
+  <a href="/services/qc-dashboard/">Get a QC dashboard →</a>
 </div>
 
 <main id="top">
-<!-- PAGE HEAD -->
 <div class="pagehead">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
-      <a href="https://mycoai.net/">Home</a><span>/</span>Calculators
+      <a href="https://mycoai.net/">Home</a><span>/</span>Guides
     </nav>
-    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tools · no signup · run in your browser</span>
-    <h1 class="ptitle">Fermentation &amp; Brewing <span class="grad">Calculators</span></h1>
-    <p class="psub">The fiddly yeast and gravity math, done right — <b>no ads, no signup, no data leaving your browser</b>. Each tool shows its formula and explains when the standard number is wrong, built by a former New Belgium yeast specialist.</p>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Practical, build-it-right guides</span>
+    <h1 class="ptitle">Fermentation &amp; Brewery Ops <span class="grad">Guides</span></h1>
+    <p class="psub">Deep, honest walk-throughs for running a lean brewery QC program — <b>automating quality control, tracking fermentation data, and catching a bad batch before it's packaged</b>. Written by a former New Belgium yeast specialist who ran this on the floor.</p>
   </div>
 </div>
 
-<!-- CALCULATOR GRID -->
 <div class="hubwrap">
   <div class="wrap">
-    <h2 class="kicker">The toolkit</h2>
+    <h2 class="section-k">The guides</h2>
     <div class="hubgrid" style="margin-top:24px">
 
-      <a class="hcard live" href="/calculators/yeast-pitch-rate/" aria-label="Yeast Pitch Rate Calculator">
-        <div class="hc-top"><div class="hc-ico" aria-hidden="true">🧫</div><span class="hbadge on">Live</span></div>
-        <h3>Yeast Pitch Rate Calculator</h3>
-        <p>Enter volume, gravity, and target cell density — get exact cells, liquid packs, grams of dry yeast, and starter growth. Ale &amp; lager.</p>
-        <div class="hc-go">Open tool →</div>
+      <a class="hcard live" href="/guides/brewery-qc-automation/" aria-label="How to Automate Brewery Quality Control">
+        <div class="hc-top"><div class="hc-ico" aria-hidden="true">⚙️</div><span class="hbadge on">Live</span></div>
+        <h2>Automate Brewery Quality Control</h2>
+        <p>The four-step capture → check → alert → learn loop, an honest build-vs-buy breakdown, and where the standard advice costs you a batch.</p>
+        <div class="hc-go">Read the guide →</div>
       </a>
 
       <div class="hcard soon" aria-disabled="true">
-        <div class="hc-top"><div class="hc-ico" aria-hidden="true">⚗️</div><span class="hbadge off">Soon</span></div>
-        <h3>Yeast Starter Calculator</h3>
-        <p>Size a starter to grow from a single pack up to your pitch-rate target — step volumes, DME, and expected cell yield.</p>
+        <div class="hc-top"><div class="hc-ico" aria-hidden="true">📊</div><span class="hbadge off">Soon</span></div>
+        <h3>Track Fermentation Data in a Spreadsheet</h3>
+        <p>The minimum fields that matter and how to structure a single-source sheet you can automate later — the on-ramp to real QC.</p>
         <div class="hc-go">In the works</div>
       </div>
 
       <div class="hcard soon" aria-disabled="true">
-        <div class="hc-top"><div class="hc-ico" aria-hidden="true">🩺</div><span class="hbadge off">Soon</span></div>
-        <h3>Yeast Viability Calculator</h3>
-        <p>Estimate a pack's real viable-cell count from its production date, so you stop pitching a "100 B" pack that's really 45 B.</p>
+        <div class="hc-top"><div class="hc-ico" aria-hidden="true">🍶</div><span class="hbadge off">Soon</span></div>
+        <h3>Kombucha Batch Tracking System</h3>
+        <p>pH, acidity, and food-safety logging for small-batch kombucha — a compliant, repeatable system without enterprise software.</p>
         <div class="hc-go">In the works</div>
       </div>
 
       <div class="hcard soon" aria-disabled="true">
-        <div class="hc-top"><div class="hc-ico" aria-hidden="true">🍺</div><span class="hbadge off">Soon</span></div>
-        <h3>ABV from Gravity</h3>
-        <p>Convert original and final gravity into ABV and apparent attenuation with the standard and alternate formulas.</p>
-        <div class="hc-go">In the works</div>
-      </div>
-
-      <div class="hcard soon" aria-disabled="true">
-        <div class="hc-top"><div class="hc-ico" aria-hidden="true">📉</div><span class="hbadge off">Soon</span></div>
-        <h3>Attenuation Calculator</h3>
-        <p>Apparent vs real attenuation against your target — the highest-signal check that a batch is tracking to style.</p>
-        <div class="hc-go">In the works</div>
-      </div>
-
-      <div class="hcard soon" aria-disabled="true">
-        <div class="hc-top"><div class="hc-ico" aria-hidden="true">🥄</div><span class="hbadge off">Soon</span></div>
-        <h3>Priming Sugar Calculator</h3>
-        <p>Dial in carbonation: grams of priming sugar by style, volume, and temperature for clean, safe bottle conditioning.</p>
-        <div class="hc-go">In the works</div>
-      </div>
-
-      <div class="hcard soon" aria-disabled="true">
-        <div class="hc-top"><div class="hc-ico" aria-hidden="true">🔬</div><span class="hbadge off">Soon</span></div>
-        <h3>Hemocytometer Cell Count</h3>
-        <p>Turn grid counts and dilution into cells/mL and total viable cells — the lab-grade way to trust a slurry.</p>
-        <div class="hc-go">In the works</div>
-      </div>
-
-      <div class="hcard soon" aria-disabled="true">
-        <div class="hc-top"><div class="hc-ico" aria-hidden="true">🌡️</div><span class="hbadge off">Soon</span></div>
-        <h3>Hydrometer Temp Correction</h3>
-        <p>Correct a gravity reading for sample temperature so your OG/FG — and everything downstream — is actually right.</p>
-        <div class="hc-go">In the works</div>
-      </div>
-
-      <div class="hcard soon" aria-disabled="true">
-        <div class="hc-top"><div class="hc-ico" aria-hidden="true">🗓️</div><span class="hbadge off">Soon</span></div>
-        <h3>Yeast Propagation Scheduler</h3>
-        <p>Plan a step-up propagation backward from brew day — each build's volume, cell target, and timing.</p>
+        <div class="hc-top"><div class="hc-ico" aria-hidden="true">🥃</div><span class="hbadge off">Soon</span></div>
+        <h3>TTB Distillery Record-Keeping</h3>
+        <p>What the TTB actually requires, and how to keep production and proof records that survive an audit without drowning in paperwork.</p>
         <div class="hc-go">In the works</div>
       </div>
 
     </div>
 
-    <!-- money-page strip -->
     <div class="hoffer">
       <div class="ot">
-        <h2 class="serif">Want it tracked across every batch?</h2>
-        <p>These tools answer one batch at a time. A done-for-you QC dashboard logs pitch, gravity, and attenuation across all of them — and flags a batch drifting out of spec before it's packaged.</p>
+        <h2 class="serif">Rather have it built for you?</h2>
+        <p>A done-for-you QC dashboard wired to your tanks — capture, spec-checks, and out-of-spec alerts, from the person who wrote these guides.</p>
       </div>
       <a href="/services/qc-dashboard/" class="btn btn-primary">See the QC Dashboard service →</a>
     </div>
@@ -221,7 +184,6 @@
 
 <script src="/yeast-bg.js"></script>
 <script>
-/* subpage shell: header scroll state + progress bar + mobile drawer (app.js is homepage-only) */
 (function(){
   var hdr=document.getElementById('hdr'),prog=document.getElementById('prog'),doc=document.documentElement;
   addEventListener('scroll',function(){

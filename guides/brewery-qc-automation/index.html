@@ -13,6 +13,9 @@
 <meta property="og:title" content="How to Automate Brewery Quality Control">
 <meta property="og:description" content="Move QC off spreadsheets in four steps — capture, spec-check, alert, and an AI agent that compares each batch to your own history. From a former New Belgium yeast specialist.">
 <meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://mycoai.net/og-card.png">
 <meta name="theme-color" content="#060a12">
@@ -33,12 +36,36 @@
 "publisher":{"@type":"Person","name":"Guy Richard Stewart"},
 "datePublished":"2026-07-02","dateModified":"2026-07-02"}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"How to Automate Brewery Quality Control",
+"description":"Move brewery quality control off spreadsheets in four steps: capture, check, alert, and learn.",
+"step":[
+{"@type":"HowToStep","position":1,"name":"Capture","text":"Get your fermentation data off paper and into one place, entered once — gravity, temperature, pH, dissolved oxygen at knockout, and time."},
+{"@type":"HowToStep","position":2,"name":"Check","text":"Automate the spec check: compare every reading to per-style bands built from your own history, with attenuation-vs-target as the highest-signal check."},
+{"@type":"HowToStep","position":3,"name":"Alert","text":"Send an out-of-spec alert to the right person by email, Slack, or SMS, matched to severity, while there is still time to act on the batch."},
+{"@type":"HowToStep","position":4,"name":"Learn","text":"Add an AI agent that compares each batch to your baseline and surfaces the likely cause — e.g. 'Batch 12 is attenuating 8% slower than average, check pitch rate.'"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does automating brewery quality control actually mean?","acceptedAnswer":{"@type":"Answer","text":"It is a four-stage workflow — capture, check, alert, learn — that runs whether or not anyone remembers to. Capture gets a reading into the system, check compares it to the spec band for the style, alert tells a human only when something is wrong, and learn keeps the history so every batch is measured against your own baseline."}},
+{"@type":"Question","name":"Should I build my own brewery QC system or buy one?","acceptedAnswer":{"@type":"Answer","text":"A spreadsheet is fine until a batch slips through because nobody looked. DIY code works if you are technical and have the evenings to finish it. A done-for-you dashboard ($1,500–3,000 one-time) fits a brewery that wants the capture-check-alert-learn loop running against its tanks now, without becoming a software project."}},
+{"@type":"Question","name":"What is the most important metric to automate first?","acceptedAnswer":{"@type":"Answer","text":"Attenuation versus your own historical curve. A batch attenuating slower than its baseline is the earliest, loudest sign something is off — underpitching, unhealthy yeast, temperature, or a stall — days before a hydrometer reading looks fine."}},
+{"@type":"Question","name":"How much does a done-for-you QC dashboard cost?","acceptedAnswer":{"@type":"Answer","text":"$1,500–3,000 as a one-time fixed fee, depending on tank count, number of styles, and integrations."}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Guides","item":"https://mycoai.net/guides/"},
+{"@type":"ListItem","position":3,"name":"Automate Brewery QC","item":"https://mycoai.net/guides/brewery-qc-automation/"}]}
+</script>
 <style>
 /* ---- brewery QC automation guide · page-specific (inherits tokens/shell from /styles.css) ---- */
 .pagehead{position:relative;z-index:2;padding:116px 0 4px}
 .crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
 .crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
-.ptitle{font-family:'Fraunces',serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin-top:16px;max-width:16ch;font-variation-settings:'opsz' 120}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin-top:16px;max-width:16ch;font-variation-settings:'opsz' 120}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+nav.toc{display:block;height:auto}
 .ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
 .psub{max-width:66ch;color:var(--muted);font-size:clamp(1.04rem,1.6vw,1.22rem);margin-top:20px;line-height:1.55}
 .psub b{color:var(--ink);font-weight:600}
@@ -136,7 +163,7 @@
         <a href="https://mycoai.net/#about">About</a>
         <a href="https://mycoai.net/#services">Services</a>
         <a href="/calculators/">Calculators</a>
-        <a href="https://mycoai.net/#projects">Work menu</a>
+        <a href="/guides/" class="cur" aria-current="page">Guides</a>
       </div>
       <a href="/services/qc-dashboard/" class="navcta">Get a QC dashboard →</a>
       <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
@@ -148,7 +175,7 @@
   <a href="https://mycoai.net/#about">About</a>
   <a href="https://mycoai.net/#services">Services</a>
   <a href="/calculators/">Calculators</a>
-  <a href="https://mycoai.net/#projects">Work menu</a>
+  <a href="/guides/">Guides</a>
   <a href="/services/qc-dashboard/">Get a QC dashboard →</a>
 </div>
 
@@ -192,7 +219,7 @@
           <span class="node"><b>Learn</b></span>
         </div>
         <p><b>Capture</b> gets a reading into a system the moment it's taken. <b>Check</b> compares that reading to the spec band for the style. <b>Alert</b> tells a human only when something is actually wrong. <b>Learn</b> keeps the history so every batch is measured against your own baseline, not a textbook. Get those four running and you have automated fermentation monitoring — no buzzwords required. The "AI" only shows up at the very end, and only if it earns its place.</p>
-        <p>What it <em>doesn't</em> mean: ripping out how you brew, adding twelve dashboards nobody opens, or trusting a sensor you've never calibrated. Automation that ignores those realities gets switched off within a month.</p>
+        <p>What it <em>doesn't</em> mean: ripping out how you brew, adding twelve dashboards nobody opens, or trusting a sensor you've never calibrated. Automation that ignores those realities gets switched off within a month. Done right, brewery quality control automation is boring, reliable plumbing — not a robot, and not hype.</p>
 
         <h2 id="step-1">Step 1: Get your data off paper and out of siloed spreadsheets</h2>
         <div class="step">
@@ -210,7 +237,7 @@
           <li><b>Pitch rate &amp; time</b> — so a slow ferment can be traced back to what you actually pitched.</li>
         </ul>
         <h3>CSV / Google Sheets as the on-ramp</h3>
-        <p>You don't start with a platform — you start by making the spreadsheet <em>structured</em> and single-source. One row per reading, consistent units, no merged cells, no color-coding standing in for data. That clean sheet is the on-ramp everything else bolts onto. (Full walk-through in <a class="link" href="/guides/track-fermentation-data-spreadsheet/">tracking fermentation data in a spreadsheet →</a>.)</p>
+        <p>You don't start with a platform — you start by making the spreadsheet <em>structured</em> and single-source. One row per reading, consistent units, no merged cells, no color-coding standing in for data. That clean sheet is the on-ramp everything else bolts onto. (Full walk-through in <a class="link" href="/guides/">tracking fermentation data in a spreadsheet →</a>.)</p>
 
         <div class="midcta">
           <div class="m-t">
@@ -229,7 +256,7 @@
         <h3>Defining a spec band per style</h3>
         <p>Each style gets its own envelope: target OG, expected attenuation curve, a temperature window, a terminal-gravity range. The bands come from <em>your</em> history, not a book — your house pale ale's real attenuation, not the style guideline's. This is where automation quietly beats manual QC: a spreadsheet can store the numbers, but it won't <em>compare</em> them for you.</p>
         <h4>Attenuation-vs-target is the highest-signal check</h4>
-        <p>If you automate one thing, automate this. A batch attenuating slower than its own historical curve is the earliest, loudest signal that something's off — underpitched, unhealthy yeast, a temperature problem, or a stall in progress. It flags trouble days before a hydrometer reading "looks fine." Pair it with the <a class="link" href="/calculators/attenuation/">attenuation calculator →</a> to set the bands, and trace slow ferments back to what you pitched with the <a class="link" href="/calculators/yeast-pitch-rate/">yeast pitch rate calculator →</a>.</p>
+        <p>If you automate one thing, automate this. A batch attenuating slower than its own historical curve is the earliest, loudest signal that something's off — underpitched, unhealthy yeast, a temperature problem, or a stall in progress. It flags trouble days before a hydrometer reading "looks fine." Pair it with the <a class="link" href="/calculators/">attenuation calculator →</a> to set the bands, and trace slow ferments back to what you pitched with the <a class="link" href="/calculators/yeast-pitch-rate/">yeast pitch rate calculator →</a>.</p>
 
         <h2 id="step-3">Step 3: Automated out-of-spec alerting</h2>
         <div class="step">
@@ -274,6 +301,7 @@
         <p>There's no single right answer — there's the right answer <em>for your stage</em>. Here's the fair version, including where doing it yourself is genuinely fine:</p>
         <div class="tblwrap">
           <table>
+            <caption class="sr-only">Comparison of DIY spreadsheet, DIY code, and done-for-you QC dashboard approaches for brewery quality control.</caption>
             <thead>
               <tr><th scope="col">Approach</th><th scope="col">Setup effort</th><th scope="col">Ongoing cost</th><th scope="col">Catches drift early?</th><th scope="col">Best for</th></tr>
             </thead>
@@ -304,9 +332,9 @@
           <div class="s-k">First, the cost</div>
           <h3>What is off-spec costing you?</h3>
           <p>Put a real dollar figure on dumped batches and manual QC time before you spend a cent.</p>
-          <a href="/tools/batch-loss-calculator/" class="btn btn-ghost btn-block">Run the numbers →</a>
+          <a href="/services/qc-dashboard/" class="btn btn-ghost btn-block">Run the numbers →</a>
         </div>
-        <nav class="sidecard toc" aria-label="On this page">
+        <nav class="sidecard toc" role="navigation" aria-label="On this page">
           <div class="s-k">On this page</div>
           <a href="#what-it-means">What QC automation means</a>
           <a href="#step-1">1 · Capture your data</a>
@@ -331,7 +359,7 @@
       <p>Fixed-fee, $1.5k–3k, built around how <em>you</em> brew — capture, spec-checks, alerts, and the agent that catches drift before it costs you a batch. Start by seeing what off-spec fermentation is already costing you.</p>
       <div class="herobtns" style="justify-content:center;position:relative">
         <a href="/services/qc-dashboard/" class="btn btn-primary">Get a QC dashboard →</a>
-        <a href="/tools/batch-loss-calculator/" class="btn btn-ghost">See what a dumped batch costs →</a>
+        <a href="/services/qc-dashboard/" class="btn btn-ghost">See what a dumped batch costs →</a>
       </div>
     </div>
   </div>
@@ -342,10 +370,10 @@
   <div class="wrap">
     <span class="kicker">Keep reading</span>
     <p style="margin-top:12px;color:var(--muted)">
-      <a class="link" href="/calculators/">← All calculators</a> ·
-      <a class="link" href="/guides/track-fermentation-data-spreadsheet/">Track fermentation data in a spreadsheet</a> ·
-      <a class="link" href="/build-log/brewery-qc-dashboard-python/">Build log: a Python brewery QC dashboard</a> ·
-      <a class="link" href="/calculators/yeast-pitch-rate/">Yeast pitch rate calculator</a>
+      <a class="link" href="/guides/">← All guides</a> ·
+      <a class="link" href="/calculators/yeast-pitch-rate/">Yeast pitch rate calculator</a> ·
+      <a class="link" href="/calculators/">All calculators</a> ·
+      <a class="link" href="/services/qc-dashboard/">Get a QC dashboard built for your tanks</a>
     </p>
   </div>
 </div>

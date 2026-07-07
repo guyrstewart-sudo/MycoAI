@@ -13,6 +13,9 @@
 <meta property="og:title" content="Yeast Pitch Rate Calculator (Ale &amp; Lager) | MycoAI">
 <meta property="og:description" content="Enter volume, gravity, and target cell density — get the exact cells, liquid packs, and grams of dry yeast to pitch. From a former New Belgium yeast specialist.">
 <meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://mycoai.net/og-card.png">
 <meta name="theme-color" content="#060a12">
@@ -33,12 +36,18 @@
 "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
 "author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]}}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Calculators","item":"https://mycoai.net/calculators/"},
+{"@type":"ListItem","position":3,"name":"Yeast Pitch Rate","item":"https://mycoai.net/calculators/yeast-pitch-rate/"}]}
+</script>
 <style>
 /* ---- yeast pitch rate calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
 .pagehead{position:relative;z-index:2;padding:118px 0 6px}
 .crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
 .crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
-.ptitle{font-family:'Fraunces',serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
 .ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
 .psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
 .psub b{color:var(--ink);font-weight:600}
@@ -134,8 +143,8 @@
       <div class="navlinks">
         <a href="https://mycoai.net/#about">About</a>
         <a href="https://mycoai.net/#services">Services</a>
-        <a href="/calculators/" class="cur">Calculators</a>
-        <a href="https://mycoai.net/#projects">Work menu</a>
+        <a href="/calculators/" class="cur" aria-current="page">Calculators</a>
+        <a href="/guides/">Guides</a>
       </div>
       <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
       <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
@@ -147,7 +156,7 @@
   <a href="https://mycoai.net/#about">About</a>
   <a href="https://mycoai.net/#services">Services</a>
   <a href="/calculators/">Calculators</a>
-  <a href="https://mycoai.net/#projects">Work menu</a>
+  <a href="/guides/">Guides</a>
   <a href="https://mycoai.net/#contact">Let's talk →</a>
 </div>
 
@@ -202,7 +211,7 @@
             <option value="0.75" selected>Ale — standard · 0.75 M cells/mL/°P</option>
             <option value="1.0">High-gravity ale (OG &gt; 1.065) · 1.0</option>
             <option value="1.5">Lager — standard · 1.5</option>
-            <option value="2.0">Big lager / high-gravity lager · 2.0</option>
+            <option value="2.0">Big lager / high-gravity lager (OG &gt; 1.065) · 2.0</option>
             <option value="custom">Custom…</option>
           </select>
         </div>
@@ -223,9 +232,9 @@
       </div>
 
       <!-- RESULTS -->
-      <div class="cpanel" aria-live="polite">
+      <div class="cpanel">
         <div class="cp-k">Pitch this batch</div>
-        <div class="reshero">
+        <div class="reshero" aria-live="polite" aria-atomic="true">
           <div class="rlabel">Total viable cells to pitch</div>
           <div class="rbig"><span id="cellsBn">—</span></div>
           <div class="rsub" id="cellsSub">billion cells · adjusted for viability</div>
@@ -309,7 +318,7 @@ grams   = required_viable ÷ (10  × viability)
       <h3>Repitching from a healthy crop vs a fresh pack</h3>
       <p>Harvested yeast from a previous batch can be pitched by <b>slurry volume and density</b> rather than pack count — but only if you know the concentration. A thick, healthy first-generation slurry is dense; an old, trub-heavy one is mostly dead cells and cold break. Count it (hemocytometer) before you trust it, or you're guessing at the one number that matters most.</p>
       <h3>Viability decay: an old pack isn't the count on the label</h3>
-      <p>A liquid pack loses roughly <b>20–25% of its viable cells per month</b>. A "100 billion" pack three months old is closer to 40–50 billion — pitch it as fresh and you've silently under-pitched by half. Drop the <b>viability %</b> in the calculator to match the pack's age and the required packs/grams scale up accordingly. Don't know the number? <a class="link" href="/calculators/yeast-viability/">Estimate it with the viability calculator →</a></p>
+      <p>A liquid pack loses roughly <b>20–25% of its viable cells per month</b>. A "100 billion" pack three months old is closer to 40–50 billion — pitch it as fresh and you've silently under-pitched by half. Drop the <b>viability %</b> in the calculator to match the pack's age and the required packs/grams scale up accordingly. Don't know the number? <a class="link" href="/calculators/">Estimate it with the viability calculator →</a></p>
 
       <span class="kicker" style="display:block;margin-top:40px">Notes from the lab</span>
       <div class="labnote" style="margin-top:16px">
@@ -328,15 +337,15 @@ grams   = required_viable ÷ (10  × viability)
       <h2 style="position:relative;margin-top:14px">Track pitch rate against how the batch finishes.</h2>
       <p>A pitch rate is a prediction. The value shows up when you log it against attenuation, temperature, and final gravity across every batch — and see which pitches actually produce clean beer. That's what a QC dashboard does automatically.</p>
       <div class="herobtns" style="justify-content:center;position:relative">
-        <a href="/products/calculator-bundle/" class="btn btn-primary">Get all these calculators offline →</a>
-        <a href="/services/qc-dashboard/" class="btn btn-ghost">Track pitch vs attenuation →</a>
+        <a href="/services/qc-dashboard/" class="btn btn-primary">Get a QC dashboard for your brewery →</a>
+        <a href="/calculators/" class="btn btn-ghost">Explore all the calculators →</a>
       </div>
       <div class="crosslinks">
-        <a class="xlink" href="/calculators/yeast-starter/">
+        <a class="xlink" href="/calculators/">
           <div class="xl-k">Next tool</div><div class="xl-t">Yeast Starter Calculator</div>
           <div class="xl-d">Size the starter to hit the cell target above.</div>
         </a>
-        <a class="xlink" href="/calculators/yeast-viability/">
+        <a class="xlink" href="/calculators/">
           <div class="xl-k">Cross-check</div><div class="xl-t">Yeast Viability Calculator</div>
           <div class="xl-d">Find the real viability % for the field above.</div>
         </a>
@@ -393,12 +402,18 @@ function calc(){
   $('packsNote').textContent=`${packsExact.toFixed(1)} exact · ${Math.round(perPackEff)} B each`;
   $('grams').innerHTML=`${grams.toFixed(0)} <span>g</span>`;
   $('gramsNote').textContent=`≈ ${sachets.toFixed(1)} × ${SACHET_G} g sachet${sachets>=1.05?'s':''}`;
-  if(starterGap<=0){$('starter').innerHTML=`none <span>needed</span>`;$('starterNote').textContent='1 fresh pack already covers it';}
-  else{$('starter').innerHTML=`+${fmtB(starterGap)}`;$('starterNote').textContent=`grow this beyond one ${Math.round(perPackEff)} B pack`;}
+  if(packsExact<=1.05){$('starter').innerHTML=`none <span>needed</span>`;$('starterNote').textContent='1 fresh pack already covers it';}
+  else if(packsExact<=3){$('starter').innerHTML=`+${fmtB(starterGap)}`;$('starterNote').textContent=`grow this beyond one ${Math.round(perPackEff)} B pack`;}
+  else{$('starter').innerHTML=`n/a`;$('starterNote').textContent=`buy ${packsCeil} packs — too large for one starter`;}
   $('platoOut').innerHTML=`${plato.toFixed(1)} <span>°P</span>`;
   $('rateNote').textContent=`${rate} M cells/mL/°P × ${volumeL.toFixed(1)} L`;
   const msgs=[];
-  if(sg>1.065&&rate<1.0)msgs.push('High-gravity wort (OG &gt; 1.065) with an ale-standard rate — consider bumping to 1.0–1.25 and oxygenating well.');
+  if(sg>1.25||sg<1.000)msgs.push('That gravity looks outside the normal brewing range — double-check the units (SG like 1.055, or °Plato like 13.6) and any missing decimal.');
+  else{
+    if(sg>1.065&&rate<1.0)msgs.push('High-gravity wort (OG &gt; 1.065) with an ale-standard rate — consider bumping to 1.0–1.25 and oxygenating well.');
+    if(sg>1.070&&rate>=1.0&&rate<1.5)msgs.push('For gravities this high, many brewers push toward the 1.25 range with a large, healthy starter.');
+    if(sg>1.090&&rate<1.5)msgs.push('Very high gravity (OG &gt; 1.090) — even a high-gravity-ale rate can be light; a big lager rate (2.0) or a stepped starter may serve better.');
+  }
   if(viab<60)msgs.push('Viability under 60% — an old pack. The pack/gram counts have scaled up to compensate; a starter is strongly advised.');
   if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
 }
