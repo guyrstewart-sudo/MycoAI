@@ -257,10 +257,13 @@
         </div>
 
         <div class="field" id="densWrap" style="display:none">
-          <label for="dens" id="densLabel">Slurry concentration</label>
+          <label for="dens" id="densLabel">Measured cell density</label>
           <div class="inrow">
-            <input type="number" id="dens" value="1" min="0.02" max="5" step="0.05" inputmode="decimal" aria-label="Cell density, billion cells per mL">
-            <div class="seg" aria-hidden="true"><button type="button" class="on" tabindex="-1" style="cursor:default">B/mL</button></div>
+            <input type="number" id="dens" value="1" min="0" step="0.05" inputmode="decimal" aria-label="Measured cell density from your count">
+            <div class="seg" role="group" aria-label="Cell density unit">
+              <button type="button" data-dens-unit="M">M/mL</button>
+              <button type="button" data-dens-unit="B" class="on">B/mL</button>
+            </div>
           </div>
           <div class="conv" id="densNote"></div>
         </div>
@@ -337,7 +340,7 @@ grams   = required_viable ÷ (10  × viability)
 
       <h3>Pitching by slurry or starter volume</h3>
       <p>Most working breweries don't pitch by the pack — they pitch a measured <b>volume of yeast slurry</b> harvested from a previous batch, or the <b>volume of a starter</b> they grew. Both are just cells suspended in liquid, so the same total-cell target applies: divide the cells you need by the slurry or starter's <b>cell density</b> to get millilitres. Switch the <b>Pitch from</b> tabs on the result to <b>Slurry</b> or <b>Starter</b> and set the density that matches your yeast.</p>
-      <p>The catch is that density is a real variable, not a constant. A thick, decanted repitch slurry runs around <b>1 billion cells/mL</b>, but a trub-heavy or looser one is lower and a very clean, tightly-packed one higher — so slurry cell density is the single number most worth confirming with a <a class="link" href="/calculators/">cell count</a> before you trust it. A finished stir-plate starter lands near <b>0.15–0.2 billion cells/mL</b>; a still (unstirred) starter closer to 0.1. The tool defaults to conservative figures and lets you dial in your own.</p>
+      <p>The catch is that density is a real variable, not a constant. A thick, decanted repitch slurry runs around <b>1 billion cells/mL</b>, but a trub-heavy or looser one is lower and a very clean, tightly-packed one higher — so slurry cell density is the single number most worth confirming with a <a class="link" href="/calculators/">cell count</a> before you trust it. A finished stir-plate starter lands near <b>0.15–0.2 billion cells/mL</b>; a still (unstirred) starter closer to 0.1. If you're pitching off slurry or a starter, you should already have a count — enter that <b>measured cells/mL</b> (in millions or billions per mL) and the tool gives you the exact volume; the conservative defaults are only a fallback for when you haven't counted.</p>
 
       <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
       <h2 style="margin-top:14px">When the standard pitch rate is wrong.</h2>
@@ -403,7 +406,7 @@ grams   = required_viable ÷ (10  × viability)
 /* ================= PITCH RATE CALCULATOR ================= */
 const GAL_TO_L=3.78541, PACK_FRESH_B=100, DRY_B_PER_G=10, SACHET_G=11.5;
 let volUnit='gal', gravUnit='sg';
-let pitchSrc='packs', slurryDens=1, starterDens=0.15;
+let pitchSrc='packs', slurryDens=1, starterDens=0.15, densUnit='B';
 function fmtVol(ml){if(!isFinite(ml)||ml<=0)return {n:'—',u:''};if(ml>=1000)return {n:(ml/1000).toFixed(ml>=10000?1:2).replace(/\.?0+$/,''),u:'L'};return {n:String(Math.round(ml)),u:'mL'};}
 const $=id=>document.getElementById(id);
 function sgToPlato(sg){return -616.868+1111.14*sg-630.272*sg*sg+135.997*sg*sg*sg;}
@@ -458,15 +461,21 @@ document.querySelectorAll('[data-vol]').forEach(b=>{b.onclick=()=>{volUnit=b.dat
 document.querySelectorAll('[data-grav]').forEach(b=>{b.onclick=()=>{const prev=gravUnit;gravUnit=b.dataset.grav;document.querySelectorAll('[data-grav]').forEach(x=>x.classList.toggle('on',x===b));const el=$('grav'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='sg'&&gravUnit==='plato'){el.value=sgToPlato(v).toFixed(1);el.step='0.1';}else if(prev==='plato'&&gravUnit==='sg'){el.value=platoToSg(v).toFixed(3);el.step='0.001';}}calc();};});
 $('style').onchange=()=>{const c=$('style').value==='custom';$('customWrap').style.display=c?'block':'none';if(c)$('customRate').focus();calc();};
 ['vol','grav','customRate','viab'].forEach(id=>$(id).addEventListener('input',calc));
+function activeDensB(){return pitchSrc==='starter'?starterDens:slurryDens;}
+function densDisplay(){return densUnit==='M'?activeDensB()*1000:activeDensB();}
+function syncDensInput(){$('dens').value=densDisplay();$('dens').step=densUnit==='M'?'10':'0.05';}
 function applySrc(){
   document.querySelectorAll('[data-src]').forEach(b=>b.classList.toggle('on',b.dataset.src===pitchSrc));
   var show=(pitchSrc==='slurry'||pitchSrc==='starter');
   $('densWrap').style.display=show?'block':'none';
-  if(pitchSrc==='slurry'){$('densLabel').textContent='Slurry concentration';$('dens').value=slurryDens;$('densNote').innerHTML='Typical decanted repitch slurry ≈ <b>1 B/mL</b> — the one number most worth measuring (hemocytometer).';}
-  else if(pitchSrc==='starter'){$('densLabel').textContent='Starter finished density';$('dens').value=starterDens;$('densNote').innerHTML='Stir-plate starter ≈ <b>0.15–0.2 B/mL</b>; a still starter is closer to 0.1.';}
+  if(!show)return;
+  syncDensInput();
+  if(pitchSrc==='slurry'){$('densLabel').innerHTML='Measured slurry density <span class="hint">(cells/mL from your count)</span>';$('densNote').innerHTML='Enter your <b>counted</b> slurry density. No count yet? A thick, decanted repitch runs ≈ <b>1 B/mL</b> — but slurry varies enough that this is the number to measure, not guess.';}
+  else{$('densLabel').innerHTML='Measured starter density <span class="hint">(cells/mL from your count)</span>';$('densNote').innerHTML='Enter your <b>counted</b> finished-starter density. No count? Stir-plate ≈ <b>0.15–0.2 B/mL</b>, a still starter ≈ 0.1.';}
 }
 document.querySelectorAll('[data-src]').forEach(b=>{b.onclick=()=>{pitchSrc=b.dataset.src;applySrc();calc();};});
-$('dens').addEventListener('input',()=>{var v=parseFloat($('dens').value);if(isFinite(v)&&v>0){if(pitchSrc==='slurry')slurryDens=v;else if(pitchSrc==='starter')starterDens=v;}calc();});
+document.querySelectorAll('[data-dens-unit]').forEach(b=>{b.onclick=()=>{densUnit=b.dataset.densUnit;document.querySelectorAll('[data-dens-unit]').forEach(x=>x.classList.toggle('on',x===b));syncDensInput();};});
+$('dens').addEventListener('input',()=>{var v=parseFloat($('dens').value);if(isFinite(v)&&v>0){var b=densUnit==='M'?v/1000:v;if(pitchSrc==='slurry')slurryDens=b;else if(pitchSrc==='starter')starterDens=b;}calc();});
 applySrc();
 calc();
 
