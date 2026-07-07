@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priming Sugar Calculator — Bottle Carbonation | MycoAI</title>
+<meta name="description" content="Free priming sugar calculator for bottle conditioning — grams of corn sugar, table sugar, DME, or honey by style, volume, and temperature, for clean, safe carbonation. From a former New Belgium yeast specialist.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/calculators/priming-sugar/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/calculators/priming-sugar/">
+<meta property="og:title" content="Priming Sugar Calculator — Bottle Carbonation | MycoAI">
+<meta property="og:description" content="Free priming sugar calculator for bottle conditioning — grams of corn sugar, table sugar, DME, or honey by style, volume, and temperature, for clean, safe carbonation. From a former New Belgium yeast specialist.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"Priming Sugar Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/calculators/priming-sugar/",
+"description":"Calculate priming sugar for bottle conditioning from batch volume, warmest post-fermentation temperature, and target CO2 volumes. Returns grams and ounces of corn sugar, table sugar, DME, or honey, plus residual CO2 and style-band guidance.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Calculators","item":"https://mycoai.net/calculators/"},
+{"@type":"ListItem","position":3,"name":"Priming Sugar","item":"https://mycoai.net/calculators/priming-sugar/"}]}
+</script>
+<style>
+/* ---- yeast pitch rate calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.srcseg{display:flex;width:100%;margin-top:2px}
+.srcseg button{flex:1;padding:9px 4px;font-size:12.5px}
+.rcell{transition:border-color .2s,background .2s}
+.rcell.sel{border-color:var(--teal);background:rgba(55,214,176,.07)}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/" class="cur" aria-current="page">Calculators</a>
+        <a href="/guides/">Guides</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/calculators/">Calculators</a><span>/</span>Priming Sugar
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">Priming Sugar <span class="grad">Calculator</span></h1>
+    <p class="psub">Enter your batch volume, the <b>warmest temperature the beer reached after fermentation</b>, and a target carbonation level — get the exact <b>grams of priming sugar</b> for bottle conditioning, in corn sugar, table sugar, DME, or honey. Built on <span class="mono">sugar = (target − residual CO2) × 1.96 × volume ÷ yield</span> by a former New Belgium yeast specialist.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="Priming sugar inputs">
+        <div class="cp-k">Your batch</div>
+
+        <div class="field">
+          <label for="vol">Batch volume <span class="hint">(going into bottles)</span></label>
+          <div class="inrow">
+            <input type="number" id="vol" value="5" min="0" step="0.5" inputmode="decimal" aria-label="Batch volume">
+            <div class="seg" role="group" aria-label="Volume unit">
+              <button type="button" data-vol="gal" class="on">gal</button>
+              <button type="button" data-vol="L">L</button>
+            </div>
+          </div>
+          <div class="conv" id="volConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="temp">Beer temperature <span class="hint">(warmest temp since fermentation ended — not serving temp)</span></label>
+          <div class="inrow">
+            <input type="number" id="temp" value="68" step="1" inputmode="decimal" aria-label="Warmest temperature since fermentation ended">
+            <div class="seg" role="group" aria-label="Temperature unit">
+              <button type="button" data-temp="F" class="on">°F</button>
+              <button type="button" data-temp="C">°C</button>
+            </div>
+          </div>
+          <div class="conv" id="tempConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="style">Target carbonation <span class="hint">(CO2 volumes, by style)</span></label>
+          <select id="style" aria-label="Target carbonation style">
+            <option value="1.8">British / cask ales · 1.5–2.0 vol</option>
+            <option value="2.4" selected>American ales · 2.2–2.7 vol</option>
+            <option value="3.0">Belgian ales · 2.5–4.5 vol</option>
+            <option value="3.8">Wheat / Hefeweizen · 3.3–4.5 vol</option>
+            <option value="2.5">Lager · 2.4–2.6 vol</option>
+            <option value="3.5">Fruit / lambic / saison · 3.0–4.5 vol</option>
+            <option value="custom">Custom…</option>
+          </select>
+        </div>
+
+        <div class="field" id="customWrap" style="display:none">
+          <label for="customVol">Custom target <span class="hint">(CO2 volumes)</span></label>
+          <input type="number" id="customVol" value="2.4" min="0.5" max="5" step="0.1" inputmode="decimal" aria-label="Custom target CO2 volumes">
+        </div>
+
+        <div class="field">
+          <label for="sugar">Sugar type</label>
+          <div class="seg srcseg" role="group" aria-label="Sugar type">
+            <button type="button" data-sugar="corn" class="on">Corn sugar</button>
+            <button type="button" data-sugar="table">Table sugar</button>
+            <button type="button" data-sugar="dme">DME</button>
+            <button type="button" data-sugar="honey">Honey</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel">
+        <div class="cp-k">Add at bottling</div>
+        <div class="reshero" aria-live="polite" aria-atomic="true">
+          <div class="rlabel" id="heroLabel">Corn sugar to add</div>
+          <div class="rbig"><span id="grams">—</span></div>
+          <div class="rsub" id="gramsSub">grams · whole batch</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">⚖️</span> In ounces</div>
+            <div class="rc-v" id="oz">—</div>
+            <div class="rc-note" id="ozNote">by weight — more accurate than volume scoops</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">💨</span> CO2 to add</div>
+            <div class="rc-v" id="co2add">—</div>
+            <div class="rc-note" id="co2addNote">volumes and grams of dissolved CO2</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🌡️</span> Residual CO2</div>
+            <div class="rc-v" id="co2res">—</div>
+            <div class="rc-note" id="co2resNote">already dissolved at that temperature</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🎯</span> Total target</div>
+            <div class="rc-v" id="co2target">—</div>
+            <div class="rc-note" id="co2targetNote">volumes CO2 for the style</div>
+          </div>
+        </div>
+
+        <div class="worknums" id="worknums">—</div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Formula: <code>CO2res = 3.0378 − 0.050062·T + 0.00026555·T²</code> (T in °F) · sugar grams = <b>CO2 to add ÷ yield</b>. Yields: corn <b>0.50</b>, table <b>0.54</b>, DME <b>0.42</b>, honey <b>0.46</b> g CO2/g sugar.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Prime for the carbonation you want — not more, not less.</h2>
+      <p><b>Priming sugar grams = the CO2 you still need to add, divided by how much CO2 that sugar actually yields.</b> Bottle conditioning works by giving the yeast still in suspension one last measured dose of sugar to ferment, trapping the CO2 it produces in the sealed bottle. Too little sugar and the beer is flat; too much and you've built a bottle bomb. This tool does the residual-CO2 math for you and hands back the grams — or ounces — of corn sugar, table sugar, DME, or honey to add at bottling, tuned to your exact volume, temperature history, and style target.</p>
+      <p>Everything runs client-side. Nothing is stored, nothing is sent — change any input and the result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The priming sugar formula, explained</span>
+      <h2 style="margin-top:14px">The math behind the number.</h2>
+      <h3>Residual CO2: what's already dissolved in the beer</h3>
+      <p>Beer isn't flat before you prime it — fermentation itself dissolves CO2 into the beer, and how much depends entirely on temperature. Warmer beer holds less dissolved CO2; colder beer holds more. That relationship is the standard residual-CO2 polynomial, with temperature in <b>°F</b>:</p>
+      <div class="formula">
+<span class="cmt"># CO2 already in solution, in volumes, from temperature alone</span><br>
+CO2res = 3.0378 − <span class="hl">0.050062</span>·T + <span class="hl">0.00026555</span>·T²
+      </div>
+      <h3>CO2 to add: the gap between target and residual</h3>
+      <p>Once you know what's already dissolved, the sugar only needs to supply the <b>difference</b> between that and your target carbonation level. One volume of CO2 per liter of beer is a fixed physical quantity — <b>1.96 grams per liter</b> — so the gap converts directly to a mass of CO2 the priming sugar must produce:</p>
+      <div class="formula">
+<span class="cmt"># grams of CO2 the priming sugar needs to generate</span><br>
+CO2_add_g = (<span class="hl">target_vol</span> − <span class="hl">CO2res</span>) × 1.96 × <span class="hl">volume_L</span>
+      </div>
+      <h3>Sugar grams: CO2 needed ÷ what the sugar yields</h3>
+      <p>Different priming sugars don't produce the same CO2 per gram fermented — a gram of pure dextrose ferments differently than a gram of DME with its unfermentable dextrins, or a gram of honey with its water content and variable sugar profile. Divide the CO2 you need by the sugar's yield factor to get the grams to weigh out:</p>
+      <div class="formula">
+<span class="cmt"># yield = grams of CO2 produced per gram of sugar fermented</span><br>
+sugar_g = CO2_add_g ÷ yield<br>
+<br>
+<span class="cmt">corn sugar (dextrose)   yield = 0.50</span><br>
+<span class="cmt">table sugar (sucrose)   yield = 0.54</span><br>
+<span class="cmt">DME                     yield = 0.42</span><br>
+<span class="cmt">honey                   yield = 0.46</span>
+      </div>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>5 gal batch (18.93 L), warmest post-ferment temp 68°F, American ale target 2.4 volumes, corn sugar.</b></p>
+        <p>CO2res = 3.0378 − 3.404 + 1.227 ≈ <b>0.861 volumes</b> already dissolved at 68°F.</p>
+        <p>CO2 to add = (2.4 − 0.861) × 1.96 × 18.93 ≈ <b>57 g</b> of CO2 still needed.</p>
+        <p>Corn sugar = 57 ÷ 0.50 ≈ <b>114 g</b> (about <b>4.0 oz</b>) — dissolved in a small amount of boiled water and racked into the bottling bucket.</p>
+      </div>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard number is wrong.</h2>
+      <p>Priming sugar math looks simple, and it is — right up until you feed it the wrong temperature or ignore the fermentability of your sugar source. Here's where that costs you.</p>
+      <h3>Residual CO2 is set by the warmest temperature since fermentation — not serving temp</h3>
+      <p>This is the single most common input error, and it's the one that causes real damage. <b>Residual CO2 is fixed by the warmest temperature the beer reached after fermentation finished</b> — not the temperature it's sitting at right now, not the fridge, not serving temp. A beer that fermented at 68°F and was later cold-crashed to 34°F still carries roughly <b>68°F worth of dissolved CO2</b>, because that CO2 got locked in before the beer ever got cold. Cold crashing doesn't release it — it just makes more room in solution that the beer hasn't had time to re-absorb.</p>
+      <p>Plug in the fridge or cold-crash temperature here and the calculator will tell you residual CO2 is much higher than it actually is, which under-primes the math — and the classic result runs the other direction in practice, because brewers who eyeball this without a calculator tend to guess low on residual CO2 and add a full priming dose on top of beer that already has more dissolved gas than expected. Either direction of error on this input is exactly how bottle bombs happen. <b>Use the high-water-mark temperature, always.</b></p>
+      <h3>Style targets span 2–3× — a generic number flattens one style and over-gasses another</h3>
+      <p>A British bitter at <b>~1.6 volumes</b> and a hefeweizen at <b>~4.2 volumes</b> are both textbook-correct — for their style. Default to a generic "2.4 for everything" and the bitter comes out gassy and thin-feeling while the hefeweizen comes out under-carbonated and flat-tasting, missing the fluffy, effervescent mouthfeel that's part of the style's identity. Pick the target off the style, not off habit.</p>
+      <h3>DME and honey are not 100% fermentable — their yields are lower and more variable</h3>
+      <p>Corn sugar and table sugar are nearly pure fermentable sugars, so their CO2 yield per gram is predictable batch to batch. <b>DME and honey are not</b> — DME carries unfermentable dextrins from the mash, and honey's sugar content and moisture vary by source and season. Their yield factors (0.42 and 0.46 here) are reasonable averages, but treat them as estimates, not certainties. When precision matters — a delicate style, a beer already close to bottle-strength carbonation — <b>prefer corn or table sugar</b> for the predictability, and hold DME or honey for when the flavor contribution is the point.</p>
+      <h4>Safety: bottle strength and fermentation stability</h4>
+      <p>Standard beer bottles are rated for roughly <b>2.5–3.0 volumes</b> of CO2. Above about <b>3.5 volumes</b> you need genuinely pressure-rated bottles — Belgian or Champagne style, with a wired cage or heavy punt — not standard longnecks. And priming math assumes the beer has <b>finished fermenting</b>: if fermentation stalled early or you're bottling before a stable final gravity, the yeast still has unfermented sugar to work through in the bottle <i>in addition to</i> the priming sugar you just added. That stacked, uncontrolled sugar load is exactly how you get gushers or bottle bombs. <b>Confirm a stable FG over several days before you prime and bottle</b> — check it with the <a class="link" href="/calculators/attenuation/">attenuation calculator</a> if you're not sure fermentation actually finished.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the lab</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the propagation lab</div>
+        <p>At New Belgium, residual CO2 wasn't a guess — it was measured, because getting it wrong at scale doesn't mean one gusher, it means a pallet of them. The habit that carries over to five-gallon batches: <b>write down the warmest temperature your beer sees after fermentation ends</b>, the day it happens, not the day you bottle three weeks later after it's been sitting in a cool corner. Homebrewers lose this number constantly — they remember the cold-crash temp because that's what they see right before bottling, and forget the number that actually matters. <b>The beer remembers its warmest day. Your priming math should too.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your batch data</span>
+      <h2 style="position:relative;margin-top:14px">Track carbonation against how the batch actually turns out.</h2>
+      <p>Priming sugar is a prediction, same as any other batch calculation. The value shows up when you log it against attenuation, temperature, and how each batch actually carbonates — and see which combinations produce clean, safe, on-style beer every time. That's what a QC dashboard does automatically.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="/services/qc-dashboard/" class="btn btn-primary">Get a QC dashboard for your brewery →</a>
+        <a href="/calculators/" class="btn btn-ghost">Explore all the calculators →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/calculators/abv/">
+          <div class="xl-k">Cross-check</div><div class="xl-t">ABV from Gravity</div>
+          <div class="xl-d">Confirm final ABV alongside your carbonation target.</div>
+        </a>
+        <a class="xlink" href="/calculators/attenuation/">
+          <div class="xl-k">Confirm first</div><div class="xl-t">Attenuation Calculator</div>
+          <div class="xl-d">Verify fermentation actually finished before you prime.</div>
+        </a>
+        <a class="xlink" href="/calculators/">
+          <div class="xl-k">More</div><div class="xl-t">All fermentation calculators</div>
+          <div class="xl-d">Pitch rate, viability, priming sugar, and more.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* ================= PRIMING SUGAR CALCULATOR ================= */
+const GAL_TO_L=3.78541, G_PER_OZ=28.3495, CO2_G_PER_L_PER_VOL=1.96;
+const YIELD={corn:0.50,table:0.54,dme:0.42,honey:0.46};
+const SUGAR_LABEL={corn:'Corn sugar',table:'Table sugar',dme:'DME',honey:'Honey'};
+let volUnit='gal', tempUnit='F', sugarType='corn';
+const $=id=>document.getElementById(id);
+function fToC(f){return (f-32)*5/9;}
+function cToF(c){return c*9/5+32;}
+function fmtNum(n,d){if(!isFinite(n))return '—';var s=n.toFixed(d);if(s.indexOf('.')>=0)s=s.replace(/0+$/,'').replace(/\.$/,'');return s;}
+function currentTarget(){const s=$('style').value;return s==='custom'?parseFloat($('customVol').value):parseFloat(s);}
+function calc(){
+  const volRaw=parseFloat($('vol').value),tempRaw=parseFloat($('temp').value),target=currentTarget();
+  const warn=$('warn');warn.classList.remove('show');warn.innerHTML='';
+  const heroLabel=$('heroLabel');heroLabel.textContent=SUGAR_LABEL[sugarType]+' to add';
+  if(!isFinite(volRaw)||volRaw<=0||!isFinite(tempRaw)||!isFinite(target)||target<=0){
+    $('grams').textContent='—';$('gramsSub').textContent='enter a volume, temperature, and target';
+    ['oz','co2add','co2res','co2target'].forEach(id=>$(id).textContent='—');
+    $('worknums').textContent='—';
+    return;
+  }
+  const volumeL=volUnit==='gal'?volRaw*GAL_TO_L:volRaw;
+  const tempF=tempUnit==='F'?tempRaw:cToF(tempRaw);
+  $('volConv').innerHTML=volUnit==='gal'?`= <b>${volumeL.toFixed(2)} L</b>`:`= <b>${(volumeL/GAL_TO_L).toFixed(2)} gal</b>`;
+  $('tempConv').innerHTML=tempUnit==='F'?`= <b>${fToC(tempF).toFixed(1)} °C</b>`:`= <b>${tempF.toFixed(1)} °F</b>`;
+
+  const co2res=3.0378-0.050062*tempF+0.00026555*tempF*tempF;
+  const co2addVol=target-co2res;
+  const co2addG=co2addVol*CO2_G_PER_L_PER_VOL*volumeL;
+  const yieldFactor=YIELD[sugarType];
+  const sugarG=co2addG/yieldFactor;
+  const sugarOz=sugarG/G_PER_OZ;
+
+  $('grams').textContent=fmtNum(sugarG,0)+' g';
+  $('gramsSub').textContent=`grams · whole ${fmtNum(volumeL/GAL_TO_L,1)} gal batch`;
+  $('oz').innerHTML=`${fmtNum(sugarOz,2)} <span>oz</span>`;
+  $('ozNote').textContent=`${SUGAR_LABEL[sugarType]} — weigh, don't scoop`;
+  $('co2add').innerHTML=`${fmtNum(co2addVol,2)} <span>vol</span>`;
+  $('co2addNote').textContent=`≈ ${fmtNum(co2addG,1)} g dissolved CO2 to generate`;
+  $('co2res').innerHTML=`${fmtNum(co2res,2)} <span>vol</span>`;
+  $('co2resNote').textContent=`already in solution at ${fmtNum(tempF,0)}°F`;
+  $('co2target').innerHTML=`${fmtNum(target,2)} <span>vol</span>`;
+  $('co2targetNote').textContent=styleNote(target);
+  $('worknums').innerHTML=`CO2res <b>${fmtNum(co2res,3)}</b> vol at <b>${fmtNum(tempF,0)}°F</b> · need <b>${fmtNum(co2addVol,3)}</b> vol more · <b>${fmtNum(volumeL,2)} L</b> · yield <b>${yieldFactor}</b> g CO2/g`;
+
+  const msgs=[];
+  if(tempUnit==='F'&&tempRaw<50){msgs.push('That temperature looks like a serving or fridge temp, not a post-fermentation high-water-mark. Residual CO2 should be based on the <b>warmest</b> temperature the beer reached after fermentation ended — cold-crashing afterward does not lower it. Using a cold-crash or fridge temp here will throw the whole calculation off.');}
+  else if(tempUnit==='C'&&tempRaw<10){msgs.push('That temperature looks like a serving or fridge temp, not a post-fermentation high-water-mark. Residual CO2 should be based on the <b>warmest</b> temperature the beer reached after fermentation ended — cold-crashing afterward does not lower it. Using a cold-crash or fridge temp here will throw the whole calculation off.');}
+  if(co2addVol<0){msgs.push('Your target carbonation is <b>below</b> the CO2 already dissolved at this temperature — this batch may already be near or above target before any sugar is added. Double-check the temperature and target before priming.');}
+  if(target>3.5){msgs.push('Target is above <b>3.5 volumes</b> — that needs pressure-rated Belgian/Champagne-style bottles with a wired cage, not standard longnecks. Standard bottles are only rated to roughly 2.5–3.0 volumes.');}
+  else if(target>3.0){msgs.push('Target is above <b>3.0 volumes</b> — getting into the range where standard bottles (rated ~2.5–3.0 vol) are pushed hard. Consider sturdier bottles and confirm fermentation is fully finished first.');}
+  if(volRaw<=0||(volUnit==='gal'&&volRaw>100)||(volUnit==='L'&&volRaw>400)){msgs.push('That batch volume looks out of the normal homebrew range — double check the units and value.');}
+  if(msgs.length){warn.innerHTML=msgs.join('<br><br>');warn.classList.add('show');}
+}
+const STYLE_BAND={'1.8':'British/cask band (1.5–2.0 vol)','2.4':'American ale band (2.2–2.7 vol)','3.0':'Belgian ale band (2.5–4.5 vol)','3.8':'Wheat/Hefeweizen band (3.3–4.5 vol)','2.5':'Lager band (2.4–2.6 vol)','3.5':'Fruit/lambic/saison band (3.0–4.5 vol)'};
+function styleNote(v){
+  const sel=$('style').value;
+  if(sel!=='custom'&&STYLE_BAND[sel])return STYLE_BAND[sel];
+  if(v<=2.0)return 'British/cask band (1.5–2.0 vol)';
+  if(v<2.2)return 'below typical style bands for this level';
+  if(v<=2.7)return 'American ale / lager band (2.2–2.7 vol)';
+  if(v<=4.5)return 'Belgian/wheat/fruit band (2.5–4.5 vol)';
+  return 'above typical style bands — verify bottle strength';
+}
+document.querySelectorAll('[data-vol]').forEach(b=>{b.onclick=()=>{volUnit=b.dataset.vol;document.querySelectorAll('[data-vol]').forEach(x=>x.classList.toggle('on',x===b));calc();};});
+document.querySelectorAll('[data-temp]').forEach(b=>{b.onclick=()=>{const prev=tempUnit;tempUnit=b.dataset.temp;document.querySelectorAll('[data-temp]').forEach(x=>x.classList.toggle('on',x===b));const el=$('temp'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='F'&&tempUnit==='C'){el.value=fToC(v).toFixed(1);}else if(prev==='C'&&tempUnit==='F'){el.value=cToF(v).toFixed(1);}}calc();};});
+document.querySelectorAll('[data-sugar]').forEach(b=>{b.onclick=()=>{sugarType=b.dataset.sugar;document.querySelectorAll('[data-sugar]').forEach(x=>x.classList.toggle('on',x===b));calc();};});
+$('style').onchange=()=>{const c=$('style').value==='custom';$('customWrap').style.display=c?'block':'none';if(c)$('customVol').focus();calc();};
+['vol','temp','customVol'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>

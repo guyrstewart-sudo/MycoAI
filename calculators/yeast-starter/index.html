@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yeast Starter Calculator — Cell Growth &amp; DME | MycoAI</title>
+<meta name="description" content="Free yeast starter calculator — size a starter and DME to grow from one pack to your pitch-rate target, using the gravity-aware Braukaiser growth model. From a former New Belgium yeast specialist. No signup.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/calculators/yeast-starter/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/calculators/yeast-starter/">
+<meta property="og:title" content="Yeast Starter Calculator — Cell Growth &amp; DME | MycoAI">
+<meta property="og:description" content="Size a starter and DME to grow from one pack to your pitch-rate target, using the gravity-aware Braukaiser growth model. From a former New Belgium yeast specialist.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"Yeast Starter Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/calculators/yeast-starter/",
+"description":"Calculate the cells a yeast starter will grow using the gravity-aware Braukaiser model. Enter starting cells, viability, starter volume, gravity, and agitation to get new cells grown, DME needed, inoculation rate, and final cell density.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Calculators","item":"https://mycoai.net/calculators/"},
+{"@type":"ListItem","position":3,"name":"Yeast Starter","item":"https://mycoai.net/calculators/yeast-starter/"}]}
+</script>
+<style>
+/* ---- yeast pitch rate calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.srcseg{display:flex;width:100%;margin-top:2px}
+.srcseg button{flex:1;padding:9px 4px;font-size:12.5px}
+.rcell{transition:border-color .2s,background .2s}
+.rcell.sel{border-color:var(--teal);background:rgba(55,214,176,.07)}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+
+/* yeast-starter page-specific additions (non-colliding names) */
+.st-targetnote{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/" class="cur" aria-current="page">Calculators</a>
+        <a href="/guides/">Guides</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/calculators/">Calculators</a><span>/</span>Yeast Starter
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">Yeast Starter <span class="grad">Calculator</span></h1>
+    <p class="psub">Enter your starting cells, starter volume, and gravity — get the exact <b>new cells grown</b>, <b>grams of DME to add</b>, <b>inoculation rate</b>, and <b>final cell density</b>. Built on the gravity-aware <span class="mono">grams_DME = 2.72715 × points × volume_L</span> Braukaiser growth model by a former New Belgium yeast specialist.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="Yeast starter inputs">
+        <div class="cp-k">Your starter</div>
+
+        <div class="field">
+          <label for="startCells">Starting cells <span class="hint">(1 fresh liquid pack ≈ 100 B)</span></label>
+          <div class="inrow">
+            <input type="number" id="startCells" value="100" min="0" step="1" inputmode="decimal" aria-label="Starting cell count">
+            <div class="seg" role="group" aria-label="Starting cells unit">
+              <button type="button" data-cellunit="B" class="on">B</button>
+              <button type="button" data-cellunit="M">M</button>
+            </div>
+          </div>
+          <div class="conv" id="cellConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="viab">Viability <span class="hint">(fresh pack = 100%)</span></label>
+          <div class="inrow">
+            <input type="number" id="viab" value="100" min="1" max="100" step="1" inputmode="numeric" aria-label="Yeast viability percent">
+            <div class="seg" aria-hidden="true"><button type="button" class="on" tabindex="-1" style="cursor:default">%</button></div>
+          </div>
+          <div class="conv" id="viabConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="vol">Starter volume</label>
+          <div class="inrow">
+            <input type="number" id="vol" value="2" min="0" step="0.1" inputmode="decimal" aria-label="Starter volume">
+            <div class="seg" role="group" aria-label="Volume unit">
+              <button type="button" data-vol="L" class="on">L</button>
+              <button type="button" data-vol="mL">mL</button>
+            </div>
+          </div>
+          <div class="conv" id="volConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="grav">Starter gravity</label>
+          <div class="inrow">
+            <input type="number" id="grav" value="1.037" min="1" step="0.001" inputmode="decimal" aria-label="Starter gravity">
+            <div class="seg" role="group" aria-label="Gravity unit">
+              <button type="button" data-grav="sg" class="on">SG</button>
+              <button type="button" data-grav="plato">°P</button>
+            </div>
+          </div>
+          <div class="conv" id="gravConv"></div>
+        </div>
+
+        <div class="field">
+          <label>Agitation</label>
+          <div class="seg" role="group" aria-label="Agitation method" style="display:flex">
+            <button type="button" data-agit="stir" class="on" style="flex:1">Stir plate</button>
+            <button type="button" data-agit="shake" style="flex:1">Shaking</button>
+            <button type="button" data-agit="still" style="flex:1">None</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="target">Target cells to reach <span class="hint">(optional)</span></label>
+          <div class="inrow">
+            <input type="number" id="target" value="" placeholder="e.g. 380" min="0" step="1" inputmode="decimal" aria-label="Target cell count in billions">
+            <div class="seg" aria-hidden="true"><button type="button" class="on" tabindex="-1" style="cursor:default">B</button></div>
+          </div>
+          <div class="conv st-targetnote">Leave blank to just see what this starter grows.</div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel">
+        <div class="cp-k">What you'll grow</div>
+        <div class="reshero" aria-live="polite" aria-atomic="true">
+          <div class="rlabel">Final cell count</div>
+          <div class="rbig"><span id="finalB">—</span></div>
+          <div class="rsub" id="finalSub">billion cells · start + growth</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">📈</span> New cells grown</div>
+            <div class="rc-v" id="newCells">—</div>
+            <div class="rc-note" id="newCellsNote">from this starter step</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🌾</span> DME to add</div>
+            <div class="rc-v" id="dmeG">—</div>
+            <div class="rc-note" id="dmeGNote">≈ — g/L</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">⚖️</span> Inoculation rate</div>
+            <div class="rc-v" id="irVal">—</div>
+            <div class="rc-note" id="irNote">B cells / g DME</div>
+          </div>
+          <div class="rcell" id="densOrTargetCell">
+            <div class="rc-k" id="densOrTargetLabel"><span aria-hidden="true">🔬</span> Final density</div>
+            <div class="rc-v" id="densOrTargetVal">—</div>
+            <div class="rc-note" id="densOrTargetNote">billion cells / mL</div>
+          </div>
+        </div>
+
+        <div class="worknums" id="worknums">—</div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Formula: <code>grams_DME = 2.72715 × points × volume_L</code> · <code>IR = start_B ÷ grams_DME</code> · growth (B new cells/g DME) depends on <b>IR</b> and <b>agitation</b> — stir plate scales down from 1.4 B/g as IR rises; shaking and still are flat at 0.62 and 0.40 until IR &gt; 3.5, where growth stops.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Size a starter that actually grows the cells you need.</h2>
+      <p><b>A starter isn't just "yeast in wort" — it's a growth reactor, and growth depends on how much extract you feed it relative to how many cells you're already carrying.</b> Pitch too little DME for the cells you're starting with and you barely grow at all; pitch a huge starter you don't need and you've wasted extract and time. This tool runs the numbers so you know, before you build it, how many <b>new cells</b> a given volume and gravity will actually produce — not just "make a 2 L starter and hope."</p>
+      <p>Everything runs client-side. Nothing is stored, nothing is sent — change any input and the result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The starter growth formula, explained</span>
+      <h2 style="margin-top:14px">The Braukaiser (Troester) model.</h2>
+      <h3>Extract mass first: grams of DME from volume and gravity</h3>
+      <p>The model starts from a simple empirical fact: about <b>100 g of DME per liter</b> produces a wort around <b>SG 1.037</b> — the "10:1 rule" homebrewers already use to size a starter. Braukaiser's constant reproduces that exactly, so any combination of volume and gravity converts cleanly into <b>grams of DME</b>, the real quantity the yeast are metabolizing.</p>
+      <div class="formula">
+<span class="cmt"># gravity points above 1.000, in "points" not SG</span><br>
+points     = (<span class="hl">SG_starter</span> - 1) × 1000<br>
+<br>
+<span class="cmt"># 2.72715 g DME per gravity-point per litre — reproduces the 10:1 rule</span><br>
+grams_DME  = 2.72715 × points × <span class="hl">volume_L</span>
+      </div>
+      <h3>Inoculation rate: how crowded is the starter, really</h3>
+      <p>The key ratio isn't cells-per-liter, it's <b>cells per gram of extract</b> — the <b>inoculation rate (IR)</b>. A small pitch into a lot of DME has a low IR and a lot of headroom to grow; a big pitch into a small starter has a high IR and is already crowded before it starts.</p>
+      <div class="formula">
+<span class="cmt"># effective starting cells, adjusted for viability</span><br>
+startB = <span class="hl">startingCells_billion</span> × (<span class="hl">viability</span> / 100)<br>
+<br>
+<span class="cmt"># billion cells already present, per gram of DME available</span><br>
+IR = startB / grams_DME
+      </div>
+      <h3>Growth per gram of DME depends on IR and agitation</h3>
+      <p>This is where the model earns its keep: growth isn't a flat multiplier, it's a curve. On a <b>stir plate</b>, a starter with IR below 1.4 grows at a strong flat rate of <b>1.4 billion new cells per gram DME</b>; between IR 1.4 and 3.5 that rate falls off linearly as the starter gets more crowded; above IR 3.5 there's no meaningful growth left — you're maintaining, not growing. <b>Shaking</b> and <b>still (no agitation)</b> starters don't get that low-IR bonus at all — they're flat at 0.62 and 0.40 B/g respectively, and both also stop producing new cells past IR 3.5.</p>
+      <div class="formula">
+<span class="cmt"># billion NEW cells per gram DME, as a function of IR</span><br>
+stir plate:  IR &lt; 1.4        → growth = 1.4<br>
+             1.4 ≤ IR ≤ 3.5   → growth = 2.33 − 0.67 × IR<br>
+             IR &gt; 3.5        → growth = 0<br>
+<br>
+shaking:     IR ≤ 3.5 → growth = 0.62 <span class="cmt">(flat)</span> ; IR &gt; 3.5 → growth = 0<br>
+still:       IR ≤ 3.5 → growth = 0.40 <span class="cmt">(flat)</span> ; IR &gt; 3.5 → growth = 0<br>
+<br>
+new_cells   = growth × grams_DME<br>
+final_cells = startB + new_cells<br>
+final_density_B_per_mL = final_cells / (volume_L × 1000)
+      </div>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>100 B pack, 2 L starter at 1.037, stir plate.</b> points = 37. grams_DME = 2.72715 × 37 × 2 ≈ <b>202 g</b>.</p>
+        <p>IR = 100 ÷ 202 ≈ <b>0.50</b> — below 1.4, so growth stays at the flat stir-plate rate of <b>1.4 B/g</b>.</p>
+        <p>new_cells = 1.4 × 202 ≈ <b>283 B</b>. final_cells = 100 + 283 ≈ <b>383 B</b>. final_density = 383 ÷ 2000 ≈ <b>0.19 B/mL</b>.</p>
+      </div>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard starter number is wrong.</h2>
+      <p>Starter math has a credibility problem: run the same starter through two "standard" calculators and you can get two different answers. Here's where that happens and what to actually trust.</p>
+      <h3>The models disagree — and neither is gospel</h3>
+      <p>This tool uses the <b>Braukaiser (Troester) model</b>, which scales with extract mass — a 2 L starter at 1.060 grows differently than the same 2 L at 1.037, because there's more DME to work with. The popular <b>Mr. Malty / White curve</b> is <b>gravity-independent</b>: it assumes a fixed 9 °P extract regardless of what you actually pitched, and is a function of inoculation rate alone. For the same starter, the two models can and do predict different final cell counts — sometimes sizing a wildly different volume for the same target. Treat any starter figure, from this tool or any other, as <b>±10–20%</b>, not an exact promise. Build in margin, don't chase the decimal.</p>
+      <h4>Stir plates aren't magic</h4>
+      <p>Conventional wisdom says a stir plate multiplies your yield. The sourcing behind that bonus is thinner than the confidence people put in it — Brewer's Friend's own documentation notes the stir-plate and shaking bonuses bolted onto White's curve have <b>no citation in White's original study</b>, and Troester's own data raises the question of whether stepping up is even necessary once you're already stirring. A stir plate keeps CO₂ off the yeast and O₂ available, which genuinely helps — but don't assume it's rewriting the growth curve by some specific multiplier you read once.</p>
+      <h3>Bigger isn't linearly better</h3>
+      <p>Look at the growth curve again: as IR rises, growth per gram of DME <b>falls</b>. That means doubling a starter's extract doesn't double your new cells once you're mid-curve — and past IR 3.5, more DME barely moves the final count at all. If your target needs a lot more cells than one starter step can efficiently deliver, don't just build one bigger starter and hope; <b>step up in stages</b> instead, each step targeted at a low, efficient IR. <a class="link" href="/calculators/yeast-propagation-scheduler/">Plan a step-up schedule →</a></p>
+      <h3>Viability feeds forward into a smaller starting base</h3>
+      <p>The starter doesn't grow from the number on the pack — it grows from <b>startB</b>, the viability-adjusted cell count. A three-month-old liquid pack isn't 100 B, it's closer to <b>40 B</b>, and that smaller, weaker base changes both your IR and your final yield. Set the viability field honestly instead of assuming "fresh," or the whole calculation is quietly wrong from the first step. <a class="link" href="/calculators/yeast-viability/">Estimate real viability from pack age →</a></p>
+      <h3>Gravity has a sweet spot: 1.036–1.040</h3>
+      <p>More extract isn't automatically better here either. Pushing starter gravity above about <b>1.045</b> stresses the yeast — higher osmotic pressure works against the population you're trying to grow, without a matching improvement in cell yield. Stay in the <b>1.036–1.040</b> range (the classic ~1.037 DME starter) and let volume, not gravity, do the scaling.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the lab</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the propagation lab</div>
+        <p>At New Belgium, nobody built a starter and just trusted the size. We built it, we <b>counted it</b>, and the count told us whether the model matched reality that week. Two starters that looked identical on paper — same pack, same DME, same stir plate — could finish 20% apart in cell density because one pack was three weeks older than the other, or the gravity was read off a thermometer nobody temperature-corrected. The number a calculator gives you is a plan, not a result. <b>Build the starter the math says to build, then verify it with a count before you trust it in the fermenter.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your batch data</span>
+      <h2 style="position:relative;margin-top:14px">Track starter yield against what actually pitches clean.</h2>
+      <p>A starter size is a prediction. The value shows up when you log the count you actually get against the model's estimate, batch after batch — and see whether your process runs above or below the standard curve. That's what a QC dashboard does automatically.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="/services/qc-dashboard/" class="btn btn-primary">Get a QC dashboard for your brewery →</a>
+        <a href="/calculators/" class="btn btn-ghost">Explore all the calculators →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/calculators/yeast-pitch-rate/">
+          <div class="xl-k">Upstream</div><div class="xl-t">Yeast Pitch Rate Calculator</div>
+          <div class="xl-d">Find the cell target this starter should hit.</div>
+        </a>
+        <a class="xlink" href="/calculators/yeast-viability/">
+          <div class="xl-k">Cross-check</div><div class="xl-t">Yeast Viability Calculator</div>
+          <div class="xl-d">Get the real viability % to enter above.</div>
+        </a>
+        <a class="xlink" href="/calculators/yeast-propagation-scheduler/">
+          <div class="xl-k">Next step</div><div class="xl-t">Yeast Propagation Scheduler</div>
+          <div class="xl-d">Plan a multi-step build when one starter isn't enough.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* ================= YEAST STARTER CALCULATOR ================= */
+const DME_CONST=2.72715;
+let cellUnit='B', volUnit='L', gravUnit='sg', agit='stir';
+const $=id=>document.getElementById(id);
+function sgToPlato(sg){return -616.868+1111.14*sg-630.272*sg*sg+135.997*sg*sg*sg;}
+function platoToSg(p){return 1+(p/(258.6-(p/258.2)*227.1));}
+function fmtB(b){if(!isFinite(b)||b<=0)return '—';if(b>=1000)return (b/1000).toFixed(2).replace(/\.?0+$/,'')+' T';if(b>=100)return Math.round(b)+' B';if(b>=10)return b.toFixed(1).replace(/\.0$/,'')+' B';return b.toFixed(2).replace(/0$/,'').replace(/\.$/,'')+' B';}
+function fmtG(g){if(!isFinite(g)||g<=0)return '—';return (g>=100?Math.round(g):g.toFixed(1).replace(/\.0$/,''))+' g';}
+function growthFor(agitation,ir){
+  if(ir>3.5)return 0;
+  if(agitation==='stir'){
+    if(ir<1.4)return 1.4;
+    return 2.33-0.67*ir;
+  }
+  if(agitation==='shake')return 0.62;
+  return 0.40; // still
+}
+function calc(){
+  const warn=$('warn');warn.classList.remove('show');warn.innerHTML='';
+  let startRaw=parseFloat($('startCells').value);
+  let viab=parseFloat($('viab').value);
+  let volRaw=parseFloat($('vol').value);
+  let gravRaw=parseFloat($('grav').value);
+  const targetRaw=$('target').value.trim()===''?null:parseFloat($('target').value);
+
+  const invalid = !isFinite(startRaw)||startRaw<=0||!isFinite(volRaw)||volRaw<=0||!isFinite(gravRaw)||gravRaw<=0;
+  if(invalid){
+    ['finalB','newCells','dmeG','irVal','densOrTargetVal'].forEach(id=>$(id).textContent='—');
+    $('worknums').textContent='—';
+    $('finalSub').textContent='enter starting cells, volume, and gravity';
+    return;
+  }
+  if(!isFinite(viab)||viab<=0)viab=100;
+  viab=Math.min(100,Math.max(1,viab));
+
+  const startB_input = cellUnit==='M'?startRaw/1000:startRaw;
+  const volumeL = volUnit==='mL'?volRaw/1000:volRaw;
+  const sg = gravUnit==='sg'?gravRaw:platoToSg(gravRaw);
+  const plato = gravUnit==='sg'?sgToPlato(gravRaw):gravRaw;
+
+  $('cellConv').innerHTML = cellUnit==='M' ? `= <b>${(startB_input).toFixed(2).replace(/0$/,'').replace(/\.$/,'')} B</b>` : `= <b>${(startB_input*1000).toFixed(0)} M</b>`;
+  $('volConv').innerHTML = volUnit==='mL' ? `= <b>${volumeL.toFixed(2).replace(/0$/,'').replace(/\.$/,'')} L</b>` : `= <b>${(volumeL*1000).toFixed(0)} mL</b>`;
+  $('gravConv').innerHTML = gravUnit==='sg' ? `= <b>${plato.toFixed(1)} °P</b>` : `= <b>${sg.toFixed(3)} SG</b>`;
+  $('viabConv').innerHTML = viab<100 ? `effective start ≈ <b>${(startB_input*(viab/100)).toFixed(1).replace(/\.0$/,'')} B</b> of ${fmtB(startB_input)} labeled` : `fresh — full labeled cell count`;
+
+  const points = (sg-1)*1000;
+  const grams_DME = DME_CONST*points*volumeL;
+  const startB = startB_input*(viab/100);
+  const IR = startB/grams_DME;
+  const growth = growthFor(agit,IR);
+  const new_cells = growth*grams_DME;
+  const final_cells = startB+new_cells;
+  const final_density = final_cells/(volumeL*1000);
+
+  $('finalB').textContent = fmtB(final_cells);
+  $('finalSub').textContent = `billion cells · ${fmtB(startB)} start + ${fmtB(new_cells)} grown`;
+  $('newCells').innerHTML = new_cells<=0 ? '0 B' : fmtB(new_cells);
+  $('newCellsNote').textContent = `at ${growth.toFixed(2).replace(/0$/,'').replace(/\.$/,'')} B/g DME`;
+  $('dmeG').innerHTML = `${fmtG(grams_DME)}`;
+  $('dmeGNote').textContent = `≈ ${(grams_DME/volumeL).toFixed(0)} g/L`;
+  $('irVal').innerHTML = `${IR.toFixed(2).replace(/0$/,'').replace(/\.$/,'')}`;
+  $('irNote').textContent = `B/g · maps to ${growth.toFixed(2).replace(/0$/,'').replace(/\.$/,'')} B/g growth`;
+
+  if(targetRaw!==null && isFinite(targetRaw) && targetRaw>0){
+    $('densOrTargetLabel').innerHTML = '<span aria-hidden="true">🎯</span> Meets target?';
+    if(final_cells>=targetRaw){
+      $('densOrTargetVal').innerHTML = `✓ <span style="color:var(--teal);font-size:1rem">yes</span>`;
+      $('densOrTargetNote').textContent = `${fmtB(final_cells-targetRaw)} over the ${fmtB(targetRaw)} target`;
+    }else{
+      $('densOrTargetVal').innerHTML = `✗ <span style="color:#f0b968;font-size:1rem">short</span>`;
+      $('densOrTargetNote').textContent = `short by ${fmtB(targetRaw-final_cells)} of ${fmtB(targetRaw)} target`;
+    }
+  }else{
+    $('densOrTargetLabel').innerHTML = '<span aria-hidden="true">🔬</span> Final density';
+    $('densOrTargetVal').innerHTML = `${final_density.toFixed(2).replace(/0$/,'').replace(/\.$/,'')} <span>B/mL</span>`;
+    $('densOrTargetNote').textContent = `${final_cells.toFixed(0)} B ÷ ${(volumeL*1000).toFixed(0)} mL`;
+  }
+
+  $('worknums').innerHTML = `grams_DME <b>${grams_DME.toFixed(1)} g</b> · IR <b>${IR.toFixed(2)}</b> B/g · growth <b>${growth.toFixed(2)}</b> B/g used (${agit==='stir'?'stir plate':agit==='shake'?'shaking':'none'}) · final <b>${fmtB(final_cells)}</b>`;
+
+  const msgs=[];
+  if(IR>3.5)msgs.push('Inoculation rate is above 3.5 — this starter is too small for the cells you\'re pitching into it. There\'s no meaningful growth left at this ratio; you\'re maintaining the population, not growing it. Use a bigger volume or step up in stages.');
+  if(sg>1.045)msgs.push('Starter gravity above 1.045 is too high — it stresses the yeast without improving yield. Stay in the 1.036–1.040 sweet spot and scale with volume instead.');
+  if(sg<1.020)msgs.push('That gravity looks unusually low for a starter — double-check units (SG like 1.037, or °Plato like 9.2) and any missing decimal.');
+  if(volumeL>20||volumeL<0.05)msgs.push('That starter volume looks outside a normal homebrew range — double-check the unit toggle (L vs mL).');
+  if(targetRaw!==null && isFinite(targetRaw) && targetRaw>0 && final_cells<targetRaw){
+    msgs.push('This starter falls short of your target. Try a larger volume at the same gravity, or plan a step-up build via the propagation scheduler rather than pushing gravity higher.');
+  }
+  if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
+}
+document.querySelectorAll('[data-cellunit]').forEach(b=>{b.onclick=()=>{const prev=cellUnit;cellUnit=b.dataset.cellunit;document.querySelectorAll('[data-cellunit]').forEach(x=>x.classList.toggle('on',x===b));const el=$('startCells'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='B'&&cellUnit==='M'){el.value=(v*1000).toFixed(0);}else if(prev==='M'&&cellUnit==='B'){el.value=(v/1000).toFixed(2).replace(/0$/,'').replace(/\.$/,'')||'0';}}calc();};});
+document.querySelectorAll('[data-vol]').forEach(b=>{b.onclick=()=>{const prev=volUnit;volUnit=b.dataset.vol;document.querySelectorAll('[data-vol]').forEach(x=>x.classList.toggle('on',x===b));const el=$('vol'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='L'&&volUnit==='mL'){el.value=(v*1000).toFixed(0);}else if(prev==='mL'&&volUnit==='L'){el.value=(v/1000).toFixed(2).replace(/0$/,'').replace(/\.$/,'')||'0';}}calc();};});
+document.querySelectorAll('[data-grav]').forEach(b=>{b.onclick=()=>{const prev=gravUnit;gravUnit=b.dataset.grav;document.querySelectorAll('[data-grav]').forEach(x=>x.classList.toggle('on',x===b));const el=$('grav'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='sg'&&gravUnit==='plato'){el.value=sgToPlato(v).toFixed(1);el.step='0.1';}else if(prev==='plato'&&gravUnit==='sg'){el.value=platoToSg(v).toFixed(3);el.step='0.001';}}calc();};});
+document.querySelectorAll('[data-agit]').forEach(b=>{b.onclick=()=>{agit=b.dataset.agit;document.querySelectorAll('[data-agit]').forEach(x=>x.classList.toggle('on',x===b));calc();};});
+['startCells','viab','vol','grav','target'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>

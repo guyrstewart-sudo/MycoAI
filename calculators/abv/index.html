@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABV Calculator — Alcohol From OG &amp; FG | MycoAI</title>
+<meta name="description" content="Free ABV calculator from original and final gravity — standard and accurate formulas, apparent attenuation, and calories, built by a former New Belgium yeast specialist. No signup, runs in your browser.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/calculators/abv/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/calculators/abv/">
+<meta property="og:title" content="ABV Calculator — Alcohol From OG &amp; FG | MycoAI">
+<meta property="og:description" content="Enter original and final gravity — get standard and accurate ABV%, apparent attenuation, and calories per 12 oz. From a former New Belgium yeast specialist.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"ABV Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/calculators/abv/",
+"description":"Calculate ABV from original and final gravity using both the standard linear formula and the accurate real-extract formula. Returns apparent attenuation, ABW, and calories per 12 oz.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Calculators","item":"https://mycoai.net/calculators/"},
+{"@type":"ListItem","position":3,"name":"ABV from Gravity","item":"https://mycoai.net/calculators/abv/"}]}
+</script>
+<style>
+/* ---- yeast pitch rate calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.srcseg{display:flex;width:100%;margin-top:2px}
+.srcseg button{flex:1;padding:9px 4px;font-size:12.5px}
+.rcell{transition:border-color .2s,background .2s}
+.rcell.sel{border-color:var(--teal);background:rgba(55,214,176,.07)}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/" class="cur" aria-current="page">Calculators</a>
+        <a href="/guides/">Guides</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/calculators/">Calculators</a><span>/</span>ABV from Gravity
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">ABV from <span class="grad">Gravity</span></h1>
+    <p class="psub">Enter your <b>original gravity</b> and <b>final gravity</b> — get the <b>standard ABV%</b> everyone quotes, the <b>accurate ABV%</b> that actually holds up on strong beer, <b>apparent attenuation</b>, and <b>calories per 12 oz</b>. Runs the familiar <span class="mono">ABV = (OG − FG) × 131.25</span> alongside the real-extract method, side by side.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="ABV inputs">
+        <div class="cp-k">Your gravities</div>
+
+        <div class="field">
+          <label for="og">Original gravity <span class="hint">(OG, before fermentation)</span></label>
+          <div class="inrow">
+            <input type="number" id="og" value="1.055" min="0.98" step="0.001" inputmode="decimal" aria-label="Original gravity">
+            <div class="seg" role="group" aria-label="OG unit">
+              <button type="button" data-og="sg" class="on">SG</button>
+              <button type="button" data-og="plato">°P</button>
+            </div>
+          </div>
+          <div class="conv" id="ogConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="fg">Final gravity <span class="hint">(FG, at the end)</span></label>
+          <div class="inrow">
+            <input type="number" id="fg" value="1.010" min="0.98" step="0.001" inputmode="decimal" aria-label="Final gravity">
+            <div class="seg" role="group" aria-label="FG unit">
+              <button type="button" data-fg="sg" class="on">SG</button>
+              <button type="button" data-fg="plato">°P</button>
+            </div>
+          </div>
+          <div class="conv" id="fgConv"></div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel">
+        <div class="cp-k">Your beer</div>
+        <div class="reshero" aria-live="polite" aria-atomic="true">
+          <div class="rlabel">ABV — standard formula</div>
+          <div class="rbig"><span id="abvStd">—</span></div>
+          <div class="rsub" id="abvStdSub">(OG − FG) × 131.25</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🎯</span> Accurate ABV</div>
+            <div class="rc-v" id="abvAcc">—</div>
+            <div class="rc-note" id="abvAccNote">real-extract method</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">📉</span> Apparent attenuation</div>
+            <div class="rc-v" id="atten">—</div>
+            <div class="rc-note" id="attenNote">of extract fermented out</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🔥</span> Calories</div>
+            <div class="rc-v" id="cals">—</div>
+            <div class="rc-note" id="calsNote">per 12 oz serving</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">⚖️</span> ABW</div>
+            <div class="rc-v" id="abw">—</div>
+            <div class="rc-note" id="abwNote">alcohol by weight</div>
+          </div>
+        </div>
+
+        <div class="worknums" id="worknums">—</div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Standard: <code>ABV = (OG − FG) × 131.25</code>. Accurate: real-extract method via <code>ABW = (OE − RE) / (2.0665 − 0.010665·OE)</code>, then <code>ABV = ABW × FG / 0.794</code>. They converge below ~6% ABV and drift apart above it.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Two ABV formulas, run at once, so you know which one to trust.</h2>
+      <p>Every homebrew app quotes <b>ABV = (OG − FG) × 131.25</b> — a fast linear approximation that's fine for session beers and wrong by a meaningful margin on anything strong. This tool runs that standard number next to the <b>accurate real-extract formula</b> brewers actually use for high-gravity beer, plus <b>apparent attenuation</b>, <b>ABW</b>, and <b>calories per 12 oz</b> — all from the same two gravity readings.</p>
+      <p>Everything runs client-side. Nothing is stored, nothing is sent — change either gravity and every result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The ABV formula, explained</span>
+      <h2 style="margin-top:14px">The math behind both numbers.</h2>
+      <h3>Standard ABV: fast, familiar, approximate</h3>
+      <p>The formula everyone learns first multiplies the gravity drop by a constant:</p>
+      <div class="formula">
+<span class="cmt"># the number on every homebrew label calculator</span><br>
+ABV = (<span class="hl">OG</span> − <span class="hl">FG</span>) × 131.25
+      </div>
+      <p>It's a <b>linearization</b> of the true relationship between gravity loss and alcohol produced — good enough across the middle of the gravity range, where most beer lives, but it quietly bends the truth at the edges.</p>
+      <h3>Accurate ABV: the real-extract method</h3>
+      <p>The more rigorous approach starts by converting both gravities to <b>degrees Plato</b>, then estimates the <b>real extract</b> — how much sugar is actually left once you account for the fact that alcohol itself lowers the reading a hydrometer or refractometer gives you:</p>
+      <div class="formula">
+<span class="cmt"># SG to Plato (same cubic used throughout MycoAI's calculators)</span><br>
+°P = −616.868 + 1111.14·SG − 630.272·SG² + 135.997·SG³<br>
+<br>
+<span class="cmt"># OE = original extract, AE = apparent extract, both in °Plato</span><br>
+OE = plato(OG)&nbsp;&nbsp;&nbsp;AE = plato(FG)<br>
+<br>
+<span class="cmt"># RE = real extract — corrects for alcohol's effect on the reading</span><br>
+RE = 0.1808·OE + 0.8192·AE<br>
+<br>
+<span class="cmt"># ABW = alcohol by weight, %</span><br>
+ABW = (OE − RE) / (2.0665 − 0.010665·OE)<br>
+<br>
+<span class="cmt"># Accurate ABV, % — converts weight to volume via FG</span><br>
+ABV<span class="hl">accurate</span> = ABW × FG / 0.794
+      </div>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>OG 1.055, FG 1.010.</b> OE ≈ <b>13.57 °P</b>, AE ≈ <b>2.56 °P</b>, RE ≈ <b>4.55 °P</b>.</p>
+        <p>Standard ABV = 0.045 × 131.25 = <b>5.91%</b>. ABW ≈ 4.69%, so accurate ABV = 4.69 × 1.010 / 0.794 ≈ <b>5.97%</b>.</p>
+        <p>Apparent attenuation = (1.055 − 1.010) / 0.055 × 100 ≈ <b>81.8%</b>. Calories ≈ <b>162 per 12 oz</b>.</p>
+      </div>
+      <h3>Apparent attenuation and calories, for free</h3>
+      <p>Once you have OG and FG, two more numbers fall out of the same inputs. <b>Apparent attenuation</b> is simply how much of the original extract fermented out — <span class="mono">(OG − FG) / (OG − 1) × 100</span> — a quick read on whether your yeast finished the job. <b>Calories per 12 oz</b> comes from combining the alcohol and residual real extract, using the standard brewing-science approximation:</p>
+      <div class="formula">
+Attenuation<span class="cmt"> (apparent), %</span> = (OG − FG) / (OG − 1) × 100<br>
+<br>
+Calories<span class="cmt"> per 12 oz</span> = [ (6.9 × ABW) + 4.0 × (RE − 0.1·OE) ] × (FG × 3.55)
+      </div>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard number is wrong.</h2>
+      <p>The ×131.25 shortcut isn't broken — it's a straight-line approximation of a curved relationship, and curves punish you most at the extremes.</p>
+      <h3>It drifts high on strong beer</h3>
+      <p>Below about 6% ABV, standard and accurate formulas agree closely — the gap is noise. Above <b>7–8% ABV</b>, the standard formula starts reading <b>0.2–0.5% high</b>, and the gap widens as gravity climbs. A big imperial stout or barleywine that the standard formula calls 11.5% might genuinely be closer to 11.0–11.2% by the real-extract method. If you're labeling a strong beer, brewing to a style guideline's ABV ceiling, or comparing a big beer against a competition's stated range, use the <b>accurate number</b>, not the quick one.</p>
+      <h4>The constant itself isn't sacred</h4>
+      <p>131.25 is the figure most homebrew software has standardized on, but you'll see <b>131.34</b> and even <b>132</b> in older brewing texts and other calculators. None of them is "more correct" than the others — they're all fits to the same approximation, just from slightly different source data. Don't chase the third decimal on a linear formula; if precision matters, switch methods entirely rather than switching constants.</p>
+      <h3>Refractometer FG is the #1 real-world error</h3>
+      <p>This is the mistake that actually costs people accuracy in practice — more than the formula choice. A refractometer measures how light bends through your sample, and <b>ethanol bends light differently than sugar does</b>. Read an uncorrected refractometer FG straight off the scale on a fermented beer and it comes back <b>too high</b> — understating how far you actually attenuated and throwing off any ABV formula fed with that number, standard or accurate. The fix is one of two things: use a <b>hydrometer for FG</b> (unaffected by alcohol), or apply <b>both</b> a wort-correction factor and a proper alcohol-correction formula to your refractometer reading before you calculate anything downstream. A refractometer alone, uncorrected, on a finished beer is the single most common source of a "wrong" ABV this tool will ever get fed.</p>
+      <h3>ABV and ABW aren't interchangeable</h3>
+      <p>US labeling law reports <b>ABV</b> (alcohol by volume). <b>ABW</b> (alcohol by weight) is always a lower number for the same beer — roughly <b>ABW ≈ 0.79 × ABV</b> — because alcohol is less dense than water and the two percentages are measuring different things (volume vs. mass). This matters if you're ever cross-referencing a spec sheet, an old brewing text, or a state that historically labeled in ABW: don't drop one number into a field expecting the other, and don't assume a "5% beer" from a foreign or older source means the same thing your hydrometer would.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the lab</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the propagation lab</div>
+        <p>At New Belgium, ABV wasn't a number we published from a spreadsheet formula — it was a number we <b>defended</b>, on a label, against a specific legal tolerance. Nobody in QC ever asked "what does the standard formula say"; they asked "what did the hydrometer say, corrected for temperature, cross-checked against the real-extract math." The lesson that carries to any scale: the formula you pick matters far less than the <b>gravity reading</b> you feed it. A pristine accurate-ABV calculation built on an uncorrected refractometer FG is worse than a rough standard-formula estimate built on a careful hydrometer reading. <b>Trust the measurement first, the math second.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your batch data</span>
+      <h2 style="position:relative;margin-top:14px">Track ABV against every batch you brew.</h2>
+      <p>One ABV reading is a data point. The value shows up when you log OG, FG, attenuation, and ABV across every batch — and see which recipes, yeasts, and pitch rates actually deliver the number you're after. That's what a QC dashboard does automatically.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="/services/qc-dashboard/" class="btn btn-primary">Get a QC dashboard for your brewery →</a>
+        <a href="/calculators/" class="btn btn-ghost">Explore all the calculators →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/calculators/attenuation/">
+          <div class="xl-k">Cross-check</div><div class="xl-t">Attenuation Calculator</div>
+          <div class="xl-d">Dig deeper into how much extract fermented out.</div>
+        </a>
+        <a class="xlink" href="/calculators/hydrometer-temperature-correction/">
+          <div class="xl-k">Fix your reading</div><div class="xl-t">Hydrometer Temp Correction</div>
+          <div class="xl-d">Correct OG/FG for temperature before you calculate ABV.</div>
+        </a>
+        <a class="xlink" href="/calculators/">
+          <div class="xl-k">More</div><div class="xl-t">All fermentation calculators</div>
+          <div class="xl-d">Pitch rate, viability, priming sugar, and more.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* ================= ABV FROM GRAVITY CALCULATOR ================= */
+let ogUnit='sg', fgUnit='sg';
+const $=id=>document.getElementById(id);
+function sgToPlato(sg){return -616.868+1111.14*sg-630.272*sg*sg+135.997*sg*sg*sg;}
+function platoToSg(p){return 1+(p/(258.6-(p/258.2)*227.1));}
+function fmtPct(n,d){if(!isFinite(n))return '—';return n.toFixed(d===undefined?2:d).replace(/(\.\d*?)0+$/,'$1').replace(/\.$/,'');}
+function calc(){
+  const ogRaw=parseFloat($('og').value), fgRaw=parseFloat($('fg').value);
+  const warn=$('warn');warn.classList.remove('show');warn.textContent='';
+  if(!isFinite(ogRaw)||ogRaw<=0||!isFinite(fgRaw)||fgRaw<=0){
+    ['abvStd','abvAcc','atten','cals','abw'].forEach(id=>$(id).textContent='—');
+    $('worknums').textContent='—';
+    $('abvStdSub').textContent='enter an OG and FG';
+    return;
+  }
+  const OG=ogUnit==='sg'?ogRaw:platoToSg(ogRaw);
+  const FG=fgUnit==='sg'?fgRaw:platoToSg(fgRaw);
+  const ogPlato=ogUnit==='sg'?sgToPlato(ogRaw):ogRaw;
+  const fgPlato=fgUnit==='sg'?sgToPlato(fgRaw):fgRaw;
+  $('ogConv').innerHTML=ogUnit==='sg'?`= <b>${ogPlato.toFixed(1)} °P</b>`:`= <b>${OG.toFixed(3)} SG</b>`;
+  $('fgConv').innerHTML=fgUnit==='sg'?`= <b>${fgPlato.toFixed(1)} °P</b>`:`= <b>${FG.toFixed(3)} SG</b>`;
+
+  const msgs=[];
+  const rangeOk=(OG>=0.990&&OG<=1.20)&&(FG>=0.990&&FG<=1.20);
+  if(!rangeOk){
+    msgs.push('One of these gravities looks outside the normal brewing range (roughly 0.990–1.20 SG) — double-check units and any missing decimal.');
+    ['abvStd','abvAcc','atten','cals','abw'].forEach(id=>$(id).textContent='—');
+    $('worknums').textContent='—';
+    $('abvStdSub').textContent='check your gravity units';
+    warn.innerHTML=msgs.join('<br>');warn.classList.add('show');
+    return;
+  }
+  if(FG>OG){
+    msgs.push('Final gravity is higher than original gravity — that\'s not possible for a normal fermentation. Check which reading is OG and which is FG, and the units on each.');
+    ['abvStd','abvAcc','atten','cals','abw'].forEach(id=>$(id).textContent='—');
+    $('worknums').textContent='—';
+    $('abvStdSub').textContent='FG can\'t exceed OG';
+    warn.innerHTML=msgs.join('<br>');warn.classList.add('show');
+    return;
+  }
+
+  const abvStd=(OG-FG)*131.25;
+  const OE=sgToPlato(OG), AE=sgToPlato(FG);
+  const RE=0.1808*OE+0.8192*AE;
+  const ABW=(OE-RE)/(2.0665-0.010665*OE);
+  const abvAcc=ABW*FG/0.794;
+  const atten=(OG-FG)/(OG-1)*100;
+  const cals=((6.9*ABW)+4.0*(RE-0.1*OE))*(FG*3.55);
+
+  $('abvStd').innerHTML=`${fmtPct(abvStd,2)}<span style="font-size:.5em;color:var(--muted);font-family:'JetBrains Mono',monospace"> % ABV</span>`;
+  $('abvStdSub').textContent='(OG − FG) × 131.25 · the number everyone quotes';
+  $('abvAcc').innerHTML=`${fmtPct(abvAcc,2)} <span>%</span>`;
+  $('atten').innerHTML=`${fmtPct(atten,1)} <span>%</span>`;
+  $('cals').innerHTML=`${Math.round(cals)} <span>kcal</span>`;
+  $('abw').innerHTML=`${fmtPct(ABW,2)} <span>%</span>`;
+
+  const gap=abvStd-abvAcc;
+  $('abvAccNote').textContent=Math.abs(gap)>=0.05?`real-extract method · ${gap>0?'−':'+'}${fmtPct(Math.abs(gap),2)}% vs standard`:'real-extract method · matches standard closely';
+  $('attenNote').textContent=atten>=85?'high — fully fermented':(atten<=65?'low — check FG or yeast health':'of extract fermented out');
+  $('calsNote').textContent='per 12 oz serving';
+  $('abwNote').textContent='alcohol by weight (US labels use ABV)';
+
+  $('worknums').innerHTML=`OE <b>${OE.toFixed(2)} °P</b> · AE <b>${AE.toFixed(2)} °P</b> · RE <b>${RE.toFixed(2)} °P</b> · OG <b>${OG.toFixed(3)}</b> · FG <b>${FG.toFixed(3)}</b>`;
+
+  if(abvStd>=7&&Math.abs(gap)>=0.15){
+    msgs.push(`This is a strong beer — the standard formula reads ${gap>0?'high':'low'} by about ${fmtPct(Math.abs(gap),2)}% here. Use the accurate ABV (${fmtPct(abvAcc,2)}%) for labeling or style-limit checks.`);
+  }
+  if(atten<60){
+    msgs.push('Apparent attenuation is unusually low — check for a stuck fermentation, or confirm FG was read correctly (and with a hydrometer, not an uncorrected refractometer).');
+  }
+  if(atten>90){
+    msgs.push('Apparent attenuation is very high — confirm this wasn\'t read with an uncorrected refractometer, which reads FG too high and can overstate attenuation and ABV together in unpredictable ways.');
+  }
+  if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
+}
+document.querySelectorAll('[data-og]').forEach(b=>{b.onclick=()=>{const prev=ogUnit;ogUnit=b.dataset.og;document.querySelectorAll('[data-og]').forEach(x=>x.classList.toggle('on',x===b));const el=$('og'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='sg'&&ogUnit==='plato'){el.value=sgToPlato(v).toFixed(1);el.step='0.1';}else if(prev==='plato'&&ogUnit==='sg'){el.value=platoToSg(v).toFixed(3);el.step='0.001';}}calc();};});
+document.querySelectorAll('[data-fg]').forEach(b=>{b.onclick=()=>{const prev=fgUnit;fgUnit=b.dataset.fg;document.querySelectorAll('[data-fg]').forEach(x=>x.classList.toggle('on',x===b));const el=$('fg'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='sg'&&fgUnit==='plato'){el.value=sgToPlato(v).toFixed(1);el.step='0.1';}else if(prev==='plato'&&fgUnit==='sg'){el.value=platoToSg(v).toFixed(3);el.step='0.001';}}calc();};});
+['og','fg'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yeast Viability Calculator — Real Cells by Age | MycoAI</title>
+<meta name="description" content="Free yeast viability calculator — estimate a liquid, dry, or slurry pack's real viable-cell count from its production date, so you stop pitching a 100 B pack that's really 40 B. From a former New Belgium yeast specialist.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/calculators/yeast-viability/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/calculators/yeast-viability/">
+<meta property="og:title" content="Yeast Viability Calculator — Real Cells by Age | MycoAI">
+<meta property="og:description" content="Estimate a liquid, dry, or slurry pack's real viable-cell count from its production date — stop pitching a 100 B pack that's really 40 B. From a former New Belgium yeast specialist.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"Yeast Viability Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/calculators/yeast-viability/",
+"description":"Estimate the real viable cell count of a liquid pack, dry yeast, or harvested slurry from its production or harvest date. Returns viability percent, real viable cells, fresh-pack equivalents, and a pitching recommendation.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Calculators","item":"https://mycoai.net/calculators/"},
+{"@type":"ListItem","position":3,"name":"Yeast Viability","item":"https://mycoai.net/calculators/yeast-viability/"}]}
+</script>
+<style>
+/* ---- yeast pitch rate calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select,.field input[type=date]{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus,.field input[type=date]:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.field input[type=date]{cursor:pointer;color-scheme:dark}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.srcseg{display:flex;width:100%;margin-top:2px}
+.srcseg button{flex:1;padding:9px 4px;font-size:12.5px}
+.rcell{transition:border-color .2s,background .2s}
+.rcell.sel{border-color:var(--teal);background:rgba(55,214,176,.07)}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+/* ---- yeast-viability page-specific additions (non-colliding) ---- */
+.formseg{margin-bottom:19px}
+.datewrap{display:flex;gap:10px;align-items:flex-start}
+.datewrap>div{flex:1;min-width:0}
+.dateor{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);text-align:center;padding-top:14px;flex:0 0 auto}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/" class="cur" aria-current="page">Calculators</a>
+        <a href="/guides/">Guides</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/calculators/">Calculators</a><span>/</span>Yeast Viability
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">Yeast Viability <span class="grad">Calculator</span></h1>
+    <p class="psub">Enter your yeast's <b>form</b> and <b>age</b> — get its real <b>viability %</b>, the <b>actual viable cells</b> behind the label, and how many <b>fresh-equivalent packs</b> it takes to match one fresh one. Built on a <span class="mono">viability% = 100 − decay×days</span> heuristic by a former New Belgium yeast specialist.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="Yeast viability inputs">
+        <div class="cp-k">Your yeast</div>
+
+        <div class="field formseg">
+          <label>Yeast form</label>
+          <div class="seg" role="group" aria-label="Yeast form" style="display:flex;width:100%">
+            <button type="button" data-form="liquid" class="on" style="flex:1">Liquid pack</button>
+            <button type="button" data-form="dry" style="flex:1">Dry</button>
+            <button type="button" data-form="slurry" style="flex:1">Slurry</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="mdate">Manufacture / harvest date <span class="hint">(if known)</span></label>
+          <div class="datewrap">
+            <div><input type="date" id="mdate" aria-label="Manufacture or harvest date"></div>
+            <div class="dateor">or</div>
+            <div><input type="number" id="daysOld" value="0" min="0" step="1" inputmode="numeric" aria-label="Days old" placeholder="days old"></div>
+          </div>
+          <div class="conv" id="dateConv">Type a date, or enter days old directly if you don't know the date.</div>
+        </div>
+
+        <div class="field">
+          <label for="labeled">Labeled cell count <span class="hint">(optional — the pack's stated count)</span></label>
+          <div class="inrow">
+            <input type="number" id="labeled" value="100" min="0" step="1" inputmode="decimal" aria-label="Labeled cell count">
+            <div class="seg" role="group" aria-label="Labeled count unit">
+              <button type="button" data-lab="B" class="on">B</button>
+              <button type="button" data-lab="M">M</button>
+            </div>
+          </div>
+          <div class="conv" id="labConv"></div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel">
+        <div class="cp-k">What you're really pitching</div>
+        <div class="reshero" aria-live="polite" aria-atomic="true">
+          <div class="rlabel">Estimated viability</div>
+          <div class="rbig"><span id="viabPct">—</span></div>
+          <div class="rsub" id="viabSub">enter a date or days old to estimate</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🧫</span> Real viable cells</div>
+            <div class="rc-v" id="realCells">—</div>
+            <div class="rc-note" id="realCellsNote">set the labeled count above</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">📉</span> Cells lost so far</div>
+            <div class="rc-v" id="lostCells">—</div>
+            <div class="rc-note" id="lostCellsNote">vs. the label at day 0</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">⚖️</span> Fresh-equivalent</div>
+            <div class="rc-v" id="freshEq">—</div>
+            <div class="rc-note" id="freshEqNote">old packs per one fresh pack</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🧭</span> Recommendation</div>
+            <div class="rc-v" id="recBig" style="font-size:1.05rem">—</div>
+            <div class="rc-note" id="recNote"></div>
+          </div>
+        </div>
+
+        <div class="worknums" id="worknums">—</div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Formula: <code>viability% = clamp(100 − decay × days, 1, 100)</code>. Liquid ≈ <b>0.70%/day</b> · dry ≈ <b>4%/month</b> · slurry ≈ <b>1.2%/day</b>. All three assume cold, stable storage — see below.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Find out what's actually alive in the pack.</h2>
+      <p>A yeast pack's label tells you what it shipped with, not what's left. <b>Viable cells decline every day from manufacture or harvest</b>, and the rate depends entirely on the yeast's <b>form</b> — liquid, dry, or harvested slurry decay at very different speeds. This tool takes the form and the age and gives you an honest estimate of the <b>real viable-cell count</b> behind that "100 billion" on the label, so you can decide whether to pitch it straight, build a starter, or buy fresh.</p>
+      <p>Everything runs client-side, right in your browser. Nothing is stored, nothing is sent — change any input and the result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The viability decay formula, explained</span>
+      <h2 style="margin-top:14px">Three curves, one shape.</h2>
+      <h3>Viability% = clamp(100 − decay rate × days, 1, 100)</h3>
+      <p>Each yeast form gets its own <b>daily decay rate</b>, applied as a simple linear model from day zero (100% viable, the moment it was packaged or harvested) down to a floor of 1% — real cultures never truly hit absolute zero, but by that point you should not be pitching it anyway. These are <b>heuristics</b>, not lab-verified curves for your exact pack: real viability loss isn't perfectly linear, and storage conditions swing it hard in both directions. Treat the output as a planning estimate, not a certificate of analysis.</p>
+      <div class="formula">
+<span class="cmt"># Liquid pack — the classic curve, ~21%/month refrigerated</span><br>
+liquid_viability = clamp(100 − <span class="hl">0.70</span> × days, 1, 100)<br>
+<br>
+<span class="cmt"># Dry yeast — far more stable, ~4%/month refrigerated (≈50% at a year)</span><br>
+dry_viability = clamp(100 − (days ÷ 30) × <span class="hl">4</span>, 1, 100)<br>
+<br>
+<span class="cmt"># Slurry — harvested &amp; refrigerated, faster and rougher than a lab pack</span><br>
+slurry_viability = clamp(100 − <span class="hl">1.2</span> × days, 1, 100)<br>
+<br>
+<span class="cmt"># real cells and fresh-pack equivalence</span><br>
+real_cells = labeled_cells × (viability ÷ 100)<br>
+fresh_equivalent_packs = ceil(1 ÷ (viability ÷ 100))
+      </div>
+      <h3>Why the three forms decay so differently</h3>
+      <p><b>Liquid yeast</b> is a living culture suspended in liquid with no protective drying step — it's the least stable form, losing roughly a fifth of its viable population every month even refrigerated. <b>Dry yeast</b> goes through a manufacturing dehydration process that puts cells into a dormant, low-metabolism state; kept cool and sealed, that dormancy is remarkably stable, which is why dry yeast can sit in a fridge for the better part of a year and still pitch respectably. <b>Slurry</b> — yeast you harvested yourself from a fermentation — has neither the lab-controlled packaging of a liquid pack nor the drying of dry yeast, plus it's carrying trub, dead cells, and whatever stress the previous batch put it through, so it tends to decline faster and less predictably than either.</p>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>A liquid pack, 90 days old.</b> Liquid decay: 100 − (0.70 × 90) = <b>37% viable</b>.</p>
+        <p>A pack labeled <b>100 B</b> cells is really only about <b>37 B</b> viable cells.</p>
+        <p>To hit a <b>200 B</b> pitch target you'd need roughly <b>5.4 such packs</b> — or grow a starter from one and skip buying five more old ones.</p>
+      </div>
+
+      <h3>Reading the fresh-equivalent number</h3>
+      <p>The <b>fresh-equivalent</b> result answers a specific question: <i>how many of this old pack would it take to equal one fresh one?</i> At 37% viability that's <span class="mono">1 ÷ 0.37 ≈ 2.7</span>, rounded up to <b>3 packs</b> to be safe. That's the number worth staring at — if the honest answer is "just buy three packs instead of one," a <a class="link" href="/calculators/yeast-starter/">starter</a> is almost always the better play, both financially and for fermentation health.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard number is wrong.</h2>
+      <p>A linear decay rate is a useful default. It is not the truth for every pack in every fridge. Here's where it breaks.</p>
+      <h3>Storage temperature dominates everything</h3>
+      <p>The rates above assume <b>consistent, cold storage</b> — a homebrew shop fridge or your own, held near 34–38°F the whole time. That assumption breaks constantly. A pack that rode in a hot delivery van for two days, sat on a warm loading dock, or spent a week at room temperature before refrigeration can lose that much viability in <b>weeks</b>, not months. The "best by" date printed on the pack is a manufacturer's estimate under ideal, unbroken cold-chain conditions — it is not a viability guarantee for a pack whose actual thermal history you don't know.</p>
+      <h4>The under-counted middle</h4>
+      <p>The riskiest packs aren't the obviously old ones — those get replaced or boosted with a starter automatically. It's the pack that's only <b>three or four weeks old</b> but spent part of that time warm in transit. It looks fresh by the date, calculates as ~80% viable by this tool's cold-storage curve, and might actually be well below that. If you have any reason to suspect a broken cold chain, treat the calculator's number as optimistic.</p>
+      <h3>Dry yeast is not liquid yeast — don't borrow its curve</h3>
+      <p>This is the single most common modeling mistake homebrewers make: judging a dry yeast packet by the liquid pack's ~21%-per-month decay. Kept cool and sealed, dry yeast holds <b>90%+ viability for a year</b> — the dehydration process is specifically what makes that possible. Apply the liquid curve to a dry packet and you'll conclude a six-month-old sachet is nearly dead, when it's likely still very healthy. Always select <b>Dry</b> in this tool rather than eyeballing a liquid-pack answer for it.</p>
+      <h3>Viability vs. vitality: alive isn't the same as ready</h3>
+      <p><b>Viability</b> is the fraction of cells that are alive at all. <b>Vitality</b> is how healthy and metabolically ready those living cells are — their glycogen reserves, membrane condition, how fast they can get going. An old-but-still-viable pack can report a reasonable viability percentage and still ferment sluggishly, because the cells that survived are tired, not just fewer. Count <i>and</i> condition both matter; a viability estimate is necessary but not sufficient for predicting how a pitch will actually perform.</p>
+      <h3>A starter resets the clock</h3>
+      <p>The cells growing in a starter are <b>new</b> — they bud off whatever survived the old pack, at high viability, regardless of how old that original pack was. For anything estimating <b>under about 60% viability</b>, a starter beats buying more old packs almost every time: it's cheaper than five backup packs and it produces healthier cells than the pack ever will again on its own. See the <a class="link" href="/calculators/yeast-starter/">yeast starter calculator</a> to size one from wherever your pack lands today.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the lab</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the propagation lab</div>
+        <p>At New Belgium, we never trusted a "best by" date as a viability number — it's a shipping promise, not a cell count. We ran viability checks on every pack and every propagation step, because the gap between the label and reality could be the difference between a clean fermentation and a stuck one. The lesson that travels to homebrew scale: a date tells you nothing about the truck that pack rode in on. If you're not sure how it was stored, don't trust the calculator's number blindly — count it, or hedge with a starter. <b>An estimate is a starting point for judgment, not a replacement for it.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your batch data</span>
+      <h2 style="position:relative;margin-top:14px">Stop guessing at viability — start logging it.</h2>
+      <p>A viability estimate from age is a stand-in for a real count. The value compounds when you log actual viability checks against every pitch and every batch outcome — and see exactly which packs, ages, and storage habits produce clean fermentations. That's what a QC dashboard does automatically.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="/services/qc-dashboard/" class="btn btn-primary">Get a QC dashboard for your brewery →</a>
+        <a href="/calculators/" class="btn btn-ghost">Explore all the calculators →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/calculators/yeast-pitch-rate/">
+          <div class="xl-k">Cross-check</div><div class="xl-t">Yeast Pitch Rate Calculator</div>
+          <div class="xl-d">Feed the viability % above into your pitch target.</div>
+        </a>
+        <a class="xlink" href="/calculators/yeast-starter/">
+          <div class="xl-k">Next tool</div><div class="xl-t">Yeast Starter Calculator</div>
+          <div class="xl-d">Grow fresh cells and reset the clock on an old pack.</div>
+        </a>
+        <a class="xlink" href="/calculators/">
+          <div class="xl-k">More</div><div class="xl-t">All fermentation calculators</div>
+          <div class="xl-d">ABV, attenuation, priming sugar, and more.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* ================= YEAST VIABILITY CALCULATOR ================= */
+const $=id=>document.getElementById(id);
+let yeastForm='liquid', labUnit='B', suppressSync=false;
+
+function fmtB(b){if(!isFinite(b)||b<=0)return '—';if(b>=1000)return (b/1000).toFixed(2).replace(/\.?0+$/,'')+' T';if(b>=100)return Math.round(b)+' B';if(b>=1)return b.toFixed(1).replace(/\.0$/,'')+' B';return b.toFixed(2).replace(/0$/,'').replace(/\.$/,'')+' B';}
+function fmtPct(p){return isFinite(p)?p.toFixed(p<10?1:0).replace(/\.0$/,'')+'%':'—';}
+function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+
+function viabilityFor(form,days){
+  if(form==='liquid')return clamp(100-0.70*days,1,100);
+  if(form==='dry')return clamp(100-(days/30)*4,1,100);
+  return clamp(100-1.2*days,1,100); // slurry
+}
+
+function daysFromDate(dstr){
+  if(!dstr)return null;
+  const d=new Date(dstr+'T00:00:00');
+  if(isNaN(d.getTime()))return null;
+  const now=new Date();
+  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const ms=today-d;
+  return Math.round(ms/86400000);
+}
+
+function syncDaysFromDate(){
+  const dv=$('mdate').value;
+  if(!dv)return;
+  const days=daysFromDate(dv);
+  if(days===null)return;
+  suppressSync=true;
+  $('daysOld').value=Math.max(0,days);
+  suppressSync=false;
+}
+
+function calc(){
+  const dateVal=$('mdate').value;
+  let days, usingDate=false;
+  const dateDays=daysFromDate(dateVal);
+  if(dateVal&&dateDays!==null){
+    days=dateDays;
+    usingDate=true;
+  } else {
+    days=parseFloat($('daysOld').value);
+  }
+
+  const warn=$('warn');warn.classList.remove('show');warn.innerHTML='';
+
+  let labeledRaw=parseFloat($('labeled').value);
+  const labeledB=isFinite(labeledRaw)&&labeledRaw>0?(labUnit==='M'?labeledRaw/1000:labeledRaw):null;
+  $('labConv').innerHTML=labeledB!==null?(labUnit==='M'?`= <b>${fmtB(labeledB)}</b> labeled`:`= <b>${(labeledB*1000).toFixed(0)} M</b> labeled`):'enter the pack’s stated count to convert to real cells';
+
+  if(!isFinite(days)||days<0){
+    ['viabPct','realCells','lostCells','freshEq','recBig'].forEach(id=>$(id).textContent='—');
+    $('viabSub').textContent='enter a date or days old to estimate';
+    $('worknums').textContent='—';
+    $('realCellsNote').textContent='set the labeled count above';
+    $('lostCellsNote').textContent='vs. the label at day 0';
+    $('freshEqNote').textContent='old packs per one fresh pack';
+    $('recNote').textContent='';
+    if(usingDate&&dateDays!==null&&dateDays<0){
+      warn.innerHTML='That date is in the future — the calculator can’t estimate viability for a pack that hasn’t been made or harvested yet. Check the year.';
+      warn.classList.add('show');
+    }
+    return;
+  }
+
+  const formName=yeastForm==='liquid'?'Liquid pack':yeastForm==='dry'?'Dry yeast':'Slurry';
+  const viab=viabilityFor(yeastForm,days);
+  const viabFrac=viab/100;
+
+  $('viabPct').innerHTML=`${fmtPct(viab)}<span style="font-size:.4em;color:var(--muted);font-family:'Inter',sans-serif;font-weight:500"> viable</span>`;
+  $('viabSub').textContent=`${formName} · ${Math.round(days)} day${Math.round(days)!==1?'s':''} old${usingDate?' (from date)':''}`;
+
+  if(labeledB!==null){
+    const realB=labeledB*viabFrac;
+    const lostB=labeledB-realB;
+    $('realCells').innerHTML=`${fmtB(realB)}`;
+    $('realCellsNote').textContent=`was ${fmtB(labeledB)} on the label`;
+    $('lostCells').innerHTML=`${fmtB(lostB)}`;
+    $('lostCellsNote').textContent=`lost so far, of ${fmtB(labeledB)} labeled`;
+  } else {
+    $('realCells').textContent='—';
+    $('realCellsNote').textContent='set the labeled count above';
+    $('lostCells').textContent='—';
+    $('lostCellsNote').textContent='vs. the label at day 0';
+  }
+
+  const freshEqExact=viabFrac>0?1/viabFrac:Infinity;
+  const freshEqCeil=isFinite(freshEqExact)?Math.ceil(freshEqExact):null;
+  $('freshEq').innerHTML=freshEqCeil!==null?`${freshEqCeil} <span>pack${freshEqCeil!==1?'s':''}</span>`:'—';
+  $('freshEqNote').textContent=freshEqCeil!==null?`${freshEqExact.toFixed(1)} exact · 1 fresh ≈ this many old`:'—';
+
+  let rec, recNote;
+  if(viab>=85){rec='Pitch it';recNote='high viability — pitch straight, no adjustment needed';}
+  else if(viab>=60){rec='Step it up';recNote='usable, but bump your pitch rate or pack count to compensate';}
+  else if(viab>=30){rec='Make a starter';recNote='a starter resets the clock and beats buying more old packs';}
+  else {rec='Buy fresh';recNote='too far gone to reliably rely on — replace it or count it before use';}
+  $('recBig').textContent=rec;
+  $('recNote').textContent=recNote;
+
+  $('worknums').innerHTML=`${formName} · <b>${Math.round(days)}d</b> old · viability <b>${fmtPct(viab)}</b>${labeledB!==null?` · real cells <b>${fmtB(labeledB*viabFrac)}</b> of ${fmtB(labeledB)} labeled`:''}`;
+
+  const msgs=[];
+  if(usingDate&&dateDays!==null&&dateDays<0){
+    msgs.push('That date is in the future — check the year. Viability can’t be estimated for a pack that hasn’t been made yet.');
+  }
+  if(viab<60){
+    msgs.push(`Viability under 60% — this is deep into "make a starter" territory. A starter will beat buying enough extra packs to compensate, and gives you healthier cells besides.`);
+  }
+  if(days>365){
+    msgs.push('Over a year old — you’re deep into guesswork territory here. The linear model gets less reliable the further out it extrapolates; if this yeast matters, count it directly rather than trusting the estimate.');
+  }
+  if(yeastForm==='dry'&&days>270&&viab>=60){
+    msgs.push('Dry yeast this old is still likely fine — dry yeast holds viability far longer than liquid or slurry when stored cool and sealed. This estimate reflects that, not a liquid-style crash.');
+  }
+  if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
+}
+
+document.querySelectorAll('[data-form]').forEach(b=>{
+  b.onclick=()=>{
+    yeastForm=b.dataset.form;
+    document.querySelectorAll('[data-form]').forEach(x=>x.classList.toggle('on',x===b));
+    calc();
+  };
+});
+
+$('mdate').addEventListener('input',()=>{syncDaysFromDate();calc();});
+$('daysOld').addEventListener('input',()=>{
+  if(suppressSync)return;
+  if($('daysOld').value!==''){$('mdate').value='';}
+  calc();
+});
+$('labeled').addEventListener('input',calc);
+document.querySelectorAll('[data-lab]').forEach(b=>{
+  b.onclick=()=>{
+    const prev=labUnit;
+    labUnit=b.dataset.lab;
+    document.querySelectorAll('[data-lab]').forEach(x=>x.classList.toggle('on',x===b));
+    const el=$('labeled'),v=parseFloat(el.value);
+    if(isFinite(v)){
+      if(prev==='B'&&labUnit==='M')el.value=(v*1000).toFixed(0);
+      else if(prev==='M'&&labUnit==='B')el.value=(v/1000).toFixed(2).replace(/\.?0+$/,'');
+    }
+    calc();
+  };
+});
+
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>

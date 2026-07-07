@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attenuation Calculator — Apparent vs Real | MycoAI</title>
+<meta name="description" content="Free apparent-vs-real attenuation calculator — the highest-signal check that a batch is tracking to style, from a former New Belgium yeast specialist. No signup, runs in your browser.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/calculators/attenuation/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/calculators/attenuation/">
+<meta property="og:title" content="Attenuation Calculator — Apparent vs Real | MycoAI">
+<meta property="og:description" content="Free apparent-vs-real attenuation calculator — the highest-signal check that a batch is tracking to style, from a former New Belgium yeast specialist. No signup, runs in your browser.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"Attenuation Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/calculators/attenuation/",
+"description":"Calculate apparent and real attenuation from original and final gravity. Returns real extract, gravity points dropped, and how the batch tracks against a strain's stated attenuation.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Calculators","item":"https://mycoai.net/calculators/"},
+{"@type":"ListItem","position":3,"name":"Attenuation","item":"https://mycoai.net/calculators/attenuation/"}]}
+</script>
+<style>
+/* ---- attenuation calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.srcseg{display:flex;width:100%;margin-top:2px}
+.srcseg button{flex:1;padding:9px 4px;font-size:12.5px}
+.rcell{transition:border-color .2s,background .2s}
+.rcell.sel{border-color:var(--teal);background:rgba(55,214,176,.07)}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+
+/* attenuation-specific (non-colliding additions) */
+.rc-v.small{font-size:1.28rem}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/" class="cur" aria-current="page">Calculators</a>
+        <a href="/guides/">Guides</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/calculators/">Calculators</a><span>/</span>Attenuation
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">Attenuation <span class="grad">Calculator</span></h1>
+    <p class="psub">Enter your original and final gravity — get <b>apparent attenuation</b>, <b>real attenuation</b>, <b>real extract</b>, and how the batch stacks up against your <b>strain's stated spec</b>. This is the highest-signal check that a batch is tracking to style, built on <span class="mono">ADF% = (OG − FG) / (OG − 1) × 100</span> by a former New Belgium yeast specialist.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="Attenuation inputs">
+        <div class="cp-k">Your gravities</div>
+
+        <div class="field">
+          <label for="og">Original gravity (OG)</label>
+          <div class="inrow">
+            <input type="number" id="og" value="1.050" min="1" step="0.001" inputmode="decimal" aria-label="Original gravity">
+            <div class="seg" role="group" aria-label="OG unit">
+              <button type="button" data-og="sg" class="on">SG</button>
+              <button type="button" data-og="plato">°P</button>
+            </div>
+          </div>
+          <div class="conv" id="ogConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="fg">Final gravity (FG)</label>
+          <div class="inrow">
+            <input type="number" id="fg" value="1.010" min="0.9" step="0.001" inputmode="decimal" aria-label="Final gravity">
+            <div class="seg" role="group" aria-label="FG unit">
+              <button type="button" data-fg="sg" class="on">SG</button>
+              <button type="button" data-fg="plato">°P</button>
+            </div>
+          </div>
+          <div class="conv" id="fgConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="strain">Yeast's stated apparent attenuation <span class="hint">(optional)</span></label>
+          <div class="inrow">
+            <input type="number" id="strain" value="" placeholder="e.g. 75" min="30" max="100" step="1" inputmode="decimal" aria-label="Strain stated apparent attenuation percent">
+            <div class="seg" aria-hidden="true"><button type="button" class="on" tabindex="-1" style="cursor:default">%</button></div>
+          </div>
+          <div class="conv" id="strainConv">Used only to compare your batch to the spec sheet</div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel">
+        <div class="cp-k">Where this batch landed</div>
+        <div class="reshero" aria-live="polite" aria-atomic="true">
+          <div class="rlabel">Apparent attenuation</div>
+          <div class="rbig"><span id="adf">—</span></div>
+          <div class="rsub" id="adfSub">what a hydrometer tells you</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🧪</span> Real attenuation</div>
+            <div class="rc-v" id="rdf">—</div>
+            <div class="rc-note" id="rdfNote">actual sugar consumed</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🍯</span> Real extract</div>
+            <div class="rc-v" id="re">—</div>
+            <div class="rc-note" id="reNote">true residual extract</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">📉</span> Points dropped</div>
+            <div class="rc-v" id="pts">—</div>
+            <div class="rc-note" id="ptsNote">OG − FG × 1000</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🎯</span> vs strain target</div>
+            <div class="rc-v small" id="target">—</div>
+            <div class="rc-note" id="targetNote">enter a stated % to compare</div>
+          </div>
+        </div>
+
+        <div class="worknums" id="worknums">—</div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Formula: <code>ADF% = (OG − FG) / (OG − 1) × 100</code> · real extract <code>RE = 0.1808·OE + 0.8192·AE</code>. Apparent is what a hydrometer reads; real is the true sugar consumed — <b>RDF ≈ ADF × 0.81</b>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Know whether the batch actually finished — or just reads that way.</h2>
+      <p><b>Attenuation is the single fastest read on whether a fermentation behaved.</b> But there are two attenuation numbers — <b>apparent</b> (what your hydrometer or refractometer reads) and <b>real</b> (the actual sugar the yeast consumed) — and they are not the same number. Confusing them is the most common reason brewers think a healthy batch stalled, or a stalled batch looks fine. This tool takes your OG and FG and returns both, plus the <b>real extract</b> still in the beer and how many <b>gravity points</b> the yeast dropped — the numbers that tell you what actually happened in the fermenter.</p>
+      <p>Everything runs client-side. Nothing is stored, nothing is sent — change any input and the result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The attenuation formula, explained</span>
+      <h2 style="margin-top:14px">Apparent vs real — and why the gap exists.</h2>
+      <h3>Apparent attenuation: what the hydrometer sees</h3>
+      <p>A hydrometer measures the density of the whole liquid — sugar, alcohol, and everything else dissolved in it. Alcohol is <i>less dense</i> than water, so as fermentation produces ethanol, the reading drops faster than the sugar loss alone would explain. That extra drop is real, but it's not sugar — it's alcohol lightening the liquid. <b>Apparent attenuation (ADF%)</b> is this raw, uncorrected number:</p>
+      <div class="formula">
+<span class="cmt"># degrees Plato from specific gravity (standard cubic conversion)</span><br>
+platoFromSG(sg) = <span class="hl">−616.868 + 1111.14·sg − 630.272·sg² + 135.997·sg³</span><br>
+<br>
+OE = platoFromSG(<span class="hl">OG</span>)  <span class="cmt"># original extract, °P</span><br>
+AE = platoFromSG(<span class="hl">FG</span>)  <span class="cmt"># apparent extract, °P</span><br>
+<br>
+<span class="cmt"># equivalently, straight from SG:</span><br>
+ADF% = (OE − AE) / OE × 100 = (<span class="hl">OG</span> − <span class="hl">FG</span>) / (<span class="hl">OG</span> − 1) × 100
+      </div>
+      <h3>Real attenuation: what the yeast actually ate</h3>
+      <p>To get the <b>real</b> number you have to subtract the alcohol's effect back out. That's what <b>real extract (RE)</b> does — it's a weighted blend of original and apparent extract that estimates what the gravity <i>would</i> read if the alcohol produced weren't there diluting the density:</p>
+      <div class="formula">
+RE = <span class="hl">0.1808</span>·OE + <span class="hl">0.8192</span>·AE  <span class="cmt"># real extract, °P</span><br>
+RDF% = (OE − RE) / OE × 100  <span class="cmt"># real attenuation</span><br>
+<br>
+points_dropped = (<span class="hl">OG</span> − <span class="hl">FG</span>) × 1000
+      </div>
+      <p>Because RE always lands between AE and OE, <b>real attenuation is always lower than apparent</b> — never the other way around. As a rule of thumb: <b>RDF ≈ ADF × 0.81</b>. A strain quoted at 75% apparent is really eating through roughly 61% of the actual extract — and that's normal, not a stall.</p>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>OG 1.050 (12.4 °P), FG 1.010 (2.56 °P).</b></p>
+        <p>Apparent attenuation ≈ <b>79.4%</b> — that's the hydrometer number, and it's what most brewers quote.</p>
+        <p>Real extract ≈ <b>4.34 °P</b>. Real attenuation ≈ <b>65.0%</b> — the sugar the yeast actually consumed.</p>
+        <p>Gravity points dropped: <b>40 pts</b> (1.050 → 1.010).</p>
+      </div>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard number is wrong.</h2>
+      <p>Attenuation isn't a fixed strain property — it's the outcome of a strain interacting with a specific wort and process. Here's where reading it wrong costs you a batch's worth of confidence.</p>
+      <h3>Apparent vs real is the big one</h3>
+      <p>Strain spec sheets quote <b>apparent</b> attenuation — typically <b>75–82%</b> for a standard ale strain. The <b>real</b> number, the actual sugar consumed, runs roughly <b>0.81×</b> that — closer to <b>62–67%</b>. Brewers who don't know this gap compare their <i>apparent</i> reading against a number they half-remember as "real," or vice versa, and conclude the batch stalled or blew past spec when it did neither. <b>Rule of thumb: RDF ≈ ADF × 0.81.</b> If your apparent number lines up with the strain's published apparent range, the batch is on track — full stop.</p>
+      <h3>Mash temperature moves fermentability more than the strain does</h3>
+      <p>A strain rated "75% attenuating" is not a fixed outcome — it's a range that your mash schedule picks a point inside of. Mash low, around <b>148°F</b>, and β-amylase has time to chew wort into mostly fermentable sugar; that same strain can finish near <b>82%</b>. Mash high, around <b>158°F</b>, and α-amylase leaves more unfermentable dextrin behind; the same yeast lands closer to <b>68%</b>. Same tube of yeast, same recipe otherwise — a 10°F mash decision moved the outcome more than the strain choice did.</p>
+      <h4>The spec sheet is one wort, not your wort</h4>
+      <p>A strain's published attenuation range comes from a defined lab wort under controlled conditions. Your grist bill, adjuncts, and any sugar additions (which are close to 100% fermentable) all shift the real number your batch will hit — sometimes well outside the printed range, with no yeast health problem involved at all.</p>
+      <h3>An uncorrected refractometer reading is a false alarm waiting to happen</h3>
+      <p>Refractometers measure refractive index, and alcohol bends light differently than sugar does — so a refractometer read during or after fermentation, without an alcohol correction applied, reads <b>artificially high</b>. That inflated FG understates attenuation and can trigger a false "stuck fermentation" call on a batch that's actually finished. If a refractometer FG looks off, <b>confirm it with a hydrometer</b> before you pitch more yeast or start troubleshooting a fermentation that isn't actually broken.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the lab</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the propagation lab</div>
+        <p>On the cellar floor, attenuation was the number that ended more debates than any other reading. A brewer would see 68% apparent on a strain rated for 75% and want to re-pitch, re-oxygenate, or panic — until we ran the real number and mash temp log and found the batch was exactly where a 154°F mash should put it. The lesson that holds at any scale: <b>apparent attenuation tells you what the hydrometer saw, not what the yeast decided</b>. Check it against the strain's range, check the mash schedule that produced it, and only then start troubleshooting. <b>Read the number in context, or you'll fix a batch that was never broken.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your batch data</span>
+      <h2 style="position:relative;margin-top:14px">Track attenuation against mash temp, strain, and pitch — automatically.</h2>
+      <p>One attenuation reading tells you where a batch landed. Logging it against mash schedule, pitch rate, and strain across every batch tells you <i>why</i> — and which process actually holds attenuation on target. That's what a QC dashboard does automatically.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="/services/qc-dashboard/" class="btn btn-primary">Get a QC dashboard for your brewery →</a>
+        <a href="/calculators/" class="btn btn-ghost">Explore all the calculators →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/calculators/abv/">
+          <div class="xl-k">Next tool</div><div class="xl-t">ABV from Gravity</div>
+          <div class="xl-d">Turn the same OG/FG pair into alcohol by volume.</div>
+        </a>
+        <a class="xlink" href="/calculators/yeast-pitch-rate/">
+          <div class="xl-k">Cross-check</div><div class="xl-t">Yeast Pitch Rate Calculator</div>
+          <div class="xl-d">Low attenuation? Check whether the pitch was the cause.</div>
+        </a>
+        <a class="xlink" href="/calculators/">
+          <div class="xl-k">More</div><div class="xl-t">All fermentation calculators</div>
+          <div class="xl-d">Yeast starter, viability, priming sugar, and more.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* ================= ATTENUATION CALCULATOR ================= */
+let ogUnit='sg', fgUnit='sg';
+const $=id=>document.getElementById(id);
+function sgToPlato(sg){return -616.868+1111.14*sg-630.272*sg*sg+135.997*sg*sg*sg;}
+function platoToSg(p){return 1+(p/(258.6-(p/258.2)*227.1));}
+function fmtPct(n){if(!isFinite(n))return '—';return (Math.round(n*10)/10).toFixed(1).replace(/\.0$/,'')+'%';}
+function fmtPlato(n){if(!isFinite(n))return '—';return (Math.round(n*100)/100).toFixed(2).replace(/0$/,'').replace(/\.$/,'');}
+function calc(){
+  const ogRaw=parseFloat($('og').value), fgRaw=parseFloat($('fg').value);
+  const strainRaw=$('strain').value.trim();
+  const strainPct=strainRaw===''?NaN:parseFloat(strainRaw);
+  const warn=$('warn');warn.classList.remove('show');warn.innerHTML='';
+  const msgs=[];
+
+  if(!isFinite(ogRaw)||ogRaw<=0||!isFinite(fgRaw)||fgRaw<=0){
+    ['adf','rdf','re','pts'].forEach(id=>$(id).textContent='—');
+    $('target').textContent='—';
+    $('adfSub').textContent='enter both gravities to calculate';
+    $('worknums').textContent='—';
+    return;
+  }
+
+  const og=ogUnit==='sg'?ogRaw:platoToSg(ogRaw);
+  const fg=fgUnit==='sg'?fgRaw:platoToSg(fgRaw);
+  const ogSGDisplay=ogUnit==='sg'?ogRaw:og;
+  const fgSGDisplay=fgUnit==='sg'?fgRaw:fg;
+
+  $('ogConv').innerHTML=ogUnit==='sg'?`= <b>${sgToPlato(og).toFixed(1)} °P</b>`:`= <b>${og.toFixed(3)} SG</b>`;
+  $('fgConv').innerHTML=fgUnit==='sg'?`= <b>${sgToPlato(fg).toFixed(1)} °P</b>`:`= <b>${fg.toFixed(3)} SG</b>`;
+
+  const OE=sgToPlato(og), AE=sgToPlato(fg);
+  const RE=0.1808*OE+0.8192*AE;
+  const ADF=OE>0?(OE-AE)/OE*100:NaN;
+  const RDF=OE>0?(OE-RE)/OE*100:NaN;
+  const pts=(og-fg)*1000;
+
+  // range / plausibility checks
+  if(fg>og){
+    msgs.push('Final gravity is higher than original gravity — check that OG and FG aren\'t swapped, or that the readings were taken correctly.');
+  }
+  if(ogSGDisplay<0.990||ogSGDisplay>1.20||fgSGDisplay<0.990||fgSGDisplay>1.20){
+    msgs.push('One of these gravities is outside the normal brewing range (~0.990–1.20 SG) — double-check units and any missing decimal point.');
+  }
+  if(isFinite(ADF)&&ADF<0){
+    msgs.push('Negative attenuation — fermentation hasn\'t started, or FG was taken too early. Give it more time before troubleshooting.');
+  }
+  if(isFinite(ADF)&&ADF>95){
+    msgs.push('Apparent attenuation above ~95% is unusual for most worts — confirm FG with a calibrated hydrometer before trusting it.');
+  }
+
+  const implausible=(fg>og)||isFinite(ADF)&&ADF<0;
+
+  if(implausible){
+    $('adf').textContent='—';
+    $('adfSub').textContent='check the gravities above';
+    ['rdf','re','pts'].forEach(id=>$(id).textContent='—');
+    $('target').textContent='—';
+    $('targetNote').textContent='enter a stated % to compare';
+    $('worknums').textContent='—';
+  } else {
+    $('adf').textContent=fmtPct(ADF);
+    $('adfSub').textContent='what a hydrometer tells you';
+    $('rdf').textContent=fmtPct(RDF);
+    $('rdfNote').textContent='actual sugar consumed';
+    $('re').innerHTML=`${fmtPlato(RE)} <span>°P</span>`;
+    $('reNote').textContent='true residual extract';
+    $('pts').innerHTML=`${Math.round(pts)} <span>pts</span>`;
+    $('ptsNote').textContent=`${ogSGDisplay.toFixed(3)} → ${fgSGDisplay.toFixed(3)}`;
+
+    if(!isNaN(strainPct)&&strainPct>0){
+      const diff=ADF-strainPct;
+      if(Math.abs(diff)<=1.5){
+        $('target').textContent='On target';
+        $('targetNote').textContent=`within 1.5 pts of ${strainPct}% stated`;
+      } else if(diff<0){
+        $('target').textContent=`${Math.abs(diff).toFixed(1)}% under`;
+        $('targetNote').textContent=`vs ${strainPct}% stated apparent`;
+      } else {
+        $('target').textContent=`${diff.toFixed(1)}% over`;
+        $('targetNote').textContent=`vs ${strainPct}% stated apparent`;
+      }
+    } else {
+      const remainingPlato=AE;
+      $('target').innerHTML=`${fmtPlato(remainingPlato)} <span>°P</span>`;
+      $('targetNote').textContent='gravity remaining · enter a strain % to compare';
+    }
+
+    $('worknums').innerHTML=`OE <b>${OE.toFixed(2)} °P</b> · AE <b>${AE.toFixed(2)} °P</b> · RE <b>${RE.toFixed(2)} °P</b> · RDF ≈ ADF × <b>0.81</b>`;
+  }
+
+  if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
+}
+document.querySelectorAll('[data-og]').forEach(b=>{b.onclick=()=>{const prev=ogUnit;ogUnit=b.dataset.og;document.querySelectorAll('[data-og]').forEach(x=>x.classList.toggle('on',x===b));const el=$('og'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='sg'&&ogUnit==='plato'){el.value=sgToPlato(v).toFixed(1);el.step='0.1';}else if(prev==='plato'&&ogUnit==='sg'){el.value=platoToSg(v).toFixed(3);el.step='0.001';}}calc();};});
+document.querySelectorAll('[data-fg]').forEach(b=>{b.onclick=()=>{const prev=fgUnit;fgUnit=b.dataset.fg;document.querySelectorAll('[data-fg]').forEach(x=>x.classList.toggle('on',x===b));const el=$('fg'),v=parseFloat(el.value);if(isFinite(v)){if(prev==='sg'&&fgUnit==='plato'){el.value=sgToPlato(v).toFixed(1);el.step='0.1';}else if(prev==='plato'&&fgUnit==='sg'){el.value=platoToSg(v).toFixed(3);el.step='0.001';}}calc();};});
+['og','fg','strain'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>

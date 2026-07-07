@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydrometer Temperature Correction Calculator | MycoAI</title>
+<meta name="description" content="Free hydrometer temperature correction calculator — adjust a gravity reading for sample temperature and your hydrometer's calibration temp so your OG and FG are actually right. From a former New Belgium yeast specialist.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/calculators/hydrometer-temperature-correction/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycoai.net/calculators/hydrometer-temperature-correction/">
+<meta property="og:title" content="Hydrometer Temperature Correction Calculator | MycoAI">
+<meta property="og:description" content="Adjust a gravity reading for sample temperature and your hydrometer's calibration temp — get the corrected SG and °P so your OG and FG are actually right. From a former New Belgium yeast specialist.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="font" type="font/woff2" href="/fraunces-600-latin.woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication",
+"name":"Hydrometer Temperature Correction Calculator",
+"applicationCategory":"UtilitiesApplication",
+"operatingSystem":"Any (web browser)",
+"url":"https://mycoai.net/calculators/hydrometer-temperature-correction/",
+"description":"Correct a hydrometer gravity reading for sample temperature and hydrometer calibration temperature. Returns the corrected specific gravity, degrees Plato, and the size of the correction applied.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo"]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Calculators","item":"https://mycoai.net/calculators/"},
+{"@type":"ListItem","position":3,"name":"Hydrometer Temperature Correction","item":"https://mycoai.net/calculators/hydrometer-temperature-correction/"}]}
+</script>
+<style>
+/* ---- yeast pitch rate calculator · page-specific (inherits tokens/shell from /styles.css) ---- */
+.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.03;margin-top:16px;font-variation-settings:'opsz' 120}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:70ch;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.16rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+
+/* calculator two-panel */
+.calcwrap{position:relative;z-index:2;padding:40px 0 24px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.cpanel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.cpanel::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.cp-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.field{margin-bottom:19px}.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:9px}
+.field label .hint{color:var(--faint);font-weight:400}
+.inrow{display:flex;gap:10px}.inrow input{flex:1;min-width:0}
+.field input[type=number],.field select{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;padding:13px 14px;transition:border-color .2s,box-shadow .2s}
+.field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(55,214,176,.18)}
+.field select{cursor:pointer;font-family:'Inter',sans-serif}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line2);border-radius:11px;overflow:hidden;flex:0 0 auto}
+.seg button{background:none;border:0;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;padding:0 15px;cursor:pointer;transition:.2s;white-space:nowrap}
+.seg button.on{background:var(--teal);color:#04130f;font-weight:600}
+.conv{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);margin-top:8px;min-height:16px}
+.conv b{color:var(--teal);font-weight:500}
+.reshero{background:linear-gradient(150deg,rgba(232,163,61,.1),rgba(55,214,176,.05));border:1px solid rgba(232,163,61,.22);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+.reshero .rlabel{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.reshero .rbig{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.3rem);font-weight:600;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
+.reshero .rbig span{color:var(--teal)}
+.reshero .rsub{font-size:13px;color:var(--muted)}
+.resgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.rcell{background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:16px 17px}
+.rc-k{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rc-v{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600;color:var(--ink);line-height:1.1}
+.rc-v span{color:var(--gold);font-size:.9rem;font-family:'JetBrains Mono',monospace;font-weight:500}
+.rc-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+.srcseg{display:flex;width:100%;margin-top:2px}
+.srcseg button{flex:1;padding:9px 4px;font-size:12.5px}
+.rcell{transition:border-color .2s,background .2s}
+.rcell.sel{border-color:var(--teal);background:rgba(55,214,176,.07)}
+.worknums{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);line-height:1.7}
+.worknums b{color:var(--teal);font-weight:500}
+.reswarn{margin-top:15px;font-size:13px;color:#f0b968;background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.25);border-radius:11px;padding:11px 14px;display:none}
+.reswarn.show{display:block}
+.resfoot{margin-top:17px;font-size:12px;color:var(--faint);line-height:1.55}
+.resfoot code{font-family:'JetBrains Mono',monospace;color:var(--teal);background:rgba(55,214,176,.08);padding:1px 6px;border-radius:5px}
+
+/* prose */
+.prose{max-width:760px;position:relative;z-index:2}
+.prose h2{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.02rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:16px;font-size:1.05rem;line-height:1.65}
+.prose p b{color:var(--ink);font-weight:600}
+.prose ul{list-style:none;margin:0 0 18px;display:flex;flex-direction:column;gap:9px}
+.prose li{color:var(--muted);font-size:1.02rem;padding-left:22px;position:relative}
+.prose li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--s2);border:1px solid var(--line2);border-left:3px solid var(--teal);border-radius:12px;padding:18px 20px;margin:18px 0;color:var(--ink);font-size:14px;line-height:1.9;overflow-x:auto}
+.formula .cmt{color:var(--faint)}.formula .hl{color:var(--teal)}
+.example{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:22px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.example .ex-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.example p{font-size:.98rem;margin-bottom:8px;color:var(--muted)}.example p:last-child{margin-bottom:0}.example p b{color:var(--ink)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px 30px;position:relative;overflow:hidden;margin:8px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:0;line-height:1.65}.labnote p b{color:var(--ink)}
+
+/* CTA + crosslinks */
+.ctarow{position:relative;z-index:2}
+.crosslinks{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.xlink{flex:1;min-width:220px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:.25s;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.xlink:hover{border-color:var(--line2);transform:translateY(-3px)}
+.xlink .xl-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.xlink .xl-t{font-weight:600;color:var(--ink);font-size:1.02rem}
+.xlink .xl-d{font-size:13px;color:var(--faint);margin-top:4px}
+
+@media(max-width:860px){.calc{grid-template-columns:1fr}}
+@media(max-width:520px){.resgrid{grid-template-columns:1fr}.inrow{flex-wrap:wrap}}
+
+/* hydrometer temp correction · page-specific additions (non-colliding) */
+.htc-calwrap{margin-top:2px}
+.htc-custom{display:none;margin-top:10px}
+.htc-custom.show{display:block}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/" class="cur" aria-current="page">Calculators</a>
+        <a href="/guides/">Guides</a>
+      </div>
+      <a href="https://mycoai.net/#contact" class="navcta">Let's talk →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="https://mycoai.net/#contact">Let's talk →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/calculators/">Calculators</a><span>/</span>Hydrometer Temperature Correction
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free tool · no signup · runs in your browser</span>
+    <h1 class="ptitle">Hydrometer Temp <span class="grad">Correction</span></h1>
+    <p class="psub">Enter your <b>measured gravity</b>, the <b>sample's temperature</b>, and your <b>hydrometer's calibration temperature</b> — get the <b>corrected SG</b> so your OG and FG are the numbers they actually are, not the numbers a hot sample is lying to you about. Runs the standard cubic <span class="mono">f(T) = 1.00130346 − 1.34722124e-4·T + 2.04052596e-6·T² − 2.32820948e-9·T³</span> by a former New Belgium yeast specialist.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calcwrap">
+  <div class="wrap">
+    <div class="calc">
+      <!-- INPUTS -->
+      <div class="cpanel" role="form" aria-label="Hydrometer correction inputs">
+        <div class="cp-k">Your reading</div>
+
+        <div class="field">
+          <label for="meas">Measured gravity <span class="hint">(what the hydrometer reads)</span></label>
+          <input type="number" id="meas" value="1.050" min="0.980" max="1.200" step="0.001" inputmode="decimal" aria-label="Measured gravity, specific gravity">
+          <div class="conv" id="measConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="samp">Sample temperature <span class="hint">(the liquid in the tube, not the room)</span></label>
+          <div class="inrow">
+            <input type="number" id="samp" value="100" step="1" inputmode="decimal" aria-label="Sample temperature">
+            <div class="seg" role="group" aria-label="Sample temperature unit">
+              <button type="button" data-samp="F" class="on">°F</button>
+              <button type="button" data-samp="C">°C</button>
+            </div>
+          </div>
+          <div class="conv" id="sampConv"></div>
+        </div>
+
+        <div class="field">
+          <label for="cal">Hydrometer calibration temperature <span class="hint">(check the paper insert)</span></label>
+          <select id="cal" aria-label="Hydrometer calibration temperature">
+            <option value="60F" selected>60 °F (15.6 °C) — common on older US hydrometers</option>
+            <option value="68F">68 °F (20 °C) — most modern hydrometers</option>
+            <option value="custom">Custom…</option>
+          </select>
+        </div>
+
+        <div class="field htc-custom" id="calCustomWrap">
+          <label for="calCustom">Custom calibration temperature</label>
+          <div class="inrow">
+            <input type="number" id="calCustom" value="60" step="1" inputmode="decimal" aria-label="Custom calibration temperature">
+            <div class="seg" role="group" aria-label="Custom calibration temperature unit">
+              <button type="button" data-calu="F" class="on">°F</button>
+              <button type="button" data-calu="C">°C</button>
+            </div>
+          </div>
+          <div class="conv" id="calConv"></div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="cpanel">
+        <div class="cp-k">Corrected gravity</div>
+        <div class="reshero" aria-live="polite" aria-atomic="true">
+          <div class="rlabel">Corrected specific gravity</div>
+          <div class="rbig"><span id="hero">—</span></div>
+          <div class="rsub" id="heroSub">temperature-corrected reading</div>
+        </div>
+
+        <div class="resgrid">
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">↕️</span> Correction applied</div>
+            <div class="rc-v" id="corr">—</div>
+            <div class="rc-note" id="corrNote">gravity points added or subtracted</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🍺</span> Corrected in °Plato</div>
+            <div class="rc-v" id="plato">—</div>
+            <div class="rc-note">same reading, Plato scale</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">🌡️</span> Sample temp</div>
+            <div class="rc-v" id="sampOther">—</div>
+            <div class="rc-note" id="sampOtherNote">shown in the other unit</div>
+          </div>
+          <div class="rcell">
+            <div class="rc-k"><span aria-hidden="true">⚙️</span> Calibration used</div>
+            <div class="rc-v" id="calUsed">—</div>
+            <div class="rc-note" id="calUsedNote">what this hydrometer expects</div>
+          </div>
+        </div>
+
+        <div class="worknums" id="worknums">—</div>
+
+        <div class="reswarn" id="warn"></div>
+
+        <div class="resfoot">
+          Formula: <code>corrected = measured × f(sample°F) ÷ f(calibration°F)</code>. Uses the standard cubic polynomial for water's thermal expansion — the same correction that's printed as a small table on most hydrometer inserts, computed exactly instead of interpolated off a chart.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IT DOES -->
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <span class="kicker">What this calculator does</span>
+      <h2 style="margin-top:14px">Read hot, correct cold — get the real gravity.</h2>
+      <p>A hydrometer is calibrated at one specific temperature — usually <b>60 °F</b> or <b>68 °F</b>. Read it at any other temperature and the liquid's density (and therefore the reading) is off, because water and wort expand as they warm. This tool takes your <b>measured gravity</b>, the <b>actual temperature of the sample</b>, and your hydrometer's <b>calibration temperature</b>, and gives you the <b>corrected SG</b> — the number your hydrometer would have shown if you'd cooled the sample down to calibration temp first.</p>
+      <p>Everything runs client-side. Nothing is stored, nothing is sent — change any input and the result updates live.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The correction formula, explained</span>
+      <h2 style="margin-top:14px">The cubic behind the chart on your hydrometer's insert.</h2>
+      <h3>corrected = measured × f(sample temp) ÷ f(calibration temp)</h3>
+      <p>Both the sample and the calibration temperature get run through the same correction function, <span class="mono">f(T)</span>, with <b>T in °F</b>. The ratio of the two tells you how much to scale the measured reading. Read at exactly your calibration temperature and <span class="mono">f(sample) = f(cal)</span>, the ratio is 1, and no correction is applied — which is exactly what should happen.</p>
+      <div class="formula">
+<span class="cmt"># T in °F</span><br>
+f(T) = <span class="hl">1.00130346</span><br>
+&nbsp;&nbsp;&nbsp;− <span class="hl">1.34722124e-4</span> × T<br>
+&nbsp;&nbsp;&nbsp;+ <span class="hl">2.04052596e-6</span> × T²<br>
+&nbsp;&nbsp;&nbsp;− <span class="hl">2.32820948e-9</span> × T³<br>
+<br>
+<span class="cmt"># any °C input is converted first</span><br>
+T_F = T_C × 9/5 + 32<br>
+<br>
+corrected = measured × f(sample_F) ÷ f(cal_F)
+      </div>
+      <div class="example">
+        <div class="ex-k">Worked example</div>
+        <p><b>1.050 read at 100 °F, hydrometer calibrated at 60 °F.</b></p>
+        <p>f(100) ≈ <b>1.005908</b>, f(60) ≈ <b>1.000063</b>.</p>
+        <p>corrected = 1.050 × 1.005908 ÷ 1.000063 ≈ <b>1.0561</b> — a correction of <b>+6 gravity points</b>.</p>
+      </div>
+      <h3>Why the correction is almost always positive above calibration temp</h3>
+      <p>Warm liquid is less dense than cold liquid, so a hot sample sinks a hydrometer <i>deeper</i> than it should — the reading comes back lower than the true gravity. The correction adds those points back. Read colder than calibration temp and the effect flips: the hydrometer floats a little high, and the correction is negative. Either direction, the fix is the same ratio.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">The part no calculator farm writes</span>
+      <h2 style="margin-top:14px">When the standard number is wrong.</h2>
+      <p>Temperature correction is one of the most misapplied fixes in a homebrewer's toolkit. Here's where it goes sideways.</p>
+      <h3>You corrected against the wrong calibration temperature</h3>
+      <p>Calibration temperature is a property of the <b>hydrometer</b>, not a universal constant. Older US-market hydrometers are commonly calibrated at <b>60 °F (15.6 °C)</b>; most hydrometers sold today — including most European and modern imports — are calibrated at <b>68 °F (20 °C)</b>. Assume 60 when yours is actually 68 (or the reverse) and you bake a small, permanent, silently-wrong offset into <i>every single reading</i> you ever take with it, OG through FG. It shows up nowhere as an error — attenuation and ABV both look internally consistent, just consistently off. <b>Check the paper insert that came with the hydrometer, or the maker's spec sheet, once — then you never have to guess again.</b></p>
+      <h3>You corrected using the room, the wort, or the fermenter's setpoint</h3>
+      <p>The formula wants the <b>actual temperature of the liquid in the sample tube</b> at the moment you read it — not the ambient room temperature, not the kettle's target, not the fermenter's controller setpoint. A sample pulled from a 68 °F-controlled fermenter and left on the counter for ten minutes is not at 68 °F anymore. If you care about the tenths of a gravity point, put a thermometer <i>in the sample</i>, not near it.</p>
+      <h3>Big corrections mean you're reading too hot — cool the sample instead</h3>
+      <p>Right off the kettle or straight out of a warm fermentation, the correction can run <b>+0.006 to +0.010</b> or more, and the cubic is being stretched well past the gentle, well-behaved range it was fit for near calibration temp. A big correction isn't wrong, exactly — but it's a sign you're leaning on the math instead of on good practice. <b>Cool the sample to within 10–20 °F of your hydrometer's calibration temperature before you read it</b>, and the correction (and its uncertainty) shrinks to something you don't have to think about.</p>
+      <h3>Temperature correction can't fix a bad read</h3>
+      <p>This tool corrects for thermal expansion. It does nothing for a <b>misread meniscus</b> (read at eye level, at the bottom of the curve), <b>CO₂ bubbles</b> clinging to the stem and floating the hydrometer artificially high, or a <b>dirty, trub-coated hydrometer</b> that's no longer displacing the volume it was calibrated for. Those errors are routinely bigger than the temperature effect, and no correction formula touches them. <b>Spin the hydrometer gently to shed bubbles, wipe it clean, and read at eye level</b> — then correct for temperature on top of a reading that's actually trustworthy.</p>
+
+      <span class="kicker" style="display:block;margin-top:40px">Notes from the lab</span>
+      <div class="labnote" style="margin-top:16px">
+        <div class="ln-k">From the propagation lab</div>
+        <p>On the cellar floor at New Belgium, nobody eyeballed a hot gravity reading and called it done — you cooled the sample, or you corrected it properly, because a tenth of a Plato compounds across a QC log fast enough to make an attenuation trend look wrong when the yeast was fine the whole time. The lesson that travels to any brewery, home or commercial: a temperature correction is only as good as the calibration temperature you assumed and the sample temperature you actually measured. Get either one wrong and the math is precise about being precisely incorrect. <b>Know your hydrometer, measure your sample, then trust the number.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctarow" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Wire this into your batch data</span>
+      <h2 style="position:relative;margin-top:14px">Stop re-deriving OG and FG by hand, every batch.</h2>
+      <p>A corrected gravity reading is only useful if it makes it into the batch record without a transcription error. Log OG, FG, and temperature once and let a QC dashboard carry the correction, the attenuation, and the ABV forward automatically — for every batch, not just the ones you remember to double-check.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="/services/qc-dashboard/" class="btn btn-primary">Get a QC dashboard for your brewery →</a>
+        <a href="/calculators/" class="btn btn-ghost">Explore all the calculators →</a>
+      </div>
+      <div class="crosslinks">
+        <a class="xlink" href="/calculators/abv/">
+          <div class="xl-k">Next tool</div><div class="xl-t">ABV from Gravity</div>
+          <div class="xl-d">Feed your corrected OG and FG straight in.</div>
+        </a>
+        <a class="xlink" href="/calculators/attenuation/">
+          <div class="xl-k">Cross-check</div><div class="xl-t">Attenuation Calculator</div>
+          <div class="xl-d">See how close your yeast got to its limit.</div>
+        </a>
+        <a class="xlink" href="/calculators/">
+          <div class="xl-k">More</div><div class="xl-t">All fermentation calculators</div>
+          <div class="xl-d">Pitch rate, starters, viability, priming sugar, and more.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* ================= HYDROMETER TEMPERATURE CORRECTION CALCULATOR ================= */
+let sampUnit='F', calMode='60F', calUnit='F';
+const $=id=>document.getElementById(id);
+function sgToPlato(sg){return -616.868+1111.14*sg-630.272*sg*sg+135.997*sg*sg*sg;}
+function cToF(c){return c*9/5+32;}
+function fToC(f){return (f-32)*5/9;}
+function fCorr(T){return 1.00130346 - 1.34722124e-4*T + 2.04052596e-6*T*T - 2.32820948e-9*T*T*T;}
+function fmtSG(sg){return sg.toFixed(3);}
+function fmtPts(pts){const r=Math.round(pts);const sign=r>0?'+':(r<0?'−':'±');return sign+Math.abs(r)+' pt'+(Math.abs(r)===1?'':'s');}
+function calTempF(){
+  if(calMode==='60F')return 60;
+  if(calMode==='68F')return 68;
+  const v=parseFloat($('calCustom').value);
+  if(!isFinite(v))return NaN;
+  return calUnit==='F'?v:cToF(v);
+}
+function calLabel(){
+  if(calMode==='60F')return '60 °F (15.6 °C)';
+  if(calMode==='68F')return '68 °F (20 °C)';
+  const v=parseFloat($('calCustom').value);
+  if(!isFinite(v))return '—';
+  return calUnit==='F'?(v.toFixed(0)+' °F ('+fToC(v).toFixed(1)+' °C)'):(v.toFixed(1)+' °C ('+cToF(v).toFixed(0)+' °F)');
+}
+function calc(){
+  const measured=parseFloat($('meas').value);
+  const sampRaw=parseFloat($('samp').value);
+  const warn=$('warn');warn.classList.remove('show');warn.innerHTML='';
+
+  const sampF=isFinite(sampRaw)?(sampUnit==='F'?sampRaw:cToF(sampRaw)):NaN;
+  const calF=calTempF();
+
+  if(!isFinite(measured)||measured<=0||!isFinite(sampF)||!isFinite(calF)){
+    $('hero').textContent='—';
+    $('heroSub').textContent='enter a gravity, sample temp, and calibration temp';
+    ['corr','plato','sampOther','calUsed'].forEach(id=>$(id).textContent='—');
+    $('worknums').textContent='—';
+    return;
+  }
+
+  const fSamp=fCorr(sampF), fCal=fCorr(calF);
+  const corrected=measured*fSamp/fCal;
+  const pts=(corrected-measured)*1000;
+  const plato=sgToPlato(corrected);
+  const sampC=fToC(sampF);
+  const sampOtherVal=sampUnit==='F'?sampC:sampF;
+  const sampOtherUnit=sampUnit==='F'?'°C':'°F';
+
+  $('measConv').innerHTML=`≈ <b>${sgToPlato(measured).toFixed(1)} °P</b> as read, uncorrected`;
+  $('sampConv').innerHTML=sampUnit==='F'?`= <b>${sampC.toFixed(1)} °C</b>`:`= <b>${sampF.toFixed(1)} °F</b>`;
+
+  $('hero').textContent=fmtSG(corrected);
+  $('heroSub').textContent=Math.abs(pts)<0.5?'no meaningful correction needed':`corrected from ${fmtSG(measured)} as measured`;
+
+  $('corr').textContent=fmtPts(pts);
+  $('corrNote').textContent=pts>=0?'add to the measured reading':'subtract from the measured reading';
+
+  $('plato').textContent=plato.toFixed(1)+' °P';
+
+  $('sampOther').innerHTML=`${sampOtherVal.toFixed(1)} <span>${sampOtherUnit}</span>`;
+  $('sampOtherNote').textContent=`sample read at ${sampF.toFixed(0)} °F (${sampC.toFixed(1)} °C)`;
+
+  $('calUsed').textContent=calLabel();
+  $('calUsedNote').textContent='what this correction assumes';
+
+  $('worknums').innerHTML=`f(${sampF.toFixed(0)}°F) = <b>${fSamp.toFixed(6)}</b> · f(${calF.toFixed(0)}°F) = <b>${fCal.toFixed(6)}</b> · ${fmtSG(measured)} × ${fSamp.toFixed(6)} ÷ ${fCal.toFixed(6)} = <b>${fmtSG(corrected)}</b>`;
+
+  const msgs=[];
+  if(measured<0.990||measured>1.20)msgs.push('That measured gravity looks outside the normal brewing range — double-check the decimal (SG reads like 1.050, not 1050 or 10.50).');
+  if(sampF>180)msgs.push('That sample temperature is near boiling — let it cool well before reading. A hydrometer reading taken this hot is unreliable regardless of correction, and the cubic is being stretched far past where it was fit.');
+  if(Math.abs(sampF-calF)>40)msgs.push('Sample and calibration temperature are more than 40 °F apart — that’s a large correction to lean on. Cool (or warm) the sample closer to calibration temp for a reading you can trust more.');
+  if(msgs.length){warn.innerHTML=msgs.join('<br>');warn.classList.add('show');}
+}
+document.querySelectorAll('[data-samp]').forEach(b=>{
+  b.onclick=()=>{
+    const prev=sampUnit;sampUnit=b.dataset.samp;
+    document.querySelectorAll('[data-samp]').forEach(x=>x.classList.toggle('on',x===b));
+    const el=$('samp'),v=parseFloat(el.value);
+    if(isFinite(v)){
+      if(prev==='F'&&sampUnit==='C')el.value=fToC(v).toFixed(1);
+      else if(prev==='C'&&sampUnit==='F')el.value=cToF(v).toFixed(0);
+    }
+    calc();
+  };
+});
+$('cal').onchange=()=>{
+  calMode=$('cal').value;
+  const c=calMode==='custom';
+  $('calCustomWrap').classList.toggle('show',c);
+  if(c)$('calCustom').focus();
+  calc();
+};
+document.querySelectorAll('[data-calu]').forEach(b=>{
+  b.onclick=()=>{
+    const prev=calUnit;calUnit=b.dataset.calu;
+    document.querySelectorAll('[data-calu]').forEach(x=>x.classList.toggle('on',x===b));
+    const el=$('calCustom'),v=parseFloat(el.value);
+    if(isFinite(v)){
+      if(prev==='F'&&calUnit==='C')el.value=fToC(v).toFixed(1);
+      else if(prev==='C'&&calUnit==='F')el.value=cToF(v).toFixed(0);
+    }
+    calc();
+  };
+});
+['meas','samp','calCustom'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* subpage shell: header scroll + progress + drawer */
+(function(){
+  var hdr=$('hdr'),prog=$('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=$('menubtn'),dr=$('drawer'),dc=$('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>
