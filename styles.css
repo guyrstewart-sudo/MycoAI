@@ -34,6 +34,13 @@ a{color:inherit;text-decoration:none}
 .skip:focus{left:0}
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
 
+/* fixed backdrop art — paints behind the yeast canvas (same z-index, earlier in DOM) */
+.bg-art{position:fixed;z-index:0;pointer-events:none;user-select:none;max-width:none}
+#bg-rig{left:-6.3vw;top:-1.4vh;width:37.5vw;opacity:.32;filter:grayscale(60%)}
+#bg-filtration{left:66.1vw;top:-1.6vh;width:54.1vw;opacity:.4;filter:grayscale(60%)}
+#bg-cip{left:-16.4vw;top:41.9vh;width:52.8vw;opacity:.4;filter:grayscale(60%)}
+#bg-cellar{left:63.7vw;top:52.9vh;width:35.7vw;opacity:.4;filter:grayscale(60%)}
+
 /* yeast→network canvas */
 #cells{position:fixed;inset:0;z-index:0;opacity:.6;pointer-events:none}
 
