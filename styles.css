@@ -34,12 +34,18 @@ a{color:inherit;text-decoration:none}
 .skip:focus{left:0}
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
 
-/* fixed backdrop art — paints behind the yeast canvas (same z-index, earlier in DOM) */
-.bg-art{position:fixed;z-index:0;pointer-events:none;user-select:none;max-width:none}
-#bg-rig{left:-6.3vw;top:-1.4vh;width:37.5vw;opacity:.32;filter:grayscale(60%)}
-#bg-filtration{left:66.1vw;top:-1.6vh;width:54.1vw;opacity:.4;filter:grayscale(60%)}
-#bg-cip{left:-16.4vw;top:41.9vh;width:52.8vw;opacity:.4;filter:grayscale(60%)}
-#bg-cellar{left:63.7vw;top:52.9vh;width:35.7vw;opacity:.4;filter:grayscale(60%)}
+/* section-anchored backdrop art — absolute inside each section, scrolls with content */
+.bg-art{position:absolute;z-index:-1;pointer-events:none;user-select:none;max-width:none}
+#bg-cip{left:-12.6vw;top:78px;width:43.4vw;opacity:.4;filter:grayscale(60%)}
+#bg-cellar{left:27.6vw;top:-235px;width:80.8vw;opacity:.4;filter:grayscale(60%)}
+#bg-still{left:-26.6vw;top:277px;width:140vw;opacity:.4;filter:grayscale(60%)}
+#bg-rig{left:-10.4vw;top:120px;width:44.7vw;opacity:.32;filter:grayscale(60%)}
+#bg-tanks{left:56.6vw;top:-150px;width:42vw;opacity:.4;filter:grayscale(60%)}
+#bg-filtration{left:46.9vw;top:-6px;width:81vw;opacity:.4;filter:grayscale(60%)}
+@media(max-width:760px){
+  /* mobile layout not composed yet — art hidden (lazy imgs with no box don't download) */
+  .bg-art{display:none}
+}
 
 /* yeast→network canvas */
 #cells{position:fixed;inset:0;z-index:0;opacity:.6;pointer-events:none}
