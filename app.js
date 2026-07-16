@@ -78,23 +78,8 @@ dclose.onclick=()=>setDrawer(false);
 drawer.querySelectorAll('a').forEach(a=>a.onclick=()=>setDrawer(false));
 addEventListener('keydown',e=>{if(e.key==='Escape'&&drawer.classList.contains('open'))setDrawer(false);});
 
-/* ---- count-up stats ---- */
-if(!RM){
-  const sObs=new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.n[data-to]').forEach(n=>{
-        const to=+n.dataset.to; let t0=null; const dur=1100;
-        function tick(ts){t0=t0||ts;const k=Math.min(1,(ts-t0)/dur);n.textContent=Math.round((1-(1-k)**3)*to);if(k<1)requestAnimationFrame(tick);}
-        requestAnimationFrame(tick);
-      });
-      sObs.unobserve(e.target);
-    }
-  }),{threshold:.6});
-  document.querySelectorAll('#stats .stat').forEach(s=>sObs.observe(s));
-} else {
-  // reduced-motion / no-animation fallback: show real values, never leave them at 0
-  document.querySelectorAll('#stats .n[data-to]').forEach(n=>{ n.textContent=n.dataset.to; });
-}
+/* ---- stats: show final values immediately (no count-up animation) ---- */
+document.querySelectorAll('#stats .n[data-to]').forEach(n=>{ n.textContent=n.dataset.to; });
 
 /* ---- card cursor spotlight ---- */
 if(!RM && matchMedia('(pointer:fine)').matches){
