@@ -35,7 +35,7 @@ a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
 
 /* section-anchored backdrop art — absolute inside each section, scrolls with content */
-.bg-art{position:absolute;z-index:-1;pointer-events:none;user-select:none;max-width:none}
+.bg-art{position:absolute;z-index:-1;pointer-events:none;user-select:none;max-width:none;height:auto}
 #bg-cip{left:-12.6vw;top:78px;width:43.4vw;opacity:.4;filter:grayscale(60%)}
 #bg-cellar{left:27.6vw;top:-235px;width:80.8vw;opacity:.4;filter:grayscale(60%)}
 #bg-still{left:-25.9vw;top:65px;width:140vw;opacity:.4;filter:grayscale(60%)}
