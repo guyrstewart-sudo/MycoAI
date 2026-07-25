@@ -58,6 +58,7 @@ document.querySelectorAll('.reveal').forEach(e=>obs.observe(e));
 const hdr=document.getElementById('hdr'), prog=document.getElementById('prog');
 const secs=[...document.querySelectorAll('section[id]')];
 const navmap={}; document.querySelectorAll('.navlinks a').forEach(a=>navmap[a.getAttribute('href').slice(1)]=a);
+const mbar=document.getElementById('mbar');
 let ticking=false;
 addEventListener('scroll',()=>{ if(ticking)return; ticking=true; requestAnimationFrame(()=>{
   hdr.classList.toggle('scrolled',scrollY>30);
@@ -66,6 +67,7 @@ addEventListener('scroll',()=>{ if(ticking)return; ticking=true; requestAnimatio
   let cur=''; for(const s of secs){ if(scrollY>=s.offsetTop-120) cur=s.id; }
   Object.values(navmap).forEach(a=>a.classList.remove('cur'));
   if(navmap[cur]) navmap[cur].classList.add('cur');
+  if(mbar) mbar.classList.toggle('show',scrollY>innerHeight*.8);
   ticking=false;
 }); },{passive:true});
 

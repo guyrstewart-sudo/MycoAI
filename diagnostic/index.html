@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fermentation Ops Diagnostic — $1,500, One Week | MycoAI</title>
+<meta name="description" content="A one-week fermentation operations diagnostic for breweries, cideries, and distilleries. I go through the batch data you already keep and hand you a fix list ranked by payoff. $1,500 flat — if the findings weren't worth it, you don't pay.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/diagnostic/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MycoAI">
+<meta property="og:url" content="https://mycoai.net/diagnostic/">
+<meta property="og:title" content="The Fermentation Ops Diagnostic — find what's quietly costing you batches">
+<meta property="og:description" content="One week. Run by a former New Belgium Microbiology Yeast Specialist. You get a findings report, a fix list ranked by payoff, and a 90-minute walkthrough. $1,500 flat, buyer-judged guarantee.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Fermentation Ops Diagnostic — $1,500, one week">
+<meta name="twitter:description" content="I go through the batch data you already keep and hand you a fix list ranked by what each problem is worth. If the findings weren't worth it, you don't pay.">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service",
+"serviceType":"Fermentation operations diagnostic",
+"name":"The Fermentation Ops Diagnostic",
+"url":"https://mycoai.net/diagnostic/",
+"description":"A one-week fermentation operations diagnostic for breweries, cideries, and distilleries. Review of existing process and batch records, producing a findings report with an annual-cost estimate per problem, a fix list ranked by payoff, and a 90-minute walkthrough.",
+"provider":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","sameAs":["https://github.com/guyrstewart-sudo","https://www.youtube.com/@MycoAI"]},
+"areaServed":["Asheville","United States"],
+"offers":{"@type":"Offer","priceCurrency":"USD","price":"1500","availability":"https://schema.org/InStock","description":"$1,500 flat for a one-week diagnostic. Half to book, the balance on delivery. Buyer-judged money-back guarantee."}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"I already know where my problems are.","acceptedAnswer":{"@type":"Answer","text":"You know where some of them are. The value isn't a stranger explaining your own brewery to you — it's the outside pass that names the soft spots, ranks them by dollars, and hands you the fix, so the thing you've been meaning to get to for six months is finally written down and prioritized. A fresh set of eyes on your own data almost always turns up at least one thing you'd stopped seeing."}},
+{"@type":"Question","name":"My data's a mess.","acceptedAnswer":{"@type":"Answer","text":"Normal. I work with whatever you have — spreadsheets, brew sheets, paper, a photo of the tank-side whiteboard. The gaps in your records are frequently where the losses hide, so a mess isn't a problem for me. It's often the first finding."}},
+{"@type":"Question","name":"How do I know you won't just tell me things I can't use?","acceptedAnswer":{"@type":"Answer","text":"Two reasons. The fix list is ranked by payoff, so you get a sequence, not a lecture. And the guarantee: if it isn't worth the fee in your judgment, you don't pay it."}},
+{"@type":"Question","name":"Is my information confidential?","acceptedAnswer":{"@type":"Answer","text":"Yes. I'll sign your NDA, or send you mine. Nothing I see leaves the engagement, ever."}},
+{"@type":"Question","name":"What if I want you to build the fix?","acceptedAnswer":{"@type":"Answer","text":"Some people do — a live dashboard of every active batch against target, alerting before a batch goes sideways, automation on top of the data you already keep. That's a separate conversation and a separate quote. The diagnostic stands entirely on its own; you're never obligated to go further."}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Services","item":"https://mycoai.net/#services"},
+{"@type":"ListItem","position":3,"name":"Fermentation Ops Diagnostic","item":"https://mycoai.net/diagnostic/"}]}
+</script>
+<style>
+/* ---- fermentation ops diagnostic · page-specific (inherits tokens/shell from /styles.css) ----
+   The page is typeset as a specimen of the deliverable: hairline rules, mono indices,
+   plain-language rows. No cards where a rule will do. Static by design — this subpage
+   does not load app.js, so .reveal is deliberately NOT used (it would never receive .in). */
+:root{ --goldline:rgba(224,164,74,.4); --goldglow:rgba(224,164,74,.08); }
+
+/* CLS control. The Google Fonts sheet is deferred (media=print/onload), so it lands
+   ~1.8s in; without metric-matched fallbacks that swap reflows every ch-based measure
+   on the page and shifts everything below it. These overrides make the fallback occupy
+   the same space as the real face, so the swap is invisible to layout. */
+@font-face{font-family:'Inter Fallback';src:local('Arial');
+  ascent-override:90.2%;descent-override:22.48%;line-gap-override:0%;size-adjust:107.4%}
+@font-face{font-family:'Mono Fallback';src:local('Consolas');
+  ascent-override:102%;descent-override:30%;line-gap-override:0%;size-adjust:97%}
+body{font-family:'Inter','Inter Fallback',system-ui,sans-serif}
+.crumbs,.kicker,.dx-facts div,.dx-find .n,.midcta .alt,.dstrip-meta,.dx-mail,.dx-guar .gk,.dx-bar .f{
+  font-family:'JetBrains Mono','Mono Fallback',monospace}
+
+.pagehead{position:relative;z-index:2;padding:116px 0 4px}
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.6vw,3.5rem);font-weight:600;letter-spacing:-.03em;line-height:1.04;margin-top:14px;max-width:19ch;font-variation-settings:'opsz' 120}
+.psub{max-width:68ch;color:var(--muted);font-size:clamp(1.04rem,1.6vw,1.2rem);margin-top:22px;line-height:1.6}
+.psub b{color:var(--ink);font-weight:600}
+
+/* fold fact strip — three plain facts, mono, hairline-separated. Not a badge row. */
+.dx-facts{display:flex;flex-wrap:wrap;margin-top:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);max-width:620px}
+.dx-facts div{flex:1 1 auto;min-width:150px;padding:15px 22px 15px 0;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.dx-facts div b{display:block;color:var(--ink);font-size:14.5px;letter-spacing:.04em;font-weight:500;margin-bottom:3px;text-transform:none}
+
+.headcta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.microcta{margin-top:14px;font-size:13px;color:var(--faint)}
+
+.sec{position:relative;z-index:2;padding:60px 0}
+.sec.tight{padding:38px 0}
+.lede{max-width:760px}
+.lede h2{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(1.6rem,3vw,2.25rem);font-weight:600;letter-spacing:-.02em;line-height:1.14;margin-top:14px;max-width:22ch}
+.lede p{color:var(--muted);font-size:1.05rem;line-height:1.68;margin-top:18px;max-width:66ch}
+.lede p b{color:var(--ink);font-weight:600}
+
+/* deliverables — three cards, the one place cards are correct */
+.dx-deliver{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.dcard{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);transition:.3s}
+.dcard:hover{border-color:var(--line2);transform:translateY(-4px)}
+.dcard h3{font-family:'Fraunces Display',Fraunces,serif;font-size:1.14rem;font-weight:600;margin-bottom:9px;letter-spacing:-.01em}
+.dcard p{font-size:13.8px;color:var(--muted);line-height:1.58}
+.dx-nots{margin-top:22px;font-size:14.5px;color:var(--faint);line-height:1.65;max-width:66ch}
+.dx-nots b{color:var(--muted);font-weight:500}
+
+/* what it turns up — hairline rows, mono index. The register that proves a cellar. */
+.dx-finds{margin-top:26px;border-top:1px solid var(--line)}
+.dx-find{display:grid;grid-template-columns:44px 1fr;gap:0 16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.dx-find .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold);opacity:.75;padding-top:3px;letter-spacing:.06em}
+.dx-find p{font-size:15px;line-height:1.62;color:var(--muted)}
+.dx-find p b{color:var(--ink);font-weight:600}
+.dx-find p em{color:var(--faint);font-style:italic}
+.dx-find a{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3)}
+.dx-find a:hover{border-bottom-color:var(--teal)}
+
+/* how the week works — numbered rail */
+.dx-steps{margin-top:26px;display:flex;flex-direction:column;gap:2px}
+.dx-step{display:grid;grid-template-columns:44px 1fr;gap:0 16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.dx-step .n{font-family:'Fraunces Display',Fraunces,serif;font-size:1.5rem;font-weight:600;color:var(--gold);line-height:1.1}
+.dx-step p{font-size:15px;line-height:1.62;color:var(--muted)}
+.dx-step p b{color:var(--ink);font-weight:600}
+
+.midcta{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.midcta .alt{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--faint)}
+.midcta .alt a{color:var(--muted);border-bottom:1px solid var(--line2)}
+.midcta .alt a:hover{color:var(--ink)}
+
+/* who's doing this — text left, one real photo right */
+.dx-who{display:grid;grid-template-columns:1.5fr .8fr;gap:clamp(24px,4vw,52px);align-items:start}
+.dx-who img{width:100%;height:auto;border-radius:16px;border:1px solid var(--line);filter:grayscale(28%);display:block}
+
+/* the guarantee — prose on a single gold hairline. No box, no shadow, no glow. */
+.dx-guar{margin-top:10px;padding:6px 0 6px 28px;border-left:2px solid var(--goldline);max-width:40ch}
+.dx-guar .gk{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:16px}
+.dx-guar p{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(1.35rem,2.6vw,1.9rem);font-weight:600;line-height:1.4;letter-spacing:-.015em;color:var(--ink)}
+.dx-guar .sig{font-family:'Inter',sans-serif;font-size:1rem;font-weight:400;line-height:1.6;color:var(--muted);margin-top:18px;letter-spacing:0}
+
+/* price lockup — $1,500 in ink: a fact, not an offer.
+   Selectors are .lede-qualified so they outrank `.lede p` (0,1,1), which would
+   otherwise flatten the price to muted body text. */
+.lede p.dx-price{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(1.9rem,3.6vw,2.6rem);font-weight:600;color:var(--ink);letter-spacing:-.025em;line-height:1.1;margin-top:14px;max-width:none}
+.lede p.dx-terms{color:var(--muted);font-size:1.02rem;line-height:1.68;margin-top:16px;max-width:60ch}
+.lede p.dx-cap{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font-size:14.5px;color:var(--faint);line-height:1.6;max-width:60ch;font-style:italic}
+
+/* questions */
+.dx-faq{display:grid;gap:14px;max-width:820px;margin-top:24px}
+.dx-faq .faq-item{background:linear-gradient(160deg,var(--s1),var(--s2));border:1px solid var(--line);border-radius:14px;padding:20px 24px}
+.dx-faq .faq-item h3{font-family:'Fraunces Display',Fraunces,serif;font-size:1.12rem;font-weight:600;color:var(--ink);margin-bottom:7px;letter-spacing:-.005em}
+.dx-faq .faq-item p{color:var(--muted);font-size:14.8px;line-height:1.64}
+
+/* close */
+.dx-close{background:var(--s1);border:1px solid var(--line);border-radius:24px;padding:clamp(40px,6vw,66px) clamp(22px,4vw,44px);position:relative;overflow:hidden;text-align:center}
+.dx-close::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,var(--goldglow),transparent 62%);pointer-events:none}
+.dx-close>*{position:relative}
+.dx-close h2{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:600;letter-spacing:-.02em;margin-top:14px}
+.dx-close p{color:var(--muted);max-width:60ch;margin:18px auto 0;font-size:1.04rem;line-height:1.66}
+.dx-echo{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.08rem,2vw,1.28rem);color:var(--gold);max-width:44ch;margin:30px auto 0;line-height:1.45}
+.dx-close .herobtns{justify-content:center;margin-top:30px}
+.dx-mail{margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;color:var(--faint)}
+.dx-mail a{color:var(--muted);border-bottom:1px solid var(--line2)}
+.dx-mail a:hover{color:var(--ink)}
+
+/* mobile sticky booking bar — page-local, CSS-only, no transform/transition (nothing for
+   reduced-motion to disable). The homepage #mbar is NOT reused: it is parked off-screen
+   by transform and no script ever restores it. */
+.dx-bar{display:none}
+@media(max-width:720px){
+  .dx-bar{display:flex;align-items:center;gap:12px;position:fixed;inset:auto 0 0 0;z-index:90;
+    background:var(--s2);border-top:1px solid var(--line2);
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+  .dx-bar .f{flex:1;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.09em;color:var(--faint);line-height:1.4}
+  .dx-bar .btn{padding:12px 18px;font-size:14px;flex:none}
+  body{padding-bottom:86px}
+  /* /styles.css reserves 74px of footer padding to clear the homepage #mbar, which
+     this page does not render. Without this, that reserve stacks with the body
+     padding above and leaves a ~125px dead band under the footer. */
+  footer{padding-bottom:34px}
+}
+
+@media(max-width:900px){ .dx-deliver{grid-template-columns:1fr} .dx-who{grid-template-columns:1fr} .dx-who img{max-width:340px} }
+@media(max-width:680px){
+  .pagehead{padding-top:96px}
+  .ptitle{max-width:none}
+  .dx-facts div{padding-right:16px}
+  .dx-find,.dx-step{grid-template-columns:32px 1fr;gap:0 12px}
+  .dx-guar{padding-left:20px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services" class="cur" aria-current="page">Services</a>
+        <a href="/calculators/">Calculators</a>
+        <a href="/guides/">Guides</a>
+      </div>
+      <a href="https://calendar.app.google/j47jvfWjYkFoJjyw6" target="_blank" rel="noopener" class="navcta">Book the free call →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="https://calendar.app.google/j47jvfWjYkFoJjyw6" target="_blank" rel="noopener">Book the free call →</a>
+</div>
+
+<main id="top">
+
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="https://mycoai.net/#services">Services</a><span>/</span>Fermentation Ops Diagnostic
+    </nav>
+    <span class="kicker">// the fermentation ops diagnostic</span>
+    <h1 class="ptitle">Find what's quietly costing you batches &mdash; in one week.</h1>
+    <p class="psub"><b>A fermentation operations diagnostic for breweries, cideries, and distilleries &mdash; run by a former New Belgium Microbiology Yeast Specialist who spent seven years there, helped build its Asheville brewery, and now builds brewery data systems.</b> I go through your process and the batch data you already keep, find the problems before they cost you another tank, and hand you a fix list ranked by what each one is worth. <b>$1,500 flat. You decide if the findings were worth it &mdash; if they weren't, you don't pay.</b></p>
+    <div class="dx-facts">
+      <div><b>$1,500 flat</b> one week</div>
+      <div><b>You judge it</b> or you don't pay</div>
+      <div><b>About two a month</b> done by hand</div>
+    </div>
+    <div class="headcta">
+      <a href="https://calendar.app.google/j47jvfWjYkFoJjyw6" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute scoping call &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- THE PROBLEM -->
+<section class="sec">
+  <div class="wrap">
+    <div class="lede">
+      <span class="kicker">// where the money leaks</span>
+      <h2>The problem isn't that you don't know your process. It's that nobody has time to look.</h2>
+      <p>You're running batches. Your cellar log lives in a spreadsheet, or three spreadsheets, or a clipboard by the tanks. You already suspect where it's soft &mdash; the attenuation that drifts a few points and nobody can say why, the fermenter that always runs a degree warm, the yeast you're repitching a generation or two past where you should, the DO pickup at transfer you've never actually measured.</p>
+      <p>But suspecting isn't knowing. And knowing isn't the same as having it written down, ranked by cost, and fixed. So it doesn't get fixed. You find out a batch drifted after it's already in the tank. The loss gets folded into &ldquo;that's brewing,&rdquo; and everyone goes back to running the next one.</p>
+      <p>That gap &mdash; between what your numbers could tell you and what anyone on your team has time to pull out of them &mdash; is <b>where the money leaks out of a brewery</b>. Quietly, one batch at a time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT IS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="lede">
+      <span class="kicker">// what you get</span>
+      <h2>What the diagnostic is</h2>
+      <p>One week. I take everything you already track &mdash; brew sheets, cellar logs, QC records, fermentation profiles, whatever form they're in &mdash; plus a walk through your process, and I find what's costing you product. Then you get:</p>
+    </div>
+    <div class="dx-deliver">
+      <div class="dcard">
+        <h3>A findings report</h3>
+        <p>Every problem I found, in plain language, each with an honest estimate of what it's costing you per year.</p>
+      </div>
+      <div class="dcard">
+        <h3>A prioritized fix list</h3>
+        <p>Ranked by payoff, so you know exactly what to do first, what can wait, and what to ignore.</p>
+      </div>
+      <div class="dcard">
+        <h3>A 90-minute walkthrough</h3>
+        <p>In person or by call &mdash; where I take you through all of it and answer everything. You keep every document.</p>
+      </div>
+    </div>
+    <p class="dx-nots"><b>No software to install. No retainer to sign. No disruption to your team's week.</b> I work from the records you already keep and hand you something you can act on the same day.</p>
+  </div>
+</section>
+
+<!-- WHAT IT TURNS UP -->
+<section class="sec">
+  <div class="wrap">
+    <div class="lede">
+      <span class="kicker">// what I look for</span>
+      <h2>What a diagnostic typically turns up</h2>
+      <p>These are the kinds of things I look for &mdash; not claimed results, but the failure modes that hide in a working brewery's data:</p>
+    </div>
+    <div class="dx-finds">
+      <div class="dx-find"><span class="n">01</span><p><b>Yeast pitched by habit instead of by viable cell count</b> &mdash; under- or over-pitching that shows up later as attenuation drift, sluggish starts, or off-flavors. <em>(It's why I built the <a href="/calculators/">free pitch-rate and viability calculators</a> &mdash; this is that thinking, applied to your operation.)</em></p></div>
+      <div class="dx-find"><span class="n">02</span><p><b>Repitching tired yeast a generation or two too far</b> because nobody's tracking viability or generation count &mdash; the invisible cause of &ldquo;why was that batch different?&rdquo;</p></div>
+      <div class="dx-find"><span class="n">03</span><p><b>A fermenter or two running off-target</b> on temperature and nobody catching it until the ester or fusel profile shows up in the glass.</p></div>
+      <div class="dx-find"><span class="n">04</span><p><b>Crash and dump timing run on the calendar instead of on gravity</b> &mdash; dropping bright too early, or losing yeast you could have repitched.</p></div>
+      <div class="dx-find"><span class="n">05</span><p><b>Tank utilization gaps</b> &mdash; a fermenter sitting empty two days a turn is lost production you're paying rent and payroll on.</p></div>
+      <div class="dx-find"><span class="n">06</span><p><b>DO pickup at transfer or packaging</b> quietly cutting shelf life &mdash; stale beer, returns, and dumped inventory you can't trace to a cause.</p></div>
+    </div>
+    <p class="dx-nots">I rank whatever I find by what it's costing you, so the report is a sequence to work through &mdash; not a wish list.</p>
+  </div>
+</section>
+
+<!-- HOW THE WEEK WORKS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="lede">
+      <span class="kicker">// how the week works</span>
+      <h2>How the week works</h2>
+    </div>
+    <div class="dx-steps">
+      <div class="dx-step"><span class="n">1</span><p><b>A free 30-minute scoping call.</b> You tell me your setup and what's been nagging you. I tell you honestly whether a diagnostic will find enough to be worth your money. If it won't, I'll say so on the call &mdash; that's the whole point of it being free.</p></div>
+      <div class="dx-step"><span class="n">2</span><p><b>You send me what you've got.</b> Logs, sheets, records, photos of a whiteboard. Messy is fine. Gaps are often exactly where the finding is.</p></div>
+      <div class="dx-step"><span class="n">3</span><p><b>I dig for a week.</b> Your process and your data. Your team loses none of its time.</p></div>
+      <div class="dx-step"><span class="n">4</span><p><b>The walkthrough.</b> I hand you the report and the fix list and walk you through all of it. Done.</p></div>
+    </div>
+    <div class="midcta">
+      <a href="https://calendar.app.google/j47jvfWjYkFoJjyw6" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute scoping call &rarr;</a>
+      <span class="alt">or text / call <a href="tel:+12174147757">+1 (217) 414-7757</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- WHO'S DOING THIS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="dx-who">
+      <div class="lede">
+        <span class="kicker">// who's doing this</span>
+        <h2>Who's doing this</h2>
+        <p>I spent seven years at <b>New Belgium Brewing</b> as a <b>Microbiology Yeast Specialist</b> &mdash; the person watching the living half of your process, the yeast that makes or breaks a batch. I started in Fort Collins and moved to Asheville as one of the seed employees who built the brewery here, and across all seven years the throughline was the same: find the small failures before they take out a whole batch. Then I left to run my own gourmet fermentation farm and learned the rest of the lessons at my own expense. Now I build the data and monitoring systems I wish we'd had, for operations your size.</p>
+        <p>I'm not coming to teach you how to brew &mdash; you know that better than I do. I'm coming to do the one thing that never gets done because everyone's too busy running batches: sit with your process and your numbers until the quiet problems have names, a rank, and a dollar value.</p>
+      </div>
+      <img src="/guy-barrel.webp" alt="Guy Stewart alongside barrels" width="699" height="1020" loading="lazy" decoding="async">
+    </div>
+  </div>
+</section>
+
+<!-- THE GUARANTEE -->
+<section class="sec">
+  <div class="wrap">
+    <div class="dx-guar">
+      <span class="gk">The guarantee, plainly</span>
+      <p>You decide whether the findings were worth the fee. If you decide they weren't, email me and I refund everything, deposit included &mdash; no argument, no clawback of the report.</p>
+      <p class="sig">The risk sits with me, because you haven't worked with me before and it shouldn't sit with you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT COSTS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="lede">
+      <span class="kicker">// what it costs</span>
+      <p class="dx-price">$1,500, flat. One week.</p>
+      <p class="dx-terms">Half to book, the balance when I hand you the report. No hourly meter, no scope creep, no surprise invoice.</p>
+      <p class="dx-terms">For context: one dumped batch costs more than this diagnostic. So does a month of an attenuation problem you can't see. So does a fermenter sitting empty half the week.</p>
+      <p class="dx-cap">I do these one at a time, by hand &mdash; about two a month. When those are booked, they're booked.</p>
+      <div class="headcta">
+        <a href="https://calendar.app.google/j47jvfWjYkFoJjyw6" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute scoping call &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<section class="sec tight">
+  <div class="wrap">
+    <div class="lede">
+      <span class="kicker">// common questions</span>
+      <h2>Common questions</h2>
+    </div>
+    <div class="dx-faq">
+      <div class="faq-item">
+        <h3>&ldquo;I already know where my problems are.&rdquo;</h3>
+        <p>You know where some of them are. The value isn't a stranger explaining your own brewery to you &mdash; it's the outside pass that names the soft spots, ranks them by dollars, and hands you the fix, so the thing you've been meaning to get to for six months is finally written down and prioritized. A fresh set of eyes on your own data almost always turns up at least one thing you'd stopped seeing.</p>
+      </div>
+      <div class="faq-item">
+        <h3>&ldquo;My data's a mess.&rdquo;</h3>
+        <p>Normal. I work with whatever you have &mdash; spreadsheets, brew sheets, paper, a photo of the tank-side whiteboard. The gaps in your records are frequently where the losses hide, so a mess isn't a problem for me. It's often the first finding.</p>
+      </div>
+      <div class="faq-item">
+        <h3>&ldquo;How do I know you won't just tell me things I can't use?&rdquo;</h3>
+        <p>Two reasons. The fix list is ranked by payoff, so you get a sequence, not a lecture. And the guarantee: if it isn't worth the fee in your judgment, you don't pay it.</p>
+      </div>
+      <div class="faq-item">
+        <h3>&ldquo;Is my information confidential?&rdquo;</h3>
+        <p>Yes. I'll sign your NDA, or send you mine. Nothing I see leaves the engagement, ever.</p>
+      </div>
+      <div class="faq-item">
+        <h3>&ldquo;What if I want you to build the fix?&rdquo;</h3>
+        <p>Some people do &mdash; a live dashboard of every active batch against target, alerting before a batch goes sideways, automation on top of the data you already keep. That's a separate conversation and a separate quote. The diagnostic stands entirely on its own; you're never obligated to go further.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="sec">
+  <div class="wrap">
+    <div class="dx-close">
+      <span class="kicker">// book the scoping call</span>
+      <h2>Book the scoping call</h2>
+      <p>Thirty minutes. No slides, no pressure, no obligation. You tell me your setup; I tell you straight whether this is worth your $1,500. If it is, we book the week. If it isn't, you've spent thirty minutes and gotten an honest answer from someone who's stood in a cellar.</p>
+      <p class="dx-echo">The risk sits with me, because you haven't worked with me before and it shouldn't sit with you.</p>
+      <div class="herobtns">
+        <a href="https://calendar.app.google/j47jvfWjYkFoJjyw6" target="_blank" rel="noopener" class="btn btn-primary">Book the call &rarr;</a>
+        <a href="tel:+12174147757" class="btn btn-ghost">Text or call +1 (217) 414-7757</a>
+      </div>
+      <p class="dx-mail"><a href="mailto:mycoai@mycoai.net">MYCOAI@MYCOAI.NET</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<!-- mobile sticky booking bar (page-local; the homepage #mbar is inert) -->
+<div class="dx-bar">
+  <span class="f">$1,500 FLAT<br>ONE WEEK</span>
+  <a href="https://calendar.app.google/j47jvfWjYkFoJjyw6" target="_blank" rel="noopener" class="btn btn-primary">Book the call &rarr;</a>
+</div>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* subpage shell: header scroll + progress + drawer (app.js is homepage-only) */
+(function(){
+  var hdr=document.getElementById('hdr'),prog=document.getElementById('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=document.getElementById('menubtn'),dr=document.getElementById('drawer'),dc=document.getElementById('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+
+<!-- GA4 conversion events (ported from the homepage; subpages had no event wiring) -->
+<script>
+(function(){
+  function ev(n,p){try{if(typeof gtag==='function')gtag('event',n,p||{});}catch(e){}}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a,button');if(!a)return;
+    var href=a.getAttribute('href')||'',txt=(a.textContent||'').trim().toLowerCase();
+    if(href.indexOf('calendar.app.google')>-1){ev('booking_click',{tier:'free_scoping',page:'diagnostic'});}
+    else if(href.indexOf('mailto:')===0){ev('email_click',{page:'diagnostic'});}
+    else if(href.indexOf('tel:')===0){ev('phone_click',{page:'diagnostic'});}
+  },true);
+})();
+</script>
+</body>
+</html>
