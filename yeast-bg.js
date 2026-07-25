@@ -67,7 +67,12 @@
      1.6px dot was below the size where the nutrient transfer was legible at all — which was
      the whole point of the network. Blitting a sprite is also cheaper than building a
      gradient per pulse per frame. */
-  var pulseCache={}, PR=14;
+  /* PR is only the sprite's build resolution. The on-screen size is pulseR, derived from the
+     viewport in build() — drawing at a fixed pixel size made packets larger than the cells
+     themselves on a 390px phone, where cells are 3-16px. pulseCap likewise scales with the
+     number of edges, or a flat cap crowds mobile's ~17 edges while looking sparse on
+     desktop's ~90. */
+  var pulseCache={}, PR=14, pulseR=14, pulseCap=34;
   function getPulse(col){
     var key=col[0], s=pulseCache[key]; if(s) return s;
     var oc=document.createElement('canvas'); oc.width=oc.height=PR*2*DPR;
@@ -97,6 +102,10 @@
     cells.sort(function(p,q){return q.focus-p.focus;});
     edges=[]; var maxD=base*0.2;
     for(var i2=0;i2<cells.length;i2++){ if(cells[i2].focus>0.55)continue; var near=[]; for(var j=0;j<cells.length;j++){ if(i2!==j&&cells[j].focus<=0.6){ var d=Math.hypot(cells[i2].bx-cells[j].bx,cells[i2].by-cells[j].by); if(d<maxD)near.push([d,j]); } } near.sort(function(a,b){return a[0]-b[0];}); for(var k2=0;k2<Math.min(2,near.length);k2++){ var jj=near[k2][1],dup=false; for(var e2=0;e2<edges.length;e2++){ if(edges[e2].a===jj&&edges[e2].b===i2){dup=true;break;} } if(!dup)edges.push({a:i2,b:jj,d:near[k2][0]}); } }
+    /* Match the cell scale unit (base*0.012) so packets read as cell-sized at any viewport,
+       and keep packet density per-edge constant instead of per-screen. */
+    pulseR=Math.max(3.5, base*0.013);
+    pulseCap=Math.max(5, Math.round(edges.length*0.38));
     pulses=[]; drifters=[];
   }
   /* Gaussian-blurred sprite variants are the most expensive thing here to construct, and the
@@ -108,7 +117,7 @@
     for(i=0;i<cells.length;i++){ c=cells[i]; c.x=c.bx+Math.cos(t*c.drift+c.ph)*c.amp; c.y=c.by+Math.sin(t*c.drift+c.ph*1.3)*c.amp*0.7; }
     ctx.lineWidth=1.1;
     for(i=0;i<edges.length;i++){ var e=edges[i],a=cells[e.a],b=cells[e.b]; var fade=0.09+0.05*Math.sin(t*0.01+e.d); ctx.strokeStyle=rgba(TEAL,fade); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); }
-    for(i=pulses.length-1;i>=0;i--){ var pu=pulses[i]; pu.p+=pu.sp; if(pu.p>=1){pulses.splice(i,1);continue;} var pa=cells[pu.e.a],pb=cells[pu.e.b],px=pa.x+(pb.x-pa.x)*pu.p,py=pa.y+(pb.y-pa.y)*pu.p,pf=Math.min(1,Math.min(pu.p,1-pu.p)*8),pz=PR*pu.sz; ctx.globalAlpha=pf; ctx.drawImage(getPulse(pu.col),px-pz,py-pz,pz*2,pz*2); ctx.globalAlpha=1; }
+    for(i=pulses.length-1;i>=0;i--){ var pu=pulses[i]; pu.p+=pu.sp; if(pu.p>=1){pulses.splice(i,1);continue;} var pa=cells[pu.e.a],pb=cells[pu.e.b],px=pa.x+(pb.x-pa.x)*pu.p,py=pa.y+(pb.y-pa.y)*pu.p,pf=Math.min(1,Math.min(pu.p,1-pu.p)*8),pz=pulseR*pu.sz; ctx.globalAlpha=pf; ctx.drawImage(getPulse(pu.col),px-pz,py-pz,pz*2,pz*2); ctx.globalAlpha=1; }
     for(i=0;i<cells.length;i++){ c=cells[i]; var aM=1-c.focus*0.45, bl=blurFor(c); blitCell(c,c.x,c.y,c.r,aM,bl);
       if(STATIC) continue;
       c.bud+=(0.032/c.budT); var grow=Math.min(1,c.bud);
@@ -116,7 +125,7 @@
       else if(c.bud>1.0&&!c.released){ var dr2=c.r*0.72, dist2=c.r*0.85+dr2*0.55, dx2=c.x+Math.cos(c.budAng)*dist2*c.aspect, dy2=c.y+Math.sin(c.budAng)*dist2; if(drifters.length<(small?20:64)) drifters.push({tint:c.tint,live:c.live,scars:0,x:dx2,y:dy2,r:dr2,vx:Math.cos(c.budAng)*0.25+(Math.random()-.5)*0.15,vy:Math.sin(c.budAng)*0.25-0.12-Math.random()*0.1,rot:Math.random()*6.2832,vrot:(Math.random()-.5)*0.012,aspect:1.06+Math.random()*0.3,ph:Math.random()*6.2832,life:0,max:520+Math.random()*360}); c.released=true; c.scars=Math.min(4,(c.scars||0)+1); }
       if(c.bud>1.12){ c.bud=0; c.released=false; c.budAng=Math.random()*6.2832; }
     }
-    if(!STATIC){ for(i=drifters.length-1;i>=0;i--){ var d=drifters[i]; d.life+=2; d.x+=d.vx*2; d.y+=d.vy*2; d.vy-=0.0012; d.vx*=0.998; d.rot+=d.vrot*2; d.x+=Math.sin((t+d.ph)*0.02)*0.15; if(d.life>=d.max||d.y<-d.r*3){drifters.splice(i,1);continue;} var fin=Math.min(1,d.life/40), fout=Math.min(1,(d.max-d.life)/120); blitCell(d,d.x,d.y,d.r,Math.min(fin,fout)*0.92,0); } if(t%10<2 && pulses.length<34) spawnPulse(); }
+    if(!STATIC){ for(i=drifters.length-1;i>=0;i--){ var d=drifters[i]; d.life+=2; d.x+=d.vx*2; d.y+=d.vy*2; d.vy-=0.0012; d.vx*=0.998; d.rot+=d.vrot*2; d.x+=Math.sin((t+d.ph)*0.02)*0.15; if(d.life>=d.max||d.y<-d.r*3){drifters.splice(i,1);continue;} var fin=Math.min(1,d.life/40), fout=Math.min(1,(d.max-d.life)/120); blitCell(d,d.x,d.y,d.r,Math.min(fin,fout)*0.92,0); } if(t%10<2 && pulses.length<pulseCap) spawnPulse(); }
   }
   /* 20fps on phones, 30 elsewhere. The motion here is a slow drift, so the lower rate is not
      perceptible, and it cuts a third of the per-frame main-thread cost on the devices least
@@ -134,7 +143,7 @@
   function start(){
     resize();
     canvas.classList.add('on');
-    if(!STATIC){ for(var z=0;z<16;z++)spawnPulse(); running=true; lastFrame=0; raf=requestAnimationFrame(loop); }
+    if(!STATIC){ for(var z=0;z<Math.min(16,pulseCap);z++)spawnPulse(); running=true; lastFrame=0; raf=requestAnimationFrame(loop); }
   }
   function boot(){ if(window.requestIdleCallback) requestIdleCallback(start,{timeout:600}); else setTimeout(start,1); }
   if(document.readyState==='complete') boot(); else addEventListener('load',boot);
