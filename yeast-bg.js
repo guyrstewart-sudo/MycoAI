@@ -78,8 +78,10 @@
     var oc=document.createElement('canvas'); oc.width=oc.height=PR*2*DPR;
     var o=oc.getContext('2d'); o.setTransform(DPR,0,0,DPR,0,0); o.translate(PR,PR);
     var g=o.createRadialGradient(0,0,0,0,0,PR);
-    g.addColorStop(0,rgba(col,0.9)); g.addColorStop(0.18,rgba(col,0.5));
-    g.addColorStop(0.5,rgba(col,0.12)); g.addColorStop(1,rgba(col,0));
+    /* Tight falloff. The previous broad halo (0.5 alpha still at 0.18r) read as a soft blob
+       rather than a discrete packet once several sat near each other. */
+    g.addColorStop(0,rgba(col,0.95)); g.addColorStop(0.22,rgba(col,0.34));
+    g.addColorStop(0.55,rgba(col,0.07)); g.addColorStop(1,rgba(col,0));
     o.fillStyle=g; o.beginPath(); o.arc(0,0,PR,0,6.2832); o.fill();
     o.fillStyle=rgba(mix(col,[255,255,255],0.65),0.95); o.beginPath(); o.arc(0,0,PR*0.15,0,6.2832); o.fill();
     pulseCache[key]=oc; return oc;
@@ -104,20 +106,34 @@
     for(var i2=0;i2<cells.length;i2++){ if(cells[i2].focus>0.55)continue; var near=[]; for(var j=0;j<cells.length;j++){ if(i2!==j&&cells[j].focus<=0.6){ var d=Math.hypot(cells[i2].bx-cells[j].bx,cells[i2].by-cells[j].by); if(d<maxD)near.push([d,j]); } } near.sort(function(a,b){return a[0]-b[0];}); for(var k2=0;k2<Math.min(2,near.length);k2++){ var jj=near[k2][1],dup=false; for(var e2=0;e2<edges.length;e2++){ if(edges[e2].a===jj&&edges[e2].b===i2){dup=true;break;} } if(!dup)edges.push({a:i2,b:jj,d:near[k2][0]}); } }
     /* Match the cell scale unit (base*0.012) so packets read as cell-sized at any viewport,
        and keep packet density per-edge constant instead of per-screen. */
-    pulseR=Math.max(3.5, base*0.013);
-    pulseCap=Math.max(5, Math.round(edges.length*0.38));
+    /* Clamped, not purely proportional. A packet must stay clearly smaller than the smallest
+       cell (0.56 * base*0.012) at every viewport, and the hard 8px ceiling means no viewport
+       can ever render one as a blob. The 2.5px floor keeps it visible on a phone. */
+    pulseR=Math.max(2.5, Math.min(8, base*0.006));
+    pulseCap=Math.max(4, Math.round(edges.length*0.3));
     pulses=[]; drifters=[];
   }
   /* Gaussian-blurred sprite variants are the most expensive thing here to construct, and the
      bokeh they buy is not readable on a phone — LOWFX skips them entirely. */
   function blurFor(c){ return (!LOWFX && c.focus>0.5) ? Math.min(4,Math.round((c.focus-0.5)*7)) : 0; }
-  function spawnPulse(){ if(edges.length)pulses.push({e:edges[(Math.random()*edges.length)|0],p:0,sp:0.004+Math.random()*0.005,col:Math.random()<0.85?TEAL:GOLD,sz:0.8+Math.random()*0.45}); }
+  /* One packet per edge at a time. Picking a random edge each spawn let several packets stack
+     along the same strand, and a row of overlapping glows reads as one bright streak rather
+     than as discrete nutrient transfer. This was the visible bug on mobile, where few edges
+     meant collisions were near-certain. */
+  function spawnPulse(){
+    if(!edges.length) return;
+    var e,tries=0;
+    do { e=edges[(Math.random()*edges.length)|0]; tries++; } while(e.busy && tries<8);
+    if(e.busy) return;
+    e.busy=1;
+    pulses.push({e:e,p:0,sp:0.004+Math.random()*0.005,col:Math.random()<0.85?TEAL:GOLD,sz:0.8+Math.random()*0.45});
+  }
   function renderFrame(){
     ctx.clearRect(0,0,W,H); var i,c;
     for(i=0;i<cells.length;i++){ c=cells[i]; c.x=c.bx+Math.cos(t*c.drift+c.ph)*c.amp; c.y=c.by+Math.sin(t*c.drift+c.ph*1.3)*c.amp*0.7; }
     ctx.lineWidth=1.1;
     for(i=0;i<edges.length;i++){ var e=edges[i],a=cells[e.a],b=cells[e.b]; var fade=0.09+0.05*Math.sin(t*0.01+e.d); ctx.strokeStyle=rgba(TEAL,fade); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); }
-    for(i=pulses.length-1;i>=0;i--){ var pu=pulses[i]; pu.p+=pu.sp; if(pu.p>=1){pulses.splice(i,1);continue;} var pa=cells[pu.e.a],pb=cells[pu.e.b],px=pa.x+(pb.x-pa.x)*pu.p,py=pa.y+(pb.y-pa.y)*pu.p,pf=Math.min(1,Math.min(pu.p,1-pu.p)*8),pz=pulseR*pu.sz; ctx.globalAlpha=pf; ctx.drawImage(getPulse(pu.col),px-pz,py-pz,pz*2,pz*2); ctx.globalAlpha=1; }
+    for(i=pulses.length-1;i>=0;i--){ var pu=pulses[i]; pu.p+=pu.sp; if(pu.p>=1){pu.e.busy=0;pulses.splice(i,1);continue;} var pa=cells[pu.e.a],pb=cells[pu.e.b],px=pa.x+(pb.x-pa.x)*pu.p,py=pa.y+(pb.y-pa.y)*pu.p,pf=Math.min(1,Math.min(pu.p,1-pu.p)*8),pz=pulseR*pu.sz; ctx.globalAlpha=pf; ctx.drawImage(getPulse(pu.col),px-pz,py-pz,pz*2,pz*2); ctx.globalAlpha=1; }
     for(i=0;i<cells.length;i++){ c=cells[i]; var aM=1-c.focus*0.45, bl=blurFor(c); blitCell(c,c.x,c.y,c.r,aM,bl);
       if(STATIC) continue;
       c.bud+=(0.032/c.budT); var grow=Math.min(1,c.bud);
