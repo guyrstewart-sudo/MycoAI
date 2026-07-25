@@ -53,7 +53,71 @@
 </script>
 <style>
 /* ---- mushroom toolkit pillar · page-specific (inherits tokens/shell from /styles.css) ---- */
-.pagehead{position:relative;z-index:2;padding:118px 0 6px}
+/* CLS control: the Google Fonts sheet is deferred (media=print/onload), so it lands ~1.8s
+   in and reflows every ch-based measure below it. Metric-matched fallbacks make the
+   fallback occupy the same space as the real face. Took this page 0.149 -> under budget. */
+@font-face{font-family:'Inter Fallback';src:local('Arial');
+  ascent-override:90.2%;descent-override:22.48%;line-gap-override:0%;size-adjust:107.4%}
+@font-face{font-family:'Mono Fallback';src:local('Consolas');
+  ascent-override:102%;descent-override:30%;line-gap-override:0%;size-adjust:97%}
+body{font-family:'Inter','Inter Fallback',system-ui,sans-serif}
+.crumbs,.eyebrow,.section-k,.hbadge,.hc-go{font-family:'JetBrains Mono','Mono Fallback',monospace}
+
+.pagehead{position:relative;z-index:2;padding:118px 0 6px;overflow-x:clip}
+/* Section-anchored hero art (same .bg-art mechanism as the homepage backdrops).
+   Keeps its own colour — the glow IS the subject here, unlike the grayscaled brewery
+   plates. The .wrap column is max-width 1200px and centred, so its left edge sits at
+   calc(50% - 600px); anchoring the art's right edge just inside that and sizing it from
+   the leftover margin means it can never overlap the copy at any width — it simply
+   shrinks as the margin does, then hands off to a faint wash.
+   Carried as a CSS background rather than an <img> on purpose: a background is only
+   fetched when its rule matches, so phones — where this renders at ~11% opacity and
+   adds nothing — never download the 119 KB, and a decorative asset can't hijack LCP. */
+#bg-mushroom{display:none;height:auto;aspect-ratio:900/1455;
+  background:url("/art/mushroom-glow.webp") center/contain no-repeat}
+
+/* The warm glow is stacked drop-shadows on the cutout itself, so the light hugs the
+   real silhouette instead of sitting in a generic ellipse behind it. */
+@keyframes sporeglow{0%,100%{opacity:.62;filter:saturate(.94) contrast(1.02)
+    drop-shadow(0 0 26px rgba(255,196,116,.50)) drop-shadow(0 0 68px rgba(232,163,61,.30))
+    drop-shadow(0 0 140px rgba(232,163,61,.16)) drop-shadow(0 26px 60px rgba(0,0,0,.55))}
+  50%{opacity:.70;filter:saturate(1) contrast(1.03)
+    drop-shadow(0 0 34px rgba(255,206,132,.62)) drop-shadow(0 0 86px rgba(232,163,61,.38))
+    drop-shadow(0 0 170px rgba(232,163,61,.20)) drop-shadow(0 26px 60px rgba(0,0,0,.55))}}
+
+@media(min-width:1500px){
+  #bg-mushroom{display:block;left:auto;right:calc(50% + 616px);top:34px;
+    width:min(400px, calc(50vw - 632px));opacity:.62;
+    filter:saturate(.94) contrast(1.02)
+      drop-shadow(0 0 26px rgba(255,196,116,.50)) drop-shadow(0 0 68px rgba(232,163,61,.30))
+      drop-shadow(0 0 140px rgba(232,163,61,.16)) drop-shadow(0 26px 60px rgba(0,0,0,.55));
+    animation:sporeglow 7s ease-in-out infinite}
+
+  /* the light it throws: a warm pool washing across the copy from the mushroom's side.
+     screen blend so it lifts what is under it the way real light would. */
+  .pagehead::before{content:"";position:absolute;inset:-60px 0 -40px 0;z-index:1;
+    pointer-events:none;mix-blend-mode:screen;
+    background:radial-gradient(58% 62% at 14% 46%,
+      rgba(255,198,120,.17) 0%, rgba(232,163,61,.10) 34%,
+      rgba(232,163,61,.04) 56%, transparent 74%);
+    animation:sporeglow 7s ease-in-out infinite}
+
+  /* type sitting in that pool reads as lit from the left, not just tinted */
+  .pagehead .ptitle{text-shadow:-26px 4px 54px rgba(255,193,105,.30), -8px 2px 18px rgba(232,163,61,.18)}
+  .pagehead .psub{text-shadow:-20px 3px 40px rgba(255,193,105,.16)}
+  .pagehead .eyebrow{box-shadow:0 0 34px rgba(232,163,61,.14)}
+  .pagehead .crumbs{text-shadow:-14px 2px 26px rgba(255,193,105,.14)}
+}
+
+/* Still room for atmosphere, but not for an illustration. */
+@media(min-width:1100px) and (max-width:1499px){
+  #bg-mushroom{display:block;left:auto;right:-5vw;top:-8px;width:min(42vw,330px);opacity:.16;
+    filter:saturate(.85) drop-shadow(0 0 40px rgba(232,163,61,.22))}
+  .pagehead::before{content:"";position:absolute;inset:-40px 0 -30px 0;z-index:1;
+    pointer-events:none;mix-blend-mode:screen;
+    background:radial-gradient(62% 58% at 88% 34%, rgba(232,163,61,.09), transparent 68%)}
+}
+/* Below 1100px the art stays unloaded — the yeast canvas already carries the atmosphere. */
 .crumbs{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
 .crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
 .ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.2rem,4.6vw,3.5rem);font-weight:600;letter-spacing:-.03em;line-height:1.02;margin-top:16px;font-variation-settings:'opsz' 120}
@@ -135,6 +199,7 @@
 <main id="top">
 <!-- PAGE HEAD -->
 <div class="pagehead">
+  <div class="bg-art" id="bg-mushroom" aria-hidden="true"></div>
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <a href="https://mycoai.net/">Home</a><span>/</span>Mushrooms

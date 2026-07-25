@@ -29,8 +29,9 @@ p{margin:0 0 14px;font-size:15.5px}
 strong{color:var(--ink);font-weight:600}
 em{color:var(--teal-deep);font-style:italic}
 a{color:var(--teal-deep);text-decoration:none;font-weight:500}
-.brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:34px;padding-bottom:18px;border-bottom:2px solid var(--line)}
-.brandbar svg{height:42px;width:auto}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:34px;padding-bottom:18px;border-bottom:2px solid var(--line)}
+.brandbar svg{height:126px;width:auto;max-width:100%}
+@media(max-width:560px){.brandbar svg{height:84px}.cred{text-align:left}}
 .cred{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.7}
 .intro{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:0 0 28px}
 .intro p{margin:0;font-size:14.5px}
@@ -44,11 +45,71 @@ th.c,td.c{text-align:center}
 td{padding:11px 8px;border-bottom:1px solid var(--line);color:var(--body);vertical-align:middle}
 td b{color:var(--ink)}
 .box{display:inline-block;width:26px;height:24px;border:1.5px solid var(--teal-deep);border-radius:5px;background:var(--paper)}
-.scorebox{display:inline-block;width:42px;height:24px;border:1.5px solid var(--gold);border-radius:5px;background:#fff}
 .tasklist{list-style:none;padding:0;margin:0}
-.tasklist li{position:relative;padding:10px 0 10px 34px;font-size:15px;border-bottom:1px solid var(--line)}
-.tasklist li::before{content:"";position:absolute;left:2px;top:12px;width:16px;height:16px;border:1.5px solid var(--teal-deep);border-radius:4px;background:var(--paper)}
+.tasklist li{border-bottom:1px solid var(--line)}
 .tasklist li b{color:var(--ink)}
+
+/* ---- fillable controls (worksheet works on a phone as well as on paper) ---- */
+.tasklist label{display:flex;align-items:flex-start;gap:12px;padding:10px 2px;font-size:15px;cursor:pointer}
+input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:1px 0 0;
+  border:1.5px solid var(--teal-deep);border-radius:4px;background:var(--paper);cursor:pointer;
+  display:grid;place-content:center;transition:background .15s,border-color .15s}
+input[type=checkbox]::after{content:"";width:11px;height:6px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;
+  transform:rotate(-45deg) translate(1px,-1px);opacity:0;transition:opacity .12s}
+input[type=checkbox]:checked{background:var(--teal-deep);border-color:var(--teal-deep)}
+input[type=checkbox]:checked::after{opacity:1}
+input[type=checkbox]:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.tasklist li:has(input:checked){background:rgba(2,144,159,.05)}
+
+.taskname{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:transparent;
+  border:0;border-bottom:1.5px solid var(--line2);border-radius:0;padding:5px 2px;min-height:30px}
+.taskname:focus{outline:0;border-bottom-color:var(--teal-deep);background:rgba(2,144,159,.04)}
+.taskname::placeholder{color:var(--faint);opacity:.65}
+.scorebox{width:46px;height:30px;text-align:center;font:inherit;font-size:15px;font-weight:600;color:var(--ink);
+  border:1.5px solid var(--gold);border-radius:5px;background:#fff;padding:0;-moz-appearance:textfield}
+.scorebox::-webkit-outer-spin-button,.scorebox::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.scorebox:focus{outline:2px solid var(--gold);outline-offset:1px}
+.scorebox.bad{border-color:#b4442f;background:#fdf1ef}
+.rowtotal{display:inline-grid;place-content:center;width:46px;height:30px;border:1.5px solid var(--line2);
+  border-radius:5px;background:var(--paper);font-family:var(--font-mono);font-size:15px;font-weight:600;color:var(--faint)}
+.rowtotal.has{color:var(--ink);border-color:var(--gold);background:#fff}
+tr.leader td{background:#fcf6ee}
+tr.leader .rowtotal{border-color:var(--gold);color:var(--gold);background:#fff}
+.leadtag{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);display:none}
+tr.leader .leadtag{display:block}
+
+.sk{transition:box-shadow .15s,border-color .15s}
+.sk.match{border-color:var(--gold);box-shadow:0 0 0 2px rgba(196,125,42,.25)}
+.winner .blank{display:block;border-bottom:1.5px solid var(--line2);height:26px;margin-top:10px}
+.winnerfield{width:100%;font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--ink);
+  background:transparent;border:0;border-bottom:1.5px solid var(--line2);padding:4px 2px;margin-top:8px;min-height:34px}
+.winnerfield:focus{outline:0;border-bottom-color:var(--gold)}
+.hrs{width:70px;font:inherit;font-size:15px;font-weight:600;text-align:center;color:var(--ink);
+  border:0;border-bottom:1.5px solid var(--line2);background:transparent;padding:2px;-moz-appearance:textfield}
+.hrs::-webkit-outer-spin-button,.hrs::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.hrs:focus{outline:0;border-bottom-color:var(--gold)}
+.hrsout{font-weight:700;color:var(--gold)}
+/* On a phone a 5-column scoring table squeezes the task name to ~38px, which is
+   unusable. Below 620px each row becomes a stacked card instead. Print keeps the table. */
+@media screen and (max-width:620px){
+  #scoretable thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  #scoretable,#scoretable tbody,#scoretable tr,#scoretable td{display:block;width:auto}
+  #scoretable tr{border:1px solid var(--line);border-radius:10px;background:#fff;padding:12px 14px;margin:0 0 12px}
+  #scoretable tr.leader{border-color:var(--gold)}
+  #scoretable td{border:0;padding:0}
+  #scoretable td[data-l]{display:inline-flex;align-items:center;gap:8px;margin:10px 12px 0 0}
+  #scoretable td[data-l]::before{content:attr(data-l);font-family:var(--font-mono);font-size:9.5px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);max-width:74px;line-height:1.25}
+  #scoretable .taskname{font-size:16px}
+}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0 0}
+.tbtn{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal-deep);background:#fff;border:1.5px solid var(--line2);border-radius:8px;
+  padding:9px 14px;cursor:pointer;font-weight:500}
+.tbtn:hover{border-color:var(--teal-deep)}
+.tbtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.saved{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
 .rubric{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:14px 0}
 .rubric ol{margin:0;padding-left:20px}
 .rubric li{font-size:14.5px;margin-bottom:8px}
@@ -65,7 +126,15 @@ td b{color:var(--ink)}
 .cta p{color:#b9c1d4;font-size:15px;max-width:520px;margin:0 auto 14px}
 .btn{display:inline-block;font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#08110b;background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);padding:13px 24px;border-radius:10px;font-weight:500}
 .foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-@media print{body{background:#fff}.wrap{padding:24px}.sec,.rubric,.winner,.cta{break-inside:avoid}}
+@media print{
+  body{background:#fff}.wrap{padding:24px}.sec,.rubric,.winner,.cta{break-inside:avoid}
+  .tools{display:none}
+  /* keep every typed value and tick visible on paper */
+  input[type=checkbox]{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .taskname,.winnerfield,.hrs{border-bottom:1.5px solid var(--line2)!important}
+  .scorebox,.rowtotal{border:1.5px solid var(--line2)!important}
+  tr.leader td,.sk.match{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
 </head>
 <body>
@@ -94,31 +163,37 @@ td b{color:var(--ink)}
   <div class="sec">
     <h3>Where does the time actually go?</h3>
     <p class="q">Check every task someone on your team does that's <em>repetitive, rules-based, and doesn't require a human's judgment.</em> These are the candidates.</p>
-    <ul class="tasklist">
-      <li><b>Answering the same customer questions</b> — hours, taps, tours, events, allergens, shipping</li>
-      <li><b>Replying to event / wholesale / distribution inquiries</b> by hand</li>
-      <li><b>Updating the website, tap list, or menu</b> across multiple places</li>
-      <li><b>Writing social posts &amp; the weekly email</b> from scratch</li>
-      <li><b>Logging production / QC data</b> into spreadsheets by hand</li>
-      <li><b>Pulling sales or inventory numbers</b> into a report each week</li>
-      <li><b>Onboarding / scheduling staff</b> and answering their repeat questions</li>
-      <li><b>Chasing reviews, reservations, or follow-ups</b></li>
+    <ul class="tasklist" id="tasks">
+      <li><label><input type="checkbox" data-task="Answering the same customer questions"><span><b>Answering the same customer questions</b> — hours, taps, tours, events, allergens, shipping</span></label></li>
+      <li><label><input type="checkbox" data-task="Replying to event / wholesale inquiries"><span><b>Replying to event / wholesale / distribution inquiries</b> by hand</span></label></li>
+      <li><label><input type="checkbox" data-task="Updating the website, tap list, or menu"><span><b>Updating the website, tap list, or menu</b> across multiple places</span></label></li>
+      <li><label><input type="checkbox" data-task="Writing social posts &amp; the weekly email"><span><b>Writing social posts &amp; the weekly email</b> from scratch</span></label></li>
+      <li><label><input type="checkbox" data-task="Logging production / QC data"><span><b>Logging production / QC data</b> into spreadsheets by hand</span></label></li>
+      <li><label><input type="checkbox" data-task="Pulling sales or inventory numbers"><span><b>Pulling sales or inventory numbers</b> into a report each week</span></label></li>
+      <li><label><input type="checkbox" data-task="Onboarding / scheduling staff"><span><b>Onboarding / scheduling staff</b> and answering their repeat questions</span></label></li>
+      <li><label><input type="checkbox" data-task="Chasing reviews, reservations, or follow-ups"><span><b>Chasing reviews, reservations, or follow-ups</b></span></label></li>
     </ul>
   </div>
 
   <div class="step">Step 2</div>
   <div class="sec">
     <h3>Score your checked tasks</h3>
-    <p class="q">List your top candidates from Step 1. Score each column 1–5 (5 = high). Add them up — highest total wins.</p>
-    <table>
-      <thead><tr><th style="width:34%">Task</th><th class="c">Hours/wk it eats</th><th class="c">How repetitive (1–5)</th><th class="c">Low risk if AI helps (1–5)</th><th class="c">Total</th></tr></thead>
-      <tbody>
-        <tr><td><span class="blank" style="border-bottom:1.5px solid var(--line2);display:block;height:18px"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td></tr>
-        <tr><td><span class="blank" style="border-bottom:1.5px solid var(--line2);display:block;height:18px"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td></tr>
-        <tr><td><span class="blank" style="border-bottom:1.5px solid var(--line2);display:block;height:18px"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td></tr>
-        <tr><td><span class="blank" style="border-bottom:1.5px solid var(--line2);display:block;height:18px"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td><td class="c"><span class="scorebox"></span></td></tr>
+    <p class="q">Check a task above and it drops into this table. Score each column <b>1–5</b> (5 = high). Totals add themselves — highest wins.</p>
+    <table id="scoretable">
+      <thead><tr><th style="width:34%">Task</th><th class="c">Hours/wk it eats (1–5)</th><th class="c">How repetitive (1–5)</th><th class="c">Low risk if AI helps (1–5)</th><th class="c">Total</th></tr></thead>
+      <tbody id="scorerows">
+        <tr><td><span class="leadtag">Leader</span><input class="taskname" type="text" placeholder="Task…" aria-label="Task 1"></td><td class="c" data-l="Hrs/wk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 1 hours score"></td><td class="c" data-l="Repetitive"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 1 repetitive score"></td><td class="c" data-l="Low risk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 1 low-risk score"></td><td class="c" data-l="Total"><span class="rowtotal" aria-live="polite">–</span></td></tr>
+        <tr><td><span class="leadtag">Leader</span><input class="taskname" type="text" placeholder="Task…" aria-label="Task 2"></td><td class="c" data-l="Hrs/wk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 2 hours score"></td><td class="c" data-l="Repetitive"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 2 repetitive score"></td><td class="c" data-l="Low risk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 2 low-risk score"></td><td class="c" data-l="Total"><span class="rowtotal" aria-live="polite">–</span></td></tr>
+        <tr><td><span class="leadtag">Leader</span><input class="taskname" type="text" placeholder="Task…" aria-label="Task 3"></td><td class="c" data-l="Hrs/wk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 3 hours score"></td><td class="c" data-l="Repetitive"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 3 repetitive score"></td><td class="c" data-l="Low risk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 3 low-risk score"></td><td class="c" data-l="Total"><span class="rowtotal" aria-live="polite">–</span></td></tr>
+        <tr><td><span class="leadtag">Leader</span><input class="taskname" type="text" placeholder="Task…" aria-label="Task 4"></td><td class="c" data-l="Hrs/wk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 4 hours score"></td><td class="c" data-l="Repetitive"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 4 repetitive score"></td><td class="c" data-l="Low risk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 4 low-risk score"></td><td class="c" data-l="Total"><span class="rowtotal" aria-live="polite">–</span></td></tr>
       </tbody>
     </table>
+    <div class="tools">
+      <button type="button" class="tbtn" id="addrow">+ Add a row</button>
+      <button type="button" class="tbtn" id="printbtn">Print / save as PDF</button>
+      <button type="button" class="tbtn" id="resetbtn">Clear the sheet</button>
+      <span class="saved" id="saved"></span>
+    </div>
     <p class="q" style="margin-top:10px">Rule of thumb: <em>repetitive + low-risk + many hours</em> = automate first. A high-judgment, high-stakes task (your recipe, your hiring) is the <strong>last</strong> place to start, not the first.</p>
   </div>
 
@@ -126,12 +201,12 @@ td b{color:var(--ink)}
   <div class="sec">
     <h3>What data are you already sitting on?</h3>
     <p class="q">AI is only as good as what you feed it. Check what you already have — it's usually more than you think.</p>
-    <ul class="tasklist">
-      <li><b>Point-of-sale / sales history</b> (Square, Toast, etc.)</li>
-      <li><b>Customer emails or a mailing list</b></li>
-      <li><b>Production &amp; QC logs</b> (even messy spreadsheets count)</li>
-      <li><b>Your own FAQs, menus, and SOPs</b> written down somewhere</li>
-      <li><b>Inventory / ordering records</b></li>
+    <ul class="tasklist" id="datalist">
+      <li><label><input type="checkbox"><span><b>Point-of-sale / sales history</b> (Square, Toast, etc.)</span></label></li>
+      <li><label><input type="checkbox"><span><b>Customer emails or a mailing list</b></span></label></li>
+      <li><label><input type="checkbox"><span><b>Production &amp; QC logs</b> (even messy spreadsheets count)</span></label></li>
+      <li><label><input type="checkbox"><span><b>Your own FAQs, menus, and SOPs</b> written down somewhere</span></label></li>
+      <li><label><input type="checkbox"><span><b>Inventory / ordering records</b></span></label></li>
     </ul>
   </div>
 
@@ -145,8 +220,10 @@ td b{color:var(--ink)}
     </div>
     <div class="winner">
       <h3>My highest-scoring task to automate first:</h3>
-      <span class="blank"></span>
-      <p class="q" style="margin:12px 0 0">Estimated hours back per week: ______ &nbsp;×&nbsp; 50 weeks = ______ hours/year of your team's time.</p>
+      <input class="winnerfield" type="text" id="winner" placeholder="Fills in from your top score — or type your own" aria-label="Highest-scoring task to automate first">
+      <p class="q" style="margin:12px 0 0">Estimated hours back per week:
+        <input class="hrs" type="number" min="0" step="0.5" id="hrsweek" inputmode="decimal" aria-label="Estimated hours back per week">
+        &nbsp;×&nbsp; 50 weeks = <span class="hrsout" id="hrsyear">______</span> hours/year of your team's time.</p>
     </div>
   </div>
 
@@ -157,7 +234,156 @@ td b{color:var(--ink)}
     <a class="btn" href="https://mycoai.net/#book" target="_blank" rel="noopener">Book your free 30-min call →</a>
   </div>
 
+  <script>
+  (function(){
+    var KEY='mycoai-ai-audit-v1', root=document, saveTimer=null;
+    var rows=root.getElementById('scorerows'), tasks=root.getElementById('tasks');
+    var winner=root.getElementById('winner'), hrsWeek=root.getElementById('hrsweek'), hrsYear=root.getElementById('hrsyear');
+    var savedEl=root.getElementById('saved');
+    var $=function(s,c){return (c||root).querySelector(s);}, $$=function(s,c){return [].slice.call((c||root).querySelectorAll(s));};
+
+    function clamp(v){ if(v==='')return null; var n=parseInt(v,10); if(isNaN(n))return null; return Math.min(5,Math.max(1,n)); }
+
+    function rowTotal(tr){
+      var vals=$$('.scorebox',tr).map(function(i){return clamp(i.value);});
+      if(vals.some(function(v){return v===null;})) return null;
+      return vals.reduce(function(a,b){return a+b;},0);
+    }
+
+    function recalc(){
+      var best=-1, bestRow=null;
+      $$('tr',rows).forEach(function(tr){
+        var t=rowTotal(tr), out=$('.rowtotal',tr);
+        out.textContent = t===null ? '–' : t;
+        out.classList.toggle('has', t!==null);
+        tr.classList.remove('leader');
+        if(t!==null && t>best){ best=t; bestRow=tr; }
+      });
+      if(bestRow) bestRow.classList.add('leader');
+
+      // score key: highlight the band the leader lands in
+      var keys=$$('.score-key .sk');
+      keys.forEach(function(k){k.classList.remove('match');});
+      if(best>=8){
+        var idx = best<=10 ? 0 : (best<=13 ? 1 : 2);
+        if(keys[idx]) keys[idx].classList.add('match');
+      }
+
+      // winner field follows the leader unless it has been typed in by hand
+      if(bestRow && !winner.dataset.touched){
+        var name=$('.taskname',bestRow).value.trim();
+        winner.value = name || '';
+      }
+
+      var h=parseFloat(hrsWeek.value);
+      hrsYear.textContent = (!isNaN(h) && h>0) ? (Math.round(h*50*10)/10) : '______';
+      save();
+    }
+
+    // checking a task in Step 1 drops it into the first free scoring row
+    function syncFromChecks(){
+      if(!tasks) return;
+      $$('input[type=checkbox]',tasks).forEach(function(cb){
+        var label=cb.getAttribute('data-task'); if(!label) return;
+        var existing=$$('.taskname',rows).filter(function(i){return i.value.trim()===label;})[0];
+        if(cb.checked && !existing){
+          var free=$$('.taskname',rows).filter(function(i){return i.value.trim()==='' && !i.dataset.touched;})[0];
+          if(free){ free.value=label; free.dataset.auto='1'; }
+        } else if(!cb.checked && existing && existing.dataset.auto==='1'){
+          existing.value=''; delete existing.dataset.auto;
+        }
+      });
+      recalc();
+    }
+
+    function state(){
+      return {
+        step1: $$('#tasks input[type=checkbox]').map(function(i){return i.checked;}),
+        data:  $$('#datalist input[type=checkbox]').map(function(i){return i.checked;}),
+        rows:  $$('tr',rows).map(function(tr){
+                 return {n:$('.taskname',tr).value, a:$$('.scorebox',tr).map(function(i){return i.value;}),
+                         auto:$('.taskname',tr).dataset.auto==='1', touched:$('.taskname',tr).dataset.touched==='1'};
+               }),
+        winner: winner.value, winnerTouched: winner.dataset.touched==='1', hrs: hrsWeek.value
+      };
+    }
+
+    function save(){
+      clearTimeout(saveTimer);
+      saveTimer=setTimeout(function(){
+        try{ localStorage.setItem(KEY, JSON.stringify(state()));
+             savedEl.textContent='Saved on this device';
+        }catch(e){ savedEl.textContent=''; }
+      },250);
+    }
+
+    function restore(){
+      var raw; try{ raw=localStorage.getItem(KEY); }catch(e){ return; }
+      if(!raw) return;
+      var s; try{ s=JSON.parse(raw); }catch(e){ return; }
+      (s.step1||[]).forEach(function(v,i){var el=$$('#tasks input[type=checkbox]')[i]; if(el)el.checked=v;});
+      (s.data||[]).forEach(function(v,i){var el=$$('#datalist input[type=checkbox]')[i]; if(el)el.checked=v;});
+      (s.rows||[]).forEach(function(r,i){
+        var tr=$$('tr',rows)[i]; if(!tr) { addRow(); tr=$$('tr',rows)[i]; }
+        if(!tr) return;
+        var n=$('.taskname',tr); n.value=r.n||'';
+        if(r.auto) n.dataset.auto='1'; if(r.touched) n.dataset.touched='1';
+        $$('.scorebox',tr).forEach(function(inp,j){ inp.value=(r.a&&r.a[j])||''; });
+      });
+      if(s.winnerTouched) winner.dataset.touched='1';
+      winner.value=s.winner||''; hrsWeek.value=s.hrs||'';
+    }
+
+    function addRow(){
+      var tr=$$('tr',rows)[0].cloneNode(true);
+      $$('input',tr).forEach(function(i){ i.value=''; delete i.dataset.auto; delete i.dataset.touched;
+        i.removeAttribute('aria-label'); });
+      $('.rowtotal',tr).textContent='–';
+      tr.classList.remove('leader');
+      rows.appendChild(tr);
+      wire(tr);
+      return tr;
+    }
+
+    function wire(scope){
+      $$('.scorebox',scope).forEach(function(i){
+        i.addEventListener('input',function(){
+          if(i.value!=='' ){ var c=clamp(i.value); i.classList.toggle('bad', c===null || String(c)!==i.value.replace(/^0+/,'')); }
+          else i.classList.remove('bad');
+          recalc();
+        });
+        i.addEventListener('blur',function(){ var c=clamp(i.value); i.value = c===null?'':c; i.classList.remove('bad'); recalc(); });
+      });
+      $$('.taskname',scope).forEach(function(i){
+        i.addEventListener('input',function(){ i.dataset.touched='1'; delete i.dataset.auto; recalc(); });
+      });
+    }
+
+    wire(root);
+    $$('#tasks input[type=checkbox]').forEach(function(cb){ cb.addEventListener('change', syncFromChecks); });
+    $$('#datalist input[type=checkbox]').forEach(function(cb){ cb.addEventListener('change', save); });
+    winner.addEventListener('input', function(){ winner.dataset.touched='1'; save(); });
+    hrsWeek.addEventListener('input', recalc);
+    root.getElementById('addrow').addEventListener('click', function(){ addRow(); });
+    root.getElementById('printbtn').addEventListener('click', function(){ window.print(); });
+    root.getElementById('resetbtn').addEventListener('click', function(){
+      if(!confirm('Clear everything you have filled in on this sheet?')) return;
+      try{ localStorage.removeItem(KEY); }catch(e){}
+      $$('input[type=checkbox]').forEach(function(i){ i.checked=false; });
+      $$('.taskname, .scorebox').forEach(function(i){ i.value=''; delete i.dataset.auto; delete i.dataset.touched; });
+      winner.value=''; delete winner.dataset.touched; hrsWeek.value='';
+      savedEl.textContent=''; recalc();
+    });
+
+    restore();
+    recalc();
+  })();
+  </script>
+
   <div class="foot">
     <span>MycoAI · Guy Stewart · mycoai.net</span>
     <span>fermentation × intelligence × code</span>
- 
+  </div>
+</div>
+</body>
+</html>
