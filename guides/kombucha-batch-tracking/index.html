@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Google tag (gtag.js) --><script>(function(){var i="G-M7CRWMDY3V",L=function(){if(window.__gl)return;window.__gl=1;var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id="+i;document.head.appendChild(s);};["scroll","click","keydown","touchstart"].forEach(function(e){addEventListener(e,L,{once:true,passive:true});});("requestIdleCallback"in window?requestIdleCallback:function(f){setTimeout(f,4000);})(L);})();</script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M7CRWMDY3V');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kombucha Batch Tracking System: pH, Acidity &amp; the 0.5% Line | MycoAI</title>
+<meta name="description" content="What to log per kombucha batch, how to build a pH and titratable acidity record that demonstrates control, lot coding that survives a recall, and an honest read on which FDA and TTB rules actually apply.">
+<meta name="author" content="Guy Richard Stewart">
+<link rel="canonical" href="https://mycoai.net/guides/kombucha-batch-tracking/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mycoai.net/guides/kombucha-batch-tracking/">
+<meta property="og:title" content="Kombucha Batch Tracking System">
+<meta property="og:description" content="pH, acidity, ABV and food-safety logging for small-batch commercial kombucha — a repeatable, defensible record, with every regulatory claim linked to its primary source.">
+<meta property="og:image" content="https://mycoai.net/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycoai.net/og-card.png">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060a12'/%3E%3Cpath d='M22 11a8 8 0 1 0 0 10' fill='none' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M16 16h6' stroke='%2337d6b0' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='11' r='2.1' fill='%23e8a33d'/%3E%3Ccircle cx='22' cy='21' r='2.1' fill='%239d7bff'/%3E%3Ccircle cx='23.5' cy='16' r='1.7' fill='%2337d6b0'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article",
+"headline":"Kombucha Batch Tracking System",
+"description":"What to log per kombucha batch and why, how to build a pH and titratable acidity record that demonstrates control, lot coding that survives a recall, and an honest read on which FDA and TTB rules apply.",
+"mainEntityOfPage":"https://mycoai.net/guides/kombucha-batch-tracking/",
+"image":"https://mycoai.net/og-card.png",
+"author":{"@type":"Person","name":"Guy Richard Stewart","url":"https://mycoai.net/","jobTitle":"Fermentation scientist and software builder","knowsAbout":["kombucha production","fermentation monitoring","titratable acidity","food safety records","batch traceability"],"sameAs":["https://github.com/guyrstewart-sudo"]},
+"publisher":{"@type":"Person","name":"Guy Richard Stewart"},
+"datePublished":"2026-07-25","dateModified":"2026-07-25"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"How to build a kombucha batch tracking system",
+"description":"Build a per-batch kombucha record that demonstrates process control: fix the measurement, log the pH curve, run titratable acidity alongside pH, control F2, and code the lot.",
+"step":[
+{"@type":"HowToStep","position":1,"name":"Log the inputs","text":"Record tea lot and steep, sugar charge, sweet-tea Brix, water source, starter liquid percentage by volume, and the SCOBY hotel identifier — one row per batch, one line per input."},
+{"@type":"HowToStep","position":2,"name":"Fix the measurement","text":"Two-point calibrate the pH meter against pH 4.01 and 7.00 buffers before each measurement session, with temperature compensation, and store the electrode in KCl rather than water."},
+{"@type":"HowToStep","position":3,"name":"Log the curve, not the endpoint","text":"Record day-0 pH and then daily pH through F1. The shape of the curve, and how fast day 0 lands below 4.6, is what demonstrates control — a single finished number does not."},
+{"@type":"HowToStep","position":4,"name":"Run titratable acidity alongside pH","text":"Titrate with 0.1 M NaOH to a pH 8.2 endpoint and express the result as acetic acid in grams per litre. pH and titratable acidity move independently, and pH alone will not show a stalled batch."},
+{"@type":"HowToStep","position":5,"name":"Control F2 and check ABV","text":"Log every secondary addition as its own line with its own ingredient lot and dose, hold a warm reference bottle, and measure alcohol content by a scientifically valid method at package and again at shelf life."},
+{"@type":"HowToStep","position":6,"name":"Code the lot","text":"Mark every container with a permanently visible code identifying the establishment, the product, and the year, day and period packed, and keep the traceability chain one step back and one step forward."}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does kombucha have to stay under 0.5% ABV?","acceptedAnswer":{"@type":"Answer","text":"If you want to stay outside federal alcohol regulation, yes. TTB states that kombucha containing 0.5% or more alcohol by volume at any time during production, when bottled, or at any time after bottling is an alcohol beverage subject to TTB regulation — including kombucha that is under 0.5% when bottled but rises above it later from continued fermentation in the bottle. TTB advises producers to take appropriate steps, including testing of alcohol content, to ensure the product does not reach or exceed 0.5% at any of those points."}},
+{"@type":"Question","name":"Is kombucha an acidified food under 21 CFR part 114?","acceptedAnswer":{"@type":"Answer","text":"It depends, and it is not a question anyone should answer for you in a blog post. 21 CFR 114.3 defines acidified foods as low-acid foods to which acid or acid foods are added — the operative word is added, and in kombucha the acid is produced by fermentation. Part 114 also expressly excludes carbonated beverages and foods stored, distributed and retailed under refrigeration, and FDA's stated position is that naturally fermented products are not acidified foods. Whether your specific product lands inside or outside that definition turns on your formulation, your carbonation, your cold chain and your state. Read 21 CFR 114.3 and confirm with FDA and your state agriculture department."}},
+{"@type":"Question","name":"Where does the pH 4.2 number for kombucha come from?","acceptedAnswer":{"@type":"Answer","text":"Not from the Code of Federal Regulations. The widely used 4.2 target traces to Nummer's 2013 paper in the Journal of Environmental Health, to Kombucha Brewers International practice, and to state guidance — New York requires the product to test below pH 4.2 and at or above 2.5 — a batch reading exactly 4.2 fails — and Pennsylvania recommends unpasteurized kombucha reach pH 4.2 or below before bottling or service. Treat it as the widely adopted industry and state-guidance target, not as a federal requirement."}},
+{"@type":"Question","name":"Can I measure kombucha ABV with a hydrometer?","acceptedAnswer":{"@type":"Answer","text":"No. Organic acids, residual sucrose, glucose and fructose, and ethanol all move density and refractive index in different directions, so there is no reliable original-gravity minus final-gravity subtraction on a live acetic ferment. TTB permits any method that has been formally validated or is otherwise scientifically valid; when TTB tests marketplace kombucha it generally uses headspace gas chromatography with flame ionization detection (AOAC 2016.12) or an enzymatic method (AOAC 2017.07), and has also used distillation with density measurement (AOAC 935.21)."}},
+{"@type":"Question","name":"How long do I have to keep kombucha batch records?","acceptedAnswer":{"@type":"Answer","text":"Under 21 CFR 117.315, records must be retained at the plant or facility for at least 2 years after the date they were prepared, with offsite storage permitted — except for the food safety plan — if records can be retrieved and provided onsite within 24 hours of a request for official review. If you are an acidified-food processor, 21 CFR 114.100(e) requires copies of your processing, deviation and initial-distribution records be retained at the processing plant or other reasonably accessible location for 3 years from the date of manufacture. Your state may require more."}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://mycoai.net/"},
+{"@type":"ListItem","position":2,"name":"Guides","item":"https://mycoai.net/guides/"},
+{"@type":"ListItem","position":3,"name":"Kombucha Batch Tracking","item":"https://mycoai.net/guides/kombucha-batch-tracking/"}]}
+</script>
+<style>
+/* ---- kombucha batch tracking guide · page-specific (inherits tokens/shell from /styles.css)
+   Static by design — this subpage does not load app.js, so .reveal is deliberately NOT used
+   (it would set opacity:0 and never receive .in). ---- */
+
+/* CLS control. The Google Fonts sheet is deferred (media=print/onload), so it lands
+   ~1.8s in; without metric-matched fallbacks that swap reflows every ch-based measure
+   on the page and shifts everything below it. These overrides make the fallback occupy
+   the same space as the real face, so the swap is invisible to layout. */
+@font-face{font-family:'Inter Fallback';src:local('Arial');
+  ascent-override:90.2%;descent-override:22.48%;line-gap-override:0%;size-adjust:107.4%}
+@font-face{font-family:'Mono Fallback';src:local('Consolas');
+  ascent-override:102%;descent-override:30%;line-gap-override:0%;size-adjust:97%}
+body{font-family:'Inter','Inter Fallback',system-ui,sans-serif}
+.crumbs,.step .st-n,.labnote .ln-k,.sidecard .s-k,.lotcode,.prose p.srcnote{
+  font-family:'JetBrains Mono','Mono Fallback',monospace}
+
+.pagehead{position:relative;z-index:2;padding:116px 0 4px}
+.crumbs{font-size:11.5px;letter-spacing:.05em;color:var(--faint);margin-bottom:18px}
+.crumbs a{color:var(--muted);transition:.2s}.crumbs a:hover{color:var(--teal)}.crumbs span{opacity:.5;margin:0 8px}
+.ptitle{font-family:'Fraunces Display',Fraunces,serif;font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin-top:16px;max-width:16ch;font-variation-settings:'opsz' 120}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+nav.toc{display:block;height:auto}
+.ptitle .grad{background:linear-gradient(100deg,#e8a33d 0%,#f4c876 55%,#37d6b0 130%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-style:italic}
+.psub{max-width:66ch;color:var(--muted);font-size:clamp(1.04rem,1.6vw,1.22rem);margin-top:20px;line-height:1.55}
+.psub b{color:var(--ink);font-weight:600}
+.byline{display:flex;align-items:center;gap:12px;margin-top:22px;font-size:13px;color:var(--faint)}
+.byline .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-dim));display:grid;place-items:center;color:#04130f;font-weight:700;font-family:'Fraunces Display',Fraunces,serif;font-size:15px;flex:none}
+.byline b{color:var(--muted);font-weight:600}
+.headcta{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+.article{position:relative;z-index:2;padding:38px 0 20px}
+.artgrid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:44px;align-items:start}
+.prose{max-width:760px;min-width:0}
+.prose h2{margin:44px 0 16px;scroll-margin-top:88px}
+.prose h2:first-of-type{margin-top:8px}
+.prose h3{font-size:1.24rem;font-weight:600;margin:30px 0 10px;color:var(--ink);font-family:'Inter','Inter Fallback',sans-serif;letter-spacing:-.01em}
+.prose h4{font-size:1.03rem;font-weight:600;margin:22px 0 8px;color:var(--gold)}
+.prose p{color:var(--muted);margin-bottom:17px;font-size:1.05rem;line-height:1.66}
+.prose p b,.prose strong{color:var(--ink);font-weight:600}
+.prose ul,.prose ol{margin:0 0 20px;padding-left:0;display:flex;flex-direction:column;gap:10px}
+.prose li{color:var(--muted);font-size:1.03rem;padding-left:24px;position:relative;list-style:none}
+.prose ul li::before{content:"▹";position:absolute;left:0;color:var(--teal)}
+.prose ol{counter-reset:s}.prose ol li{counter-increment:s}
+.prose ol li::before{content:counter(s);position:absolute;left:0;top:1px;color:var(--teal);font-family:'JetBrains Mono','Mono Fallback',monospace;font-size:13px;font-weight:600}
+.prose a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3);transition:.2s}
+.prose a.link:hover{border-color:var(--teal)}
+/* qualified so it outranks `.prose p` (0,1,1) — a bare .srcnote would lose */
+.prose p.srcnote{font-size:12.5px;color:var(--faint);line-height:1.6;margin-top:-6px;margin-bottom:22px;letter-spacing:.01em}
+.prose p.srcnote a.link{color:var(--faint);border-bottom-color:rgba(255,255,255,.16)}
+.prose p.srcnote a.link:hover{color:var(--teal);border-bottom-color:var(--teal)}
+.lede{background:linear-gradient(150deg,rgba(55,214,176,.08),rgba(232,163,61,.04));border:1px solid rgba(55,214,176,.2);border-left:3px solid var(--teal);border-radius:14px;padding:22px 24px;margin-bottom:8px}
+.lede p{color:var(--ink);font-size:1.12rem;margin:0;line-height:1.6}.lede p b{color:var(--teal)}
+.step{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:16px 0;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.step::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.step .st-n{font-size:12px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase}
+.step h3{margin:6px 0 8px}.step p{margin-bottom:0}
+.tblwrap{overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:14px}
+.tblwrap table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+.tblwrap th,.tblwrap td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.tblwrap thead th{background:rgba(255,255,255,.03);color:var(--faint);font-size:12px;letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+.tblwrap tbody th{color:var(--ink);font-weight:600}.tblwrap td{color:var(--muted)}
+.tblwrap td.win{color:var(--teal);font-weight:600}
+.tblwrap td.no{color:var(--gold);font-weight:600}
+.tblwrap tr:last-child td,.tblwrap tr:last-child th{border-bottom:0}
+.tblwrap .hl th,.tblwrap .hl td{background:rgba(55,214,176,.05)}
+.labnote{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:24px 26px;position:relative;overflow:hidden;margin:26px 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.labnote::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(var(--gold),var(--teal))}
+.labnote .ln-k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.labnote p{font-size:1.03rem;color:var(--muted);margin-bottom:14px;line-height:1.65}
+.labnote p:last-child{margin-bottom:0}
+.labnote p b{color:var(--ink)}
+.lotcode{display:block;background:var(--s2);border:1px solid var(--line2);border-radius:12px;padding:16px 18px;margin:20px 0;font-size:15px;color:var(--ink);letter-spacing:.06em;overflow-x:auto;white-space:nowrap}
+.lotcode b{color:var(--gold);font-weight:500}
+.midcta{background:linear-gradient(135deg,rgba(232,163,61,.14),rgba(55,214,176,.08));border:1px solid rgba(232,163,61,.28);border-radius:18px;padding:26px 28px;margin:34px 0;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap}
+.midcta .m-t{min-width:240px;flex:1}
+.midcta .m-t strong{display:block;font-size:1.18rem;color:var(--ink);font-weight:600;margin-bottom:5px}
+.midcta .m-t span{font-size:14px;color:var(--muted)}
+
+.gaside{position:sticky;top:92px;display:flex;flex-direction:column;gap:18px}
+.sidecard{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.sidecard.offer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+.sidecard .s-k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.sidecard h3{font-family:'Fraunces Display',Fraunces,serif;font-size:1.15rem;font-weight:600;margin-bottom:8px;line-height:1.25}
+.sidecard p{font-size:13.5px;color:var(--muted);margin-bottom:16px;line-height:1.55}
+.sidecard .price{font-family:'Fraunces Display',Fraunces,serif;font-size:1.5rem;color:var(--ink);font-weight:600;margin-bottom:14px}
+.sidecard .price span{font-size:.8rem;color:var(--faint);font-family:'JetBrains Mono','Mono Fallback',monospace}
+.toc .s-k{margin-bottom:14px}
+.toc a{display:block;font-size:13.5px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--line);transition:.2s}
+.toc a:last-child{border-bottom:0}.toc a:hover{color:var(--teal);padding-left:5px}
+.btn-block{width:100%;justify-content:center}
+.related{position:relative;z-index:2;padding:26px 0 10px}
+.related a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3)}
+
+@media(max-width:940px){
+  .artgrid{grid-template-columns:minmax(0,1fr)}
+  .gaside{position:static;flex-direction:row;flex-wrap:wrap}
+  .gaside .sidecard{flex:1;min-width:250px}
+  nav.toc{display:none}
+}
+@media(max-width:560px){.midcta{flex-direction:column;align-items:stretch}}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+<canvas id="cells" aria-hidden="true"></canvas>
+<div id="prog"></div>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a href="https://mycoai.net/" class="brand" aria-label="Guy Stewart — home">
+        <svg class="mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#0c1422"/>
+          <path class="p1" d="M22 11a8 8 0 1 0 0 10" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="p2" d="M16 16h6" fill="none" stroke="#37d6b0" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22" cy="11" r="2.1" fill="#e8a33d"/>
+          <circle cx="22" cy="21" r="2.1" fill="#9d7bff"/>
+          <circle cx="23.5" cy="16" r="1.7" fill="#37d6b0"/>
+        </svg>
+        Guy&nbsp;Stewart
+      </a>
+      <div class="navlinks">
+        <a href="https://mycoai.net/#about">About</a>
+        <a href="https://mycoai.net/#services">Services</a>
+        <a href="/calculators/">Calculators</a>
+        <a href="/guides/" class="cur" aria-current="page">Guides</a>
+        <a href="/mushrooms/">Mushrooms</a>
+      </div>
+      <a href="/diagnostic/" class="navcta">Get the Ops Diagnostic →</a>
+      <button class="menubtn" id="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">☰</button>
+    </nav>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="dclose" id="dclose" aria-label="Close menu">×</button>
+  <a href="https://mycoai.net/#about">About</a>
+  <a href="https://mycoai.net/#services">Services</a>
+  <a href="/calculators/">Calculators</a>
+  <a href="/guides/">Guides</a>
+  <a href="/mushrooms/">Mushrooms</a>
+  <a href="/diagnostic/">Get the Ops Diagnostic →</a>
+</div>
+
+<main id="top">
+<!-- PAGE HEAD -->
+<div class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://mycoai.net/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span>Kombucha Batch Tracking
+    </nav>
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Fermentation records · practical guide</span>
+    <h1 class="ptitle">Kombucha <span class="grad">Batch Tracking</span> System</h1>
+    <p class="psub">What to log per batch, how to build a <b>pH and acidity record that actually demonstrates control</b>, lot coding that survives a recall, and an honest read on which FDA and TTB rules apply to you. Every regulatory statement here links to its primary source.</p>
+    <div class="byline">
+      <span class="av" aria-hidden="true">G</span>
+      <div>By <b>Guy Stewart</b> — former Yeast Specialist, New Belgium Brewing · ASBC Microbiology Chair</div>
+    </div>
+    <div class="headcta">
+      <a href="/diagnostic/" class="btn btn-primary">Get your records reviewed in a week →</a>
+      <a href="#which-rules" class="btn btn-ghost">Which rules apply to me? ↓</a>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE -->
+<div class="article">
+  <div class="wrap">
+    <div class="artgrid">
+      <article class="prose">
+
+        <div class="lede">
+          <p>You are running a live acetic ferment and selling it in a sealed container. That puts you under FDA food rules and, above one number, under <b>TTB alcohol rules too</b>. When either asks whether you controlled the process, the thing that answers is <b>your batch record</b>. Here is what to log, and where the risk actually sits — which is not F1.</p>
+        </div>
+
+        <div class="labnote">
+          <div class="ln-k">Read this before the rest</div>
+          <p>I am a fermentation scientist, not a regulator and not an attorney. Every regulatory statement here links to its primary source so you can read the text yourself.</p>
+          <p><b>Which rules bind you depends on your formulation, your carbonation, your cold chain, your volume and your state</b> — and on one important question there is no clean federal answer. Confirm with FDA, TTB and your state agriculture department. Use this page to know which questions to ask.</p>
+        </div>
+
+        <h2 id="what-to-log">What to log per batch, and why each field earns its place</h2>
+        <p>A batch record is not a diary. Every field should either control a process or answer a question somebody will eventually ask. Fields that do neither get skipped on a busy Thursday, and a column with holes stops reading as evidence. Here is the set I would run — one page per batch.</p>
+        <div class="tblwrap">
+          <table>
+            <caption class="sr-only">Per-batch kombucha log fields, when each is recorded, why it exists, and what it demonstrates.</caption>
+            <thead>
+              <tr><th scope="col">Field</th><th scope="col">When</th><th scope="col">Why it exists</th><th scope="col">What it proves</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Tea lot &amp; steep</th><td>Brew day</td><td>Around 5 g/L black tea, 10 minutes, is a typical base; steep drives extract and nitrogen for the culture</td><td>Traceability one step back; consistency of the base</td></tr>
+              <tr><th scope="row">Sugar charge &amp; lot</th><td>Brew day</td><td>50–100 g/L sucrose is the working range; it sets the ceiling on acid and on ethanol</td><td>Why this batch fermented the way it did</td></tr>
+              <tr><th scope="row">Sweet-tea Brix</th><td>Brew day</td><td>50 g/L reads roughly 4.9 °Bx — small numbers, so the refractometer's last digit matters</td><td>The charge landed where you intended</td></tr>
+              <tr><th scope="row">Water source / treatment</th><td>Brew day</td><td>Chlorine and chloramine hit the culture; source changes show up as slow batches</td><td>An input you would otherwise never be able to reconstruct</td></tr>
+              <tr class="hl"><th scope="row">Starter liquid % v/v</th><td>Pitch</td><td>7% v/v liquid starter up to 20% v/v mature broth, sometimes plus pellicle around 25 g/L</td><td>The single biggest control on how fast day-0 pH drops</td></tr>
+              <tr><th scope="row">Pellicle / hotel ID</th><td>Pitch</td><td>A SCOBY hotel that feeds five batches is a five-batch exposure, not decor</td><td>Recall scope, if it ever comes to that</td></tr>
+              <tr class="hl"><th scope="row">Day-0 pH</th><td>Within an hour of pitch</td><td>Unstarted sweet tea sits near pH 5.0; properly back-slopped, day 0 lands near 3.9–4.5</td><td>How long the pathogen window stayed open</td></tr>
+              <tr><th scope="row">Daily pH</th><td>Every day of F1</td><td>The drop is sharp over days 1–3, then slow</td><td>The shape of the curve — this is the control argument</td></tr>
+              <tr><th scope="row">Titratable acidity</th><td>Start, midpoint, finish</td><td>0.1 M NaOH to a pH 8.2 endpoint, expressed as acetic acid</td><td>Acid actually produced, which pH alone will not tell you</td></tr>
+              <tr><th scope="row">Temperature</th><td>Daily</td><td>Literature range runs roughly 18–32 °C; it is the biggest lever on acid and ethanol</td><td>Why two batches with the same recipe finished differently</td></tr>
+              <tr><th scope="row">F1 start / end</th><td>Both ends</td><td>7–14 days is typical; New York guidance tests pH after fermentation at 7–10 days</td><td>Elapsed time against your own written spec</td></tr>
+              <tr class="hl"><th scope="row">F2 additions, dose &amp; lots</th><td>Each addition</td><td>Fruit, juice, herbs and spices each carry their own supplier lot</td><td>Traceability at the step where risk rises</td></tr>
+              <tr><th scope="row">F2 hold &amp; cold crash</th><td>Both ends</td><td>Warm-room hours drive carbonation, ethanol and pressure together</td><td>That the pack was stabilised on purpose</td></tr>
+              <tr><th scope="row">Package date &amp; lot code</th><td>Packaging</td><td>Establishment, product, year/day/period</td><td>That you can find every bottle you made that day</td></tr>
+              <tr><th scope="row">ABV check</th><td>Package, and again at shelf life</td><td>Ethanol keeps climbing after the cap goes on</td><td>The 0.5% question, answered with a number</td></tr>
+              <tr><th scope="row">Operator initials</th><td>Every reading</td><td>Someone took the reading; the record should say who</td><td>That the record was made by a person, at the time</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Three habits separate a log from a record. <b>Write the actual number, never "OK"</b> — 21 CFR 117.305 requires the actual values obtained during monitoring, created concurrently with the activity, with facility identification, date and time, product identity and lot code, and the initials of whoever took the reading. <b>Write it when you take it.</b> And <b>if you skipped a reading, say so</b>: a gap with a note beside it is a record; a gap filled in on Friday is not.</p>
+        <p class="srcnote">Source: <a class="link" href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-117/subpart-F/section-117.305" target="_blank" rel="noopener">21 CFR 117.305 — Requirements applying to records</a></p>
+
+        <h2 id="ph-ta-log">Building a pH and TA log that demonstrates control</h2>
+        <p>Everyone knows pH is the control point. Few producers have a log that <em>proves</em> it was ever under control — one finished number says the batch ended acidic and nothing else. Four steps fix that.</p>
+
+        <div class="step">
+          <div class="st-n">Step 01 · Measurement</div>
+          <h3>Fix the instrument before you trust the number</h3>
+          <p>Two-point calibration against pH 4.01 and 7.00 buffers before each measurement session, temperature compensation on, electrode stored in KCl rather than water. An uncalibrated meter does not give you a conservative reading. It gives you a confident wrong one.</p>
+        </div>
+        <div class="step">
+          <div class="st-n">Step 02 · The curve</div>
+          <h3>Log the curve, not the endpoint</h3>
+          <p>Unstarted sweet tea sits near pH 5.0. Back-slopped at 7–20% v/v, day 0 lands near 3.9–4.5. That gap is the food-safety argument: the hazard is acid-tolerant pathogens surviving the early, higher-pH window. <b>Time-to-pH matters more than final pH.</b> Record day 0, then daily.</p>
+        </div>
+        <div class="step">
+          <div class="st-n">Step 03 · Two numbers, not one</div>
+          <h3>Run titratable acidity alongside pH</h3>
+          <p>Titrate with 0.1 M NaOH to a pH 8.2 endpoint, expressed as acetic acid; 1 mL of 0.1 M NaOH is 6.005 mg acetic acid. pH 3.2 at 4 g/L TA and pH 3.2 at 14 g/L TA are not the same product — in one 11-day trial TA ran 3.3–4.0 g/L at 20 °C and 12.8–18.2 g/L at 30 °C.</p>
+        </div>
+        <div class="step">
+          <div class="st-n">Step 04 · Limits</div>
+          <h3>Write your house limits down before the batch, not after</h3>
+          <p>A limit set after seeing the result is not a limit, it is a rationalisation. Decide in advance: required day-0 pH, expected day-3 pH, finish window, TA range, temperature band, and what you do when a batch lands outside one.</p>
+        </div>
+        <p class="srcnote">Reference trajectories: <a class="link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10296868/" target="_blank" rel="noopener">14-day controlled trial at 22 °C</a> (pH 3.94 → 3.16; TA 0.02% → 0.14%; 4.87 → 3.13 °Bx) · <a class="link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10453479/" target="_blank" rel="noopener">sucrose × temperature trial, 11 days</a></p>
+
+        <div class="labnote">
+          <div class="ln-k">From the floor</div>
+          <p>A stalled batch is obvious in two numbers and invisible in one. pH plateaus early, parks in the high threes, TA flat beside it — a culture that quit. The shape that fools people is the other one: pH drifting down while TA barely moves. That is not acid production, it is a little acid in a poorly buffered base. <b>Two columns catch it. One does not.</b></p>
+        </div>
+
+        <h2 id="abv">The 0.5% line: measure ABV like it is a compliance number</h2>
+        <p>Because it is one. TTB states that kombucha containing <b>0.5% alcohol by volume or more at any time during production, when bottled, or at any time after bottling</b> is an alcohol beverage subject to TTB regulation — including kombucha under 0.5% at bottling that rises above it later from continued fermentation in the bottle. TTB's own advice is to take appropriate steps, including testing of alcohol content, to ensure the product never reaches 0.5% at any of those points.</p>
+        <p class="srcnote">Source: <a class="link" href="https://www.ttb.gov/regulated-commodities/beverage-alcohol/kombucha/kombucha-general" target="_blank" rel="noopener">TTB — Kombucha Information and Resources</a></p>
+        <p>Not theoretical. Of 18 kombuchas sold on the US market and analysed by headspace gas chromatography, <b>all 18 came in above 0.5% ABV</b> — 1.12% to 2.00% v/v — with ethanol still rising over 60 days of storage at 4 °C as well as 22 °C. Cold is a brake, not a switch.</p>
+        <p class="srcnote">Source: <a class="link" href="https://link.springer.com/article/10.1007/s12161-017-0980-5" target="_blank" rel="noopener">Talebi et al. (2017), <em>Food Analytical Methods</em></a></p>
+        <p>TTB permits any method formally validated or otherwise scientifically valid. What it cannot accept is a number you cannot defend, and hydrometry on a live acetic ferment produces exactly that.</p>
+        <div class="tblwrap">
+          <table>
+            <caption class="sr-only">Alcohol measurement methods and their suitability for answering the 0.5% ABV question in kombucha.</caption>
+            <thead>
+              <tr><th scope="col">Method</th><th scope="col">What it actually measures</th><th scope="col">Fit for the 0.5% question</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Hydrometer (OG − FG)</th><td>Bulk density, which organic acids, residual sucrose, glucose, fructose and ethanol all move in different directions</td><td class="no">No. There is no valid subtraction on an acetic ferment</td></tr>
+              <tr><th scope="row">Refractometer</th><td>Refractive index, biased by ethanol and by the same mixed sugar and acid pool</td><td class="no">No. Useful for Brix on brew day, not for ABV</td></tr>
+              <tr class="hl"><th scope="row">Headspace GC-FID (AOAC 2016.12)</th><td>Ethanol directly, in the vapour phase</td><td class="win">Yes — what TTB generally uses on marketplace samples</td></tr>
+              <tr class="hl"><th scope="row">Enzymatic ADH/ALDH (AOAC 2017.07, 2019.08)</th><td>Ethanol directly, by enzyme reaction</td><td class="win">Yes — LOQ 0.0041% ABV, range 0.063–3.04% ABV at 200× dilution</td></tr>
+              <tr><th scope="row">Distillation + density (AOAC 935.21)</th><td>Ethanol after separation from the matrix</td><td class="win">Yes — TTB has used it with a densitometer in place of a pycnometer</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Sending samples out enzymatically, know the interferences: acetaldehyde above 30 µg per test, sulfite at or above 0.3 µg, acetic acid above 5 mg. Methanol is not converted, which helps specificity.</p>
+        <p class="srcnote">Sources: <a class="link" href="https://www.ttb.gov/regulated-commodities/beverage-alcohol/kombucha/kombucha-general" target="_blank" rel="noopener">TTB — Kombucha Information and Resources, FAQs K18 and K19 (updated 3 August 2022)</a> · <a class="link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8372146/" target="_blank" rel="noopener">AOAC 2019.08 single-laboratory validation</a></p>
+        <p>One correction, because it circulates constantly. <b>27 CFR part 7 allows a tolerance of 0.3 percentage points on a stated alcohol content on a malt beverage label.</b> That is a labelling tolerance for malt beverages. <b>It is not headroom on the 0.5% classification line.</b> Do not plan a process around it.</p>
+        <p class="srcnote">Source: <a class="link" href="https://www.ecfr.gov/current/title-27/chapter-I/subchapter-A/part-7" target="_blank" rel="noopener">27 CFR part 7 — Labeling of malt beverages</a></p>
+
+        <div class="midcta">
+          <div class="m-t">
+            <strong>Do not have these numbers for your last twenty batches?</strong>
+            <span>That is what the Fermentation Ops Diagnostic is for. One week, $1,500 flat — I go through the records you already keep and hand you a fix list ranked by payoff.</span>
+          </div>
+          <a href="/diagnostic/" class="btn btn-primary">See the Ops Diagnostic →</a>
+        </div>
+
+        <h2 id="f2">F2 is where the risk actually rises</h2>
+        <p>F1 is the part everybody watches. F2 is the part that hurts you, because <b>secondary conditioning adds fresh fermentable sugar to a live culture inside a sealed container.</b> Carbonation, alcohol and pressure climb out of the same reaction. So F2 gets its own lines, not a footnote on the F1 sheet:</p>
+        <ul>
+          <li><b>Dose by measurement, not by eye.</b> Priming charge in g/L, juice or purée as % v/v, per vessel, every time.</li>
+          <li><b>Every F2 ingredient carries its own lot</b> — fruit, juice, herbs, spices, honey — logged at the moment of addition.</li>
+          <li><b>Log the warm-hold clock.</b> Hours at temperature is what turns a plan into a pressure. Cold-crash time goes on the same line.</li>
+          <li><b>Keep a warm reference bottle</b> and check ABV at package and again at shelf life, at realistic distribution temperature. Residual sugar fuels post-package ethanol creep; Brix rebound is the gauge.</li>
+        </ul>
+        <p>A regulatory point is buried in that ingredient list. <b>27 CFR 25.55 requires a formula for products made with fruit, fruit juice, fruit concentrate, herbs, spices, honey, maple syrup or other food materials, or with colouring or natural or artificial flavours.</b> That is the F2 shopping list, verbatim — binding if you are over 0.5% and classified as beer, which sugar-and-tea kombucha reaches through the "substitute for malt" language in 27 CFR 25.11.</p>
+        <p class="srcnote">Sources: <a class="link" href="https://www.ttb.gov/kombucha/kombucha-beer" target="_blank" rel="noopener">TTB — Requirements for Kombucha Classified as Beer</a> · <a class="link" href="https://www.ecfr.gov/current/title-27/chapter-I/subchapter-A/part-25" target="_blank" rel="noopener">27 CFR part 25</a></p>
+
+        <div class="labnote">
+          <div class="ln-k">From the floor</div>
+          <p>The reference bottle is the cheapest instrument in the building. One per batch on a shelf at room temperature, opened on a schedule and written down: cap behaviour, foam-over, pH, Brix. It turns "the ginger batch got lively in July" into a dated line with a number next to it.</p>
+          <p><b>Over-carbonation is not a quality complaint, it is a physical hazard.</b> Glass under pressure at a retailer's ambient temperature is a different problem from glass in your cold room — and the reference bottle is the only one you own that lives in the first world.</p>
+        </div>
+
+        <h2 id="lot-coding">Lot coding that survives a recall</h2>
+        <p>A lot code is not a date stamp. A date stamp says when something was made; a lot code says <em>which</em> containers to pull, and how few you can get away with pulling — the difference between recalling a day and recalling a morning.</p>
+        <p>The best available federal template sits in the acidified-foods rule. 21 CFR 114.80(b) requires each container to carry an identifying code permanently visible to the naked eye, specifying the establishment, the product, and the year, day and period packed — the period code changing often enough to identify lots in distribution. Sound whether or not part 114 binds you:</p>
+        <span class="lotcode"><b>AVL</b>-<b>GNG</b>-<b>6209</b>-<b>B</b> &nbsp;→&nbsp; establishment AVL · product ginger · 2026 day 209 · afternoon run</span>
+        <p class="srcnote">Source: <a class="link" href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-114/subpart-E/section-114.80" target="_blank" rel="noopener">21 CFR 114.80 — Processes and controls</a></p>
+        <p>Then make the code reach both directions. <b>One step back:</b> tea lot, sugar lot, water source, starter or hotel ID, every F2 ingredient lot, and the bottle, cap or can lot. <b>One step forward:</b> who received which lot, how much, on what date — without that half you can identify the problem perfectly and still not know who to call. Give the SCOBY hotel a code too; one that fed five batches is a five-batch exposure whether or not your paperwork says so.</p>
+        <p>If your product has a hazard requiring a preventive control, 21 CFR 117.139 requires a <b>written</b> recall plan: notify direct consignees and say how to return or dispose of the food, notify the public where appropriate, run effectiveness checks, dispose of recalled food. Nobody drafts a good recall plan during a recall.</p>
+        <p class="srcnote">Source: <a class="link" href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-117/subpart-C/section-117.139" target="_blank" rel="noopener">21 CFR 117.139 — Recall plan</a></p>
+        <p>One thing to get straight rather than stop worrying about: the FSMA 204 Food Traceability Rule (21 CFR part 1, subpart S) covers only foods on the Food Traceability List. <b>Kombucha is not on that list</b> &mdash; but <b>fresh herbs and fresh-cut fruit are</b>, and FDA applies the rule to foods containing listed foods as ingredients where the ingredient stays in the form it is listed in. Fresh ginger and peppermint are off the hook, both sitting on the rarely-consumed-raw list at 21 CFR 112.2(a)(1) that 1.1305(e) exempts; fresh basil, cilantro, spearmint, lemongrass and fresh-cut mango or peach are not. Changing a listed ingredient enough that the finished kombucha is no longer a listed food is a <em>partial</em> exemption under 1.1305(d)(4), not an escape &mdash; you still keep the &sect; 1.1345 receiving records for the herbs and fruit you bought. On timing, Congress directed FDA not to enforce before 20 July 2028 and FDA has said it intends to comply; the compliance date itself has only been <em>proposed</em> for extension, not moved. I log supplier, lot, date and quantity on every F2 ingredient anyway &mdash; it is the same line the recall section already asks for.</p>
+        <p class="srcnote">Source: <a class="link" href="https://www.fda.gov/food/food-safety-modernization-act-fsma/food-traceability-list" target="_blank" rel="noopener">FDA — Food Traceability List</a></p>
+
+        <h2 id="which-rules">Which rules actually apply to you, honestly</h2>
+        <p>This is where most kombucha articles overreach. The honest answer to several of these is "it depends" — so here is what it depends on.</p>
+
+        <h3>The FDA side that almost certainly does apply</h3>
+        <p>Three baseline obligations, and one trap: part 117's exemption list names parts 120, 123 and 113 but <b>not part 114</b>, so being an acidified-food processor does not by itself exempt you from preventive controls.</p>
+        <ul>
+          <li><b>Food facility registration</b> — section 415 of the FD&amp;C Act and 21 CFR part 1, subpart H, unless exempt under 1.226. No fee, renewed 1 October to 31 December of each even-numbered year.</li>
+          <li><b>cGMP</b> — 21 CFR part 117, subpart B.</li>
+          <li><b>Preventive controls</b> (subpart C) and the supply-chain program (subpart G), unless you are a <b>qualified facility</b> — which includes a "very small business": under 21 CFR 117.3, averaging less than $1,000,000 a year, inflation-adjusted, over the preceding 3 years in human-food sales plus the market value of food held without sale. Qualified facilities follow 117.201, document status annually by 1 July, and attest on Form FDA 3942a.</li>
+        </ul>
+        <p class="srcnote">Sources: <a class="link" href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-117/subpart-A/section-117.3" target="_blank" rel="noopener">21 CFR 117.3</a> · <a class="link" href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-117/subpart-A/section-117.5" target="_blank" rel="noopener">21 CFR 117.5</a> · <a class="link" href="https://www.fda.gov/food/registration-food-facilities-and-other-submissions/qualified-facility-attestation" target="_blank" rel="noopener">FDA — Qualified Facility Attestation</a></p>
+
+        <h3>The acidified-food question, stated as a question</h3>
+        <p>You will be told confidently that kombucha is an acidified food and you owe FDA a process filing. Read the definition first. <b>21 CFR 114.3 defines acidified foods as low-acid foods to which acid or acid foods are <em>added</em></b>, water activity above 0.85, finished equilibrium pH 4.6 or below. The operative word is "added" — in kombucha the acid is produced by fermentation. The section also expressly excludes <b>carbonated beverages</b> and <b>foods stored, distributed and retailed under refrigeration</b>, which describes a great deal of commercial kombucha, and FDA's stated position is that naturally fermented products are not acidified foods.</p>
+        <p>I could not find an FDA document classifying kombucha specifically, and I will not invent one. <b>It turns on your formulation, your carbonation, your cold chain and your state</b> — New York points at 1NYCRR Part 261, its own acidified-foods rule. Read 114.3, then ask FDA and your state. If the answer is yes, the obligations are concrete, and crossing 0.5% ABV lands a second set on top:</p>
+        <p class="srcnote">Source: <a class="link" href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-114/subpart-A/section-114.3" target="_blank" rel="noopener">21 CFR 114.3 — Definitions</a></p>
+        <div class="tblwrap">
+          <table>
+            <caption class="sr-only">Obligations that attach if kombucha is an acidified food, and if it reaches 0.5% ABV or more.</caption>
+            <thead>
+              <tr><th scope="col">If this is true</th><th scope="col">What it requires</th><th scope="col">Where it says so</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row" rowspan="4">You are an acidified-food processor</th><td>Register with FDA on <b>Form FDA 2541</b>, not later than 10 days after first engaging</td><td>21 CFR 108.25(c)(1)</td></tr>
+              <tr><td>File scheduled process information within 60 days of registration and before packing any new product — <b>Form FDA 2541e</b> for the acidified method</td><td>21 CFR 108.25(c)(2)</td></tr>
+              <tr><td>Operate under a supervisor who attended a school approved by the Commissioner (in practice, Better Process Control School); hold finished equilibrium pH at 4.6 or below with frequent testing and recording</td><td>21 CFR 114.10, 114.80</td></tr>
+              <tr><td>Retain copies of your processing, deviation and initial-distribution records at the processing plant <b>or other reasonably accessible location</b>, 3 years from date of manufacture</td><td>21 CFR 114.100</td></tr>
+              <tr class="hl"><th scope="row" rowspan="4">You reach 0.5% ABV or more</th><td>Produce on premises qualified by TTB under the Internal Revenue Code; meet applicable IRC labelling, formula and tax requirements</td><td>TTB, general requirements</td></tr>
+              <tr class="hl"><td>Carry the health warning statement required by the Alcoholic Beverage Labeling Act of 1988</td><td>27 CFR part 16</td></tr>
+              <tr class="hl"><td>If classified as beer: qualify as a brewer (Brewer's Notice) and file a formula before producing</td><td>27 CFR part 25, 25.55</td></tr>
+              <tr class="hl"><td>If the formula makes it a malt beverage under the FAA Act: labelling and advertising requirements apply as well</td><td>27 CFR part 7</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>TTB makes that classification — malt beverage, wine, or distilled spirits — case by case on formulation and method of production, and non-compliance can draw tax, penalties, interest and potential civil and criminal penalties. Use <a class="link" href="https://www.ttb.gov/taxes/tax-audit/tax-and-fee-rates" target="_blank" rel="noopener">TTB's rates page</a> for current excise figures, not a number quoted in an article.</p>
+        <p class="srcnote">Sources: <a class="link" href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-108/subpart-B/section-108.25" target="_blank" rel="noopener">21 CFR 108.25</a> · <a class="link" href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-114" target="_blank" rel="noopener">21 CFR part 114</a> · <a class="link" href="https://www.fda.gov/food/guidance-documents-regulatory-information-topic-food-and-dietary-supplements/acidified-low-acid-canned-foods-guidance-documents-regulatory-information" target="_blank" rel="noopener">FDA — Acidified &amp; Low-Acid Canned Foods</a> · <a class="link" href="https://www.ttb.gov/kombucha/general-requirements" target="_blank" rel="noopener">TTB — General Requirements</a> · <a class="link" href="https://www.ttb.gov/regulated-commodities/beverage-alcohol/kombucha/labeling" target="_blank" rel="noopener">TTB — Kombucha Labeling</a></p>
+
+        <h3>Where the pH 4.2 number actually comes from</h3>
+        <p><b>It is not in the Code of Federal Regulations.</b> The 4.2 target traces to Nummer's 2013 paper in the <em>Journal of Environmental Health</em> — kombucha moving from a potentially hazardous starting pH near 5 to below 4.2, with bottling at 4.2 or below ensuring no pathogen growth — plus Kombucha Brewers International practice (typical pH 2.3–3.8, pH as a critical control point) and state guidance. Adopt it as a house limit. I would. Just know it is industry and state practice, not federal law. The CFR number people confuse it with is 21 CFR 114.90, which requires a <b>potentiometric method</b> above pH 4.0 and permits colorimetric only at 4.0 or below — a method cutoff, not a safety limit.</p>
+
+        <h3>Your state is the one that will actually inspect you</h3>
+        <p><b>New York</b> requires an Article 20-C Food Processing Establishment license for wholesale or retail, directs you to test that the product is <b>below</b> pH 4.2 but greater than or equal to 2.5, requires pH testing after fermentation at 7–10 days and a maintained pH log, requires unpasteurized kombucha to stay below 0.5% ABV or fall under the State Liquor Authority, and requires labels stating minor amounts of alcohol may be present. Those two bounds are not symmetric: 2.5 passes, 4.2 does not. A batch reading exactly 4.2 has failed New York&rsquo;s test, so I hold my own release limit at 4.1 or below and leave the rest of the gap for meter drift. <b>Pennsylvania</b> splits on how you are licensed, and this is the part people get wrong. In a <b>licensed retail food facility</b>, making kombucha is a &ldquo;Specialized Process&rdquo; under the Food Code: it <b>requires a HACCP plan, submitted to your inspector and approved before you start production</b>. In a <b>food establishment or limited food establishment</b> it needs registration and inspection but no formal HACCP plan &mdash; though you still owe the preventive controls and the records behind them. Either way PA wants per-batch logs: a pH log proving the batch landed at <b>4.2 or below and 2.5 or above</b>, a specific-gravity log proving alcohol never exceeded <b>0.5%</b>, and a pH-meter calibration log. PA also sets a hard stop the other guidance does not: if the batch has not reached pH 4.2 or below <b>within seven days, discard it</b> and start over. Two states that do not agree. There are forty-eight more.</p>
+        <p class="srcnote">Sources: <a class="link" href="https://agriculture.ny.gov/food-safety/kombucha-processing" target="_blank" rel="noopener">NY Dept. of Agriculture &amp; Markets — Kombucha Processing</a> · <a class="link" href="https://www.pa.gov/content/dam/copapwp-pagov/en/pda/documents/consumer_protection/foodsafety/manufacturing-packing-holding-distribution/documents/Guidelines%20for%20brewing-bottling%20Kombucha.pdf" target="_blank" rel="noopener">PA Dept. of Agriculture — Guidelines for Brewing/Bottling Kombucha (rev. 05/2017)</a></p>
+        <p>Flatly, once more: I am a fermentation scientist, not a regulator or an attorney. Confirm your own obligations with FDA, TTB and your state before relying on any of this.</p>
+
+        <h2 id="mistakes">What most kombucha producers get wrong</h2>
+        <p>The recurring ones. Every one is a record-keeping failure before it is anything else.</p>
+        <ol>
+          <li><b>Logging only the final pH.</b> The endpoint says the batch ended acidic. The curve says you controlled it.</li>
+          <li><b>No day-0 pH.</b> The reading that shows how long the pathogen window stayed open, and the one most often missing.</li>
+          <li><b>Hydrometer or refractometer for ABV.</b> The number is not wrong by a little.</li>
+          <li><b>Treating 0.5% as a target with a tolerance.</b> It is a classification line; part 7's 0.3-point tolerance is for malt beverage labels.</li>
+          <li><b>No F2 record.</b> The step that adds sugar, ingredients, pressure and alcohol, documented as "flavoured — ginger."</li>
+          <li><b>A lot code that is only the date.</b> It recalls a day when you could have recalled a morning.</li>
+          <li><b>A SCOBY hotel with no ID.</b> One shared hotel is a shared exposure across every batch it fed.</li>
+          <li><b>One notebook beside the tanks, and no second copy.</b> The location is right &mdash; 21 CFR 117.315(a)(1) requires records be kept at the plant for 2 years, so beside the tanks is where they belong. The mistake is that it is the <em>only</em> copy. 117.315(c) permits an offsite backup if you can produce the records onsite within 24 hours of a request, and treats electronic records as onsite when you can reach them from an onsite location. The food safety plan stays onsite regardless.</li>
+          <li><b>Assuming refrigeration stopped the ferment.</b> Measured ethanol rose over 60 days at 4 °C too.</li>
+          <li><b>Assuming a peer's state answer is yours.</b> New York and Pennsylvania do not agree.</li>
+        </ol>
+
+        <h2 id="done-for-you">What a wired-up version looks like</h2>
+        <p>Everything above runs on paper, and for a few batches a month paper is fine. It stops being fine the day nobody can answer "what did the pH curve look like on the ginger batch in May" without twenty minutes in a binder.</p>
+        <p>The wired-up version is not complicated. pH, TA, temperature and ABV checks land in one place instead of four. Each batch carries its inputs, so traceability is a query rather than an afternoon. A reading outside the limits <em>you</em> wrote down raises a flag while you can still act. And every record already carries the facility, date, time, actual value, lot code and operator initials, because the system captured them instead of asking someone to remember.</p>
+        <p>That is what I build. Seven years as a Microbiology Yeast Specialist at New Belgium, where I helped build the Asheville brewery — which mostly means a long time spent looking at fermentation records that were supposed to prove something and did not. For an outside pass on the records you already keep, the <a class="link" href="/diagnostic/">Fermentation Ops Diagnostic</a> is one week, $1,500 flat. If you know you want the system, the <a class="link" href="/services/qc-dashboard/">QC dashboard build</a> is $1,500–3,000 one-time. I take a small number at a time, so ask about timing on the call.</p>
+
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside class="gaside">
+        <div class="sidecard offer">
+          <div class="s-k">Start here</div>
+          <h3>Fermentation Ops Diagnostic</h3>
+          <div class="price">$1,500 <span>one week, flat</span></div>
+          <p>I go through the batch records you already keep and hand you a findings report and a fix list ranked by payoff. Buyer-judged guarantee — if it was not worth it, you do not pay.</p>
+          <a href="/diagnostic/" class="btn btn-primary btn-block">See the Diagnostic →</a>
+        </div>
+        <div class="sidecard">
+          <div class="s-k">Talk it through</div>
+          <h3>Free 30-minute scoping call</h3>
+          <p>Bring your current log sheet. Thirty minutes, no pitch deck, and you will leave knowing which two fields to add on Monday.</p>
+          <a href="https://calendar.app.google/j47jvfWjYkFoJjyw6" target="_blank" rel="noopener" class="btn btn-ghost btn-block">Book the call →</a>
+        </div>
+        <nav class="sidecard toc" role="navigation" aria-label="On this page">
+          <div class="s-k">On this page</div>
+          <a href="#what-to-log">What to log per batch</a>
+          <a href="#ph-ta-log">Building a pH &amp; TA log</a>
+          <a href="#abv">The 0.5% ABV line</a>
+          <a href="#f2">F2 is where risk rises</a>
+          <a href="#lot-coding">Lot coding for a recall</a>
+          <a href="#which-rules">Which rules apply to you</a>
+          <a href="#mistakes">What most producers get wrong</a>
+          <a href="#done-for-you">A wired-up version</a>
+        </nav>
+        <div class="sidecard">
+          <div class="s-k">Free tools</div>
+          <h3>Calculators &amp; guides</h3>
+          <p>Nine fermentation calculators and the rest of the build-it-right guides — no email required.</p>
+          <a href="/calculators/" class="btn btn-ghost btn-block">All calculators →</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<section style="padding:20px 0 10px">
+  <div class="wrap">
+    <div class="contact">
+      <span class="kicker" style="position:relative">Before the inspector asks</span>
+      <h2 style="position:relative;margin-top:14px">Find out what your records do not prove.</h2>
+      <p>One week, $1,500 flat. I read the batch records you already keep — paper, spreadsheet, or a photo of the whiteboard — and hand you a findings report with a fix list ranked by what each problem is worth. Run by a former New Belgium Microbiology Yeast Specialist.</p>
+      <div class="herobtns" style="justify-content:center;position:relative">
+        <a href="/diagnostic/" class="btn btn-primary">Get the Ops Diagnostic →</a>
+        <a href="https://calendar.app.google/j47jvfWjYkFoJjyw6" target="_blank" rel="noopener" class="btn btn-ghost">Book a free 30-minute scoping call →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED -->
+<div class="related">
+  <div class="wrap">
+    <span class="kicker">Keep reading</span>
+    <p style="margin-top:12px;color:var(--muted)">
+      <a class="link" href="/guides/">← All guides</a> ·
+      <a class="link" href="/guides/brewery-qc-automation/">Automate brewery quality control</a> ·
+      <a class="link" href="/calculators/attenuation/">Attenuation calculator</a> ·
+      <a class="link" href="/calculators/">All calculators</a> ·
+      <a class="link" href="/diagnostic/">The Fermentation Ops Diagnostic</a>
+    </p>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="https://www.youtube.com/@MycoAI" target="_blank" rel="noopener" class="mono" style="color:var(--gold)">YouTube @MycoAI</a>
+    <div>© 2026 Guy Richard Stewart · Asheville, NC</div>
+    <div class="mono" style="color:var(--teal)">fermentation × intelligence × code</div>
+  </div>
+</footer>
+
+<script src="/yeast-bg.js"></script>
+<script>
+/* subpage shell: header scroll + progress + drawer (app.js is homepage-only) */
+(function(){
+  var hdr=document.getElementById('hdr'),prog=document.getElementById('prog'),doc=document.documentElement;
+  addEventListener('scroll',function(){
+    if(hdr)hdr.classList.toggle('scrolled',scrollY>30);
+    if(prog){var sc=doc.scrollHeight-doc.clientHeight;prog.style.width=(sc>0?scrollY/sc*100:0)+'%';}
+  },{passive:true});
+  var mb=document.getElementById('menubtn'),dr=document.getElementById('drawer'),dc=document.getElementById('dclose');
+  function setD(o){if(!dr)return;dr.classList.toggle('open',o);dr.setAttribute('aria-hidden',String(!o));if(mb)mb.setAttribute('aria-expanded',String(o));}
+  if(mb)mb.addEventListener('click',function(){setD(!dr.classList.contains('open'));});
+  if(dc)dc.addEventListener('click',function(){setD(false);});
+  if(dr)dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setD(false);});});
+})();
+</script>
+</body>
+</html>

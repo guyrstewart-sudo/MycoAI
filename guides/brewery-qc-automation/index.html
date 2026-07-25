@@ -132,10 +132,10 @@ nav.toc{display:block;height:auto}
 .related a.link{color:var(--teal);border-bottom:1px solid rgba(55,214,176,.3)}
 
 @media(max-width:940px){
-  .artgrid{grid-template-columns:1fr}
+  .artgrid{grid-template-columns:minmax(0,1fr)}
   .gaside{position:static;flex-direction:row;flex-wrap:wrap}
   .gaside .sidecard{flex:1;min-width:250px}
-  .toc{display:none}
+  nav.toc{display:none}
 }
 @media(max-width:560px){.midcta{flex-direction:column;align-items:stretch}}
 </style>
