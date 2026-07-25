@@ -90,6 +90,8 @@ tr.leader .leadtag{display:block}
 .hrs::-webkit-outer-spin-button,.hrs::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .hrs:focus{outline:0;border-bottom-color:var(--gold)}
 .hrsout{font-weight:700;color:var(--gold)}
+.hrshint{font-size:12.5px;line-height:1.55;color:var(--faint);margin:8px 0 0;max-width:56ch}
+.hrshint:empty{display:none}
 /* On a phone a 5-column scoring table squeezes the task name to ~38px, which is
    unusable. Below 620px each row becomes a stacked card instead. Print keeps the table. */
 @media screen and (max-width:620px){
@@ -181,7 +183,7 @@ tr.leader .leadtag{display:block}
     <h3>Score your checked tasks</h3>
     <p class="q">Check a task above and it drops into this table. Score each column <b>1–5</b>. On all three, <b>5 is the answer that argues for automating it</b> — most hours, most repetitive, lowest risk. Totals add themselves; highest wins.</p>
     <table id="scoretable">
-      <thead><tr><th style="width:34%">Task</th><th class="c">Hours/wk it eats (1–5)<br><span class="scalehint">5 = most hours</span></th><th class="c">How repetitive (1–5)<br><span class="scalehint">5 = most repetitive</span></th><th class="c">Low risk if AI helps (1–5)<br><span class="scalehint">5 = lowest risk</span></th><th class="c">Total</th></tr></thead>
+      <thead><tr><th style="width:34%">Task</th><th class="c">Hours/wk it eats (1–5)<br><span class="scalehint">1 = under 1 h · 2 = 1–3 h · 3 = 3–6 h · 4 = 6–10 h · 5 = 10+ h</span></th><th class="c">How repetitive (1–5)<br><span class="scalehint">5 = most repetitive</span></th><th class="c">Low risk if AI helps (1–5)<br><span class="scalehint">5 = lowest risk</span></th><th class="c">Total</th></tr></thead>
       <tbody id="scorerows">
         <tr><td><span class="leadtag">Leader</span><input class="taskname" type="text" placeholder="Task…" aria-label="Task 1"></td><td class="c" data-l="Hrs/wk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 1 hours score"></td><td class="c" data-l="Repetitive"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 1 repetitive score"></td><td class="c" data-l="Low risk (5=lowest)"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 1 low-risk score"></td><td class="c" data-l="Total"><span class="rowtotal" aria-live="polite">–</span></td></tr>
         <tr><td><span class="leadtag">Leader</span><input class="taskname" type="text" placeholder="Task…" aria-label="Task 2"></td><td class="c" data-l="Hrs/wk"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 2 hours score"></td><td class="c" data-l="Repetitive"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 2 repetitive score"></td><td class="c" data-l="Low risk (5=lowest)"><input class="scorebox" type="number" min="1" max="5" inputmode="numeric" aria-label="Task 2 low-risk score"></td><td class="c" data-l="Total"><span class="rowtotal" aria-live="polite">–</span></td></tr>
@@ -225,6 +227,7 @@ tr.leader .leadtag{display:block}
       <p class="q" style="margin:12px 0 0">Estimated hours back per week:
         <input class="hrs" type="number" min="0" step="0.5" id="hrsweek" inputmode="decimal" aria-label="Estimated hours back per week">
         &nbsp;×&nbsp; 50 weeks = <span class="hrsout" id="hrsyear">______</span> hours/year of your team's time.</p>
+      <p class="hrshint" id="hrshint"></p>
     </div>
   </div>
 
@@ -240,8 +243,17 @@ tr.leader .leadtag{display:block}
     var KEY='mycoai-ai-audit-v1', root=document, saveTimer=null;
     var rows=root.getElementById('scorerows'), tasks=root.getElementById('tasks');
     var winner=root.getElementById('winner'), hrsWeek=root.getElementById('hrsweek'), hrsYear=root.getElementById('hrsyear');
-    var savedEl=root.getElementById('saved');
+    var savedEl=root.getElementById('saved'), hrsHint=root.getElementById('hrshint');
     var $=function(s,c){return (c||root).querySelector(s);}, $$=function(s,c){return [].slice.call((c||root).querySelectorAll(s));};
+
+    /* The hours column is a 1–5 rating, not a count of hours, so "hours back per week"
+       can't be read straight out of it. These bands give each score a stated meaning — the
+       same scale printed in the column header — and RECOVERY is the honest haircut: a good
+       agent deflects most of a repetitive task, never all of it. Claiming 100% is the
+       fastest way to lose a brewer who can do arithmetic. */
+    var HOURS_BAND={1:0.5,2:2,3:4.5,4:8,5:12};
+    var BAND_LABEL={1:'under an hour',2:'1–3 hours',3:'3–6 hours',4:'6–10 hours',5:'10+ hours'};
+    var RECOVERY=0.6;
 
     function clamp(v){ if(v==='')return null; var n=parseInt(v,10); if(isNaN(n))return null; return Math.min(5,Math.max(1,n)); }
 
@@ -276,6 +288,18 @@ tr.leader .leadtag{display:block}
         winner.value = name || '';
       }
 
+      // hours back follows the leader's hours score too, unless it has been typed by hand
+      if(bestRow && !hrsWeek.dataset.touched){
+        var hs=clamp($$('.scorebox',bestRow)[0].value);
+        if(hs===null){
+          hrsWeek.value=''; hrsHint.textContent='';
+        }else{
+          hrsWeek.value = Math.round(HOURS_BAND[hs]*RECOVERY*2)/2;
+          hrsHint.textContent = 'Auto-filled from your top task: a '+hs+' means it eats '+BAND_LABEL[hs]+
+            ' a week, and this assumes AI takes about '+Math.round(RECOVERY*100)+'% of that off your plate — not all of it. Type over it if you know your real number.';
+        }
+      }
+
       var h=parseFloat(hrsWeek.value);
       hrsYear.textContent = (!isNaN(h) && h>0) ? (Math.round(h*50*10)/10) : '______';
       save();
@@ -305,7 +329,8 @@ tr.leader .leadtag{display:block}
                  return {n:$('.taskname',tr).value, a:$$('.scorebox',tr).map(function(i){return i.value;}),
                          auto:$('.taskname',tr).dataset.auto==='1', touched:$('.taskname',tr).dataset.touched==='1'};
                }),
-        winner: winner.value, winnerTouched: winner.dataset.touched==='1', hrs: hrsWeek.value
+        winner: winner.value, winnerTouched: winner.dataset.touched==='1',
+        hrs: hrsWeek.value, hrsTouched: hrsWeek.dataset.touched==='1'
       };
     }
 
@@ -332,6 +357,7 @@ tr.leader .leadtag{display:block}
         $$('.scorebox',tr).forEach(function(inp,j){ inp.value=(r.a&&r.a[j])||''; });
       });
       if(s.winnerTouched) winner.dataset.touched='1';
+      if(s.hrsTouched) hrsWeek.dataset.touched='1';
       winner.value=s.winner||''; hrsWeek.value=s.hrs||'';
     }
 
@@ -364,7 +390,11 @@ tr.leader .leadtag{display:block}
     $$('#tasks input[type=checkbox]').forEach(function(cb){ cb.addEventListener('change', syncFromChecks); });
     $$('#datalist input[type=checkbox]').forEach(function(cb){ cb.addEventListener('change', save); });
     winner.addEventListener('input', function(){ winner.dataset.touched='1'; save(); });
-    hrsWeek.addEventListener('input', recalc);
+    // clearing the field hands control back to the auto-estimate
+    hrsWeek.addEventListener('input', function(){
+      if(hrsWeek.value==='') delete hrsWeek.dataset.touched; else hrsWeek.dataset.touched='1';
+      recalc();
+    });
     root.getElementById('addrow').addEventListener('click', function(){ addRow(); });
     root.getElementById('printbtn').addEventListener('click', function(){ window.print(); });
     root.getElementById('resetbtn').addEventListener('click', function(){
@@ -372,7 +402,8 @@ tr.leader .leadtag{display:block}
       try{ localStorage.removeItem(KEY); }catch(e){}
       $$('input[type=checkbox]').forEach(function(i){ i.checked=false; });
       $$('.taskname, .scorebox').forEach(function(i){ i.value=''; delete i.dataset.auto; delete i.dataset.touched; });
-      winner.value=''; delete winner.dataset.touched; hrsWeek.value='';
+      winner.value=''; delete winner.dataset.touched;
+      hrsWeek.value=''; delete hrsWeek.dataset.touched; hrsHint.textContent='';
       savedEl.textContent=''; recalc();
     });
 

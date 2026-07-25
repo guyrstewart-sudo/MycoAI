@@ -8,7 +8,9 @@
   --maxw:1200px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+/* scroll-padding-top keeps anchor targets clear of the 68px fixed header. Without it
+   every #hash landing sits flush under the bar with its kicker and heading hidden. */
+html{scroll-behavior:smooth;scroll-padding-top:88px}
 body{
   background:var(--bg); color:var(--ink);
   font-family:'Inter',system-ui,sans-serif; line-height:1.6;

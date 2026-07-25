@@ -131,4 +131,36 @@ if(!RM && innerWidth>680 && !matchMedia('(pointer:coarse)').matches){
 }
 
 
+/* Cross-page hash landings (/#book from the lead magnets, /#diagnostic from email) drift.
+   The browser scrolls the moment the anchor parses, then the Google Fonts swap and the
+   section backdrop images load ABOVE the target and push it further down the page — so the
+   visitor is stranded a screen short of it, mid-FAQ, and has to scroll to find the booking
+   cards. Re-assert the position once layout has actually settled. Jumps instantly on
+   purpose: smoothly crawling a thousand pixels after load reads as a bug. */
+(function(){
+  var id=location.hash.slice(1); if(!id) return;
+
+  // If the visitor starts scrolling on their own, stop correcting — yanking the page out
+  // from under someone who has taken control is worse than landing slightly off.
+  var cancelled=false, stop=function(){cancelled=true;};
+  ['wheel','touchstart','keydown'].forEach(function(ev){
+    addEventListener(ev,stop,{passive:true,once:true});
+  });
+
+  function land(){
+    if(cancelled) return;
+    var el=document.getElementById(id); if(!el) return;
+    var h=document.documentElement, prev=h.style.scrollBehavior;
+    h.style.scrollBehavior='auto';
+    el.scrollIntoView({block:'start'});   // honours scroll-padding-top, so it clears the header
+    h.style.scrollBehavior=prev;
+  }
+  addEventListener('load',function(){
+    land();
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(land);
+    setTimeout(land,300);                 // late images above the target
+  });
+})();
+
+
 /* yeast -> network canvas animation lives in the shared /yeast-bg.js (loaded via <script src> before app.js) — identical background on every page */
