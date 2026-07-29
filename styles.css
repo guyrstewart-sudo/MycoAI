@@ -432,7 +432,12 @@ body::before{position:fixed !important;inset:0 !important;background-image:radia
 @media(max-width:760px){.hero-logo-halo{width:330px !important;height:330px !important}}
 .brand{font-size:20.5px !important}
 .brand .mark{width:38px !important;height:38px !important}
-@media(min-width:900px){
+/* Gate must start at 1001px, NOT 900px. .about-grid collapses to a single explicit
+   column at max-width:1000px, so a 900px gate overlapped it across 900-1000px: the
+   idcard's grid-column:2 landed in an IMPLICIT second track that auto-sized to the
+   card (~720px) and starved the essay column down to ~120px — one word per line.
+   Android "Desktop site" mode lays out at 980px, which sits inside that dead band. */
+@media(min-width:1001px){
 #about .about-grid>div:has(.idcard){display:contents}
 #about .about-grid>.about-text{grid-column:1;grid-row:1}
 #about .about-figure{grid-column:1;grid-row:2;align-self:start;justify-self:start;width:100%;max-width:380px;margin:10px 0 0}
