@@ -4,16 +4,16 @@ const projects = [
   {t:"Brewing",n:"Contamination Forensics Sprint",d:"Root-cause a recurring sour or wild-yeast outbreak with plating, PCR, and process-flow mapping.",c:"Producer in crisis",p:"Sprint"},
   {t:"Brewing",n:"Fermentation-Monitoring AI Assistant",d:"Tool that ingests gravity, temp & pH logs, flags abnormal ferments live, and recommends fixes in plain language.",c:"Tech-forward producer",p:"Build"},
   {t:"Brewing",n:"Fractional Quality Director",d:"Outsourced head of quality for shops too small to hire one — visits, data review, troubleshooting hotline.",c:"Small/mid producer",p:"Retainer"},
-  {t:"AI",n:"AI Front-Desk Phone Agent",d:"Voice agent answers every call, books appointments and FAQs 24/7 — recovers 15–30% of missed-call revenue.",c:"Local service businesses",p:"Build"},
+  {t:"AI",n:"AI Front-Desk Phone Agent",d:"Voice and text agent answers every call, books the appointment or the stay, and handles FAQs 24/7 — modeled on the front-desk work I used to do by hand.",c:"Short-term rentals · local service",p:"Build"},
   {t:"AI",n:"RAG Knowledge Base Copilot",d:"Private chatbot trained on your SOPs and manuals so staff get instant, sourced answers.",c:"Multi-location ops",p:"Build"},
   {t:"AI",n:"Six Sigma AI Process Audit",d:"Map workflows, quantify waste, and deliver a prioritized automation roadmap with ROI estimates.",c:"Any SMB exploring AI",p:"Sprint"},
   {t:"AI",n:"Invoice & Receipt Pipeline",d:"Document-extraction agent reads invoices, validates line items, and pushes clean data into QuickBooks/Xero.",c:"Accounting, restaurants",p:"Build"},
   {t:"Web",n:"Restaurant Online Ordering System",d:"Direct ordering and curbside flow that bypasses third-party fees, integrated with the kitchen POS.",c:"Restaurants & cafes",p:"Build"},
   {t:"Web",n:"Production Batch-Tracking Dashboard",d:"Custom dashboard tracking batches, yields and quality through production — built by someone who's run it.",c:"Breweries · Makers",p:"Build"},
   {t:"Web",n:"Bespoke Shopify Build & Launch",d:"Conversion-focused store from scratch — theme, payments, shipping, launch QA and handoff training.",c:"DTC & craft brands",p:"Build"},
-  {t:"Web",n:"Vacation Rental Direct-Booking Site",d:"Availability calendar, instant quotes and Stripe payments so owners escape platform commissions.",c:"Short-term rentals",p:"Build"},
+  {t:"Hospitality",n:"Vacation Rental Direct-Booking Site",d:"Availability calendar, instant quotes and Stripe payments so owners take repeat guests direct instead of paying commission on them. Built from ten years of running my own listings.",c:"Short-term rentals",p:"Build"},
   {t:"Hospitality",n:"Wild Ferment Cocktail Program",d:"Rotating seasonal menu built on house-made ferments, with batching specs and bartender training.",c:"Bars · Tasting rooms",p:"Build"},
-  {t:"Hospitality",n:"AI Concierge Chatbot",d:"Web/SMS bot answers guest questions, recommends local food & drink, and upsells tours 24/7.",c:"Hotels · B&Bs",p:"Build"},
+  {t:"Hospitality",n:"AI Guest Concierge",d:"Web and SMS agent answers guest questions, sends check-in details, and recommends local food & drink — the same answers I used to type one guest at a time.",c:"Rentals · B&Bs · Hotels",p:"Build"},
   {t:"Hospitality",n:"In-House Kombucha & Shrub Build-Out",d:"Compliant small-batch production corner: equipment, cultures, logs and pH/food-safety controls.",c:"Cafes · Restaurants",p:"Build"},
   {t:"Labs",n:"QC Microbiology Program Buildout",d:"From-scratch microbial QC program — panels, sampling plans, acceptance criteria, and the SOPs to run it.",c:"Contract manufacturers",p:"Build"},
   {t:"Labs",n:"NGS / Amplicon Bioinformatics Pipeline",d:"Reproducible, containerized pipeline for 16S, ITS or whole-genome microbial data with reporting.",c:"Mycology · Biotech labs",p:"Build"},
@@ -31,9 +31,9 @@ const projects = [
   {t:"Agriculture",n:"Spent-Mash & Byproduct Upcycling",d:"Audit a waste stream and design an upcycling route — feed, compost, mushroom substrate or new product.",c:"Distilleries · Dairies",p:"Sprint"},
 ];
 const cats = ["All","Brewing","AI","Web","Hospitality","Labs","Nonprofit","National","Retail","Agriculture"];
-let active="All", shown=9;
+let active="All", shown=12;
 const grid=document.getElementById('grid'), filtersEl=document.getElementById('filters');
-cats.forEach(c=>{const b=document.createElement('button');b.className='filt'+(c==='All'?' active':'');b.textContent=c;b.setAttribute('aria-pressed',c==='All');b.onclick=()=>{active=c;shown=9;document.querySelectorAll('.filt').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});b.classList.add('active');b.setAttribute('aria-pressed','true');render();};filtersEl.appendChild(b);});
+cats.forEach(c=>{const b=document.createElement('button');b.className='filt'+(c==='All'?' active':'');b.textContent=c;b.setAttribute('aria-pressed',c==='All');b.onclick=()=>{active=c;shown=12;document.querySelectorAll('.filt').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});b.classList.add('active');b.setAttribute('aria-pressed','true');render();};filtersEl.appendChild(b);});
 function render(){
   const list = active==='All'?projects:projects.filter(p=>p.t===active);
   grid.innerHTML='';
